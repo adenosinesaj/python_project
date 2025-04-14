@@ -6,3 +6,6 @@ def home(request):
 
 def login(request):
     return render(request, template_name='EventApp/login.html')
+
+def C_profile(request):
+    return render(request, template_name='EventApp/C_profile.html')
