@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import C_profile 
+from .models import *
 
 # Register your models here.
-admin.site.register(C_profile)
+
+admin.site.register([Category, Product])
