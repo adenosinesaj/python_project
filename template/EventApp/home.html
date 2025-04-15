@@ -1,11 +1,47 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    <h3>Home</h3>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Planner Homepage</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav-bar">
+        <ul>
+          <li><a href="#">About Us ▾</a></li>
+          <li><a href="#">Services ▾</a></li>
+          <li><a href="#">Portfolio</a></li>
+          <li><a href="#">Login</a></li>
+          <li><a href="#">Sign Up</a></li>
+          <li><a href="#">EN ▾</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-section">
+      <div class="left">
+        <p class="tagline">
+          FROM CITIES TO SHORES – THE BEST PLACES TO HOST YOUR EVENT
+        </p>
+        <h1>Precision, Passion, Perfection – Event Planning Redefined.</h1>
+        <p class="subtext">
+          Upon the terrace, they spoke in hushed tones, where dusk painted
+          secrets in gold.
+        </p>
+        <a href="#" class="cta-button">Explore Events</a>
+      </div>
+    </main>
+  </body>
 </html>
