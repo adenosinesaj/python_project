@@ -28,6 +28,12 @@
   <h1>Product List</h1>
 
   {% for product in products %}
+  <div class="product-card">
+    {% if product.p_photo %}
+        <img src="{{ product.p_photo.url }}" alt="{{ product.name }}" style="width: 150px; height: auto;">
+    {% else %}
+      <img src="https://via.placeholder.com/150" alt="No image">
+    {% endif %}
     <div class="product-card">
       <h2>{{ product.name }}</h2>
       <p><strong>Description:</strong> {{ product.description }}</p>

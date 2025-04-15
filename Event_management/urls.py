@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from EventApp import views as e_views
+from .import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +26,5 @@ urlpatterns = [
     path('login/', e_views.login, name='login'),
     path('C_profile/', e_views.C_profile, name='C_profile'),
     path('product/', e_views.product, name='product'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
