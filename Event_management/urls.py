@@ -26,5 +26,9 @@ urlpatterns = [
     path('login/', e_views.login, name='login'),
     path('C_profile/', e_views.C_profile, name='C_profile'),
     path('product/', e_views.product, name='product'),
+    path('MeetTheTeam/', e_views.MeetTheTeam, name='MeetTheTeam'),
+    path('Reviews/', e_views.Reviews, name='Reviews'),
+    path('Portfolio/', e_views.Portfolio, name='Portfolio'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
