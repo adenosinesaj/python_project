@@ -5,9 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Event Planner Homepage</title>
-    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/home.css' %}"/>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
 
     <link
       rel="stylesheet"
@@ -25,8 +24,8 @@
           <li class="dropdown">
             <a href="#">About Us ▾</a>
             <ul class="dropdown-content">
-              <li><a href="MeetTheTeam/">Meet The Team</a></li>
-              <li><a href="Reviews/">Reviews</a></li>
+              <li><a href="#">Meet The Team</a></li>
+              <li><a href="#">Reviews</a></li>
             </ul>
           </li>
           <li class="dropdown">
@@ -39,7 +38,8 @@
           <li><a href="product/">Product</a></li>
           <li><a href="Portfolio/">Portfolio</a></li>
           <li><a href="login/">Login</a></li>
-          <li><a href="#">Sign Up</a></li>
+          <li><a href="signup/">Sign Up</a></li>
+          <li><a href="profile/"> <img src="{% static 'image/user.png' %}"class="nav-profile-icon"></a></li>
         </ul>
       </nav>
     </header>
@@ -64,11 +64,59 @@
         <img src="{% static 'image/ww.jpg' %}" alt="Event 3" />
         <img src="{% static 'image/birth.jpg' %}" alt="Event 4" />
         <!-- Duplicate images for seamless scroll -->
+
         <img src="{% static 'image/bb.jpg' %}" alt="Event 1" />
         <img src="{% static 'image/ee.jpg' %}" alt="Event 2" />
         <img src="{% static 'image/ww.jpg' %}" alt="Event 3" />
         <img src="{% static 'image/birth.jpg' %}" alt="Event 4" />
       </div>
     </div>
+    <!-- Footer-->
+
+    <footer class="footer">
+      <div class="footer-container">
+        <!-- Left: Logo and Description -->
+
+        <div class="footer-left">
+          <img
+            src="{% static 'image/M.png' %}"
+            alt="Manage House Logo"
+            class="footer-logo"
+          />
+          <p class="footer-desc">
+            At ManageHouse, we bring your dream events to life with seamless
+            planning, creative execution, and expert management. Whether it’s a
+            grand corporate gathering, a dreamy wedding, or an exclusive private
+            event, we handle every detail with precision and passion.
+          </p>
+        </div>
+        <!-- Center: Company Links -->
+        <div class="footer-center">
+          <h3 class="footer-heading">Company</h3>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <!-- Right: Contact Info -->
+        <div class="footer-right">
+          <div class="contact-item">
+            <img src="{% static 'image/map.png' %}" alt="Location Icon" />
+            <span>74/A, Green Road, Dhaka - 1207</span>
+          </div>
+          <div class="contact-item">
+            <img src="{% static 'image/telephone.png' %}" alt="Phone Icon" />
+            <span>+8801977543442</span>
+          </div>
+          <div class="contact-item">
+            <img src="{% static 'image/comm.png' %}" alt="Email Icon" />
+            <span>managehousebd@gmail.com</span>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
-</html>
+</html> 
+

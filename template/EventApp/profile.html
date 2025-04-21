@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile</title>
+</head>
+<body>
+    <div class="container" style="max-width: 600px; margin: 50px auto;">
+        <h2>Your Profile</h2>
+        {% if profile %}
+            <p><strong>Username:</strong> {{ profile.user.username }}</p>
+            <p><strong>Full Name:</strong> {{ profile.full_name }}</p>
+            <p><strong>Email:</strong> {{ profile.email }}</p>
+            <p><strong>Phone:</strong> {{ profile.phone }}</p>
+            <p><strong>Bio:</strong> {{ profile.bio }}</p>
+            <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" style="max-width: 200px;">
+        {% else %}
+            <p>No profile found for this user. Please create a profile.</p>
+        {% endif %}
+        <br>
+        <a href="{% url 'logout' %}">Logout</a> <!-- Add your logout link if needed -->
+    </div>
+</body>
+</html>
