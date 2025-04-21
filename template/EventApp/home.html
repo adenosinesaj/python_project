@@ -7,6 +7,8 @@
     <title>Event Planner Homepage</title>
     <link rel="stylesheet" href="{% static 'css/home.css' %}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap"
@@ -20,12 +22,24 @@
     <header class="header">
       <nav class="nav-bar">
         <ul>
-          <li><a href="#">About Us ▾</a></li>
+          <li class="dropdown">
+            <a href="#">About Us ▾</a>
+            <ul class="dropdown-content">
+              <li><a href="#">Meet The Team</a></li>
+              <li><a href="#">Reviews</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#">Services ▾</a>
+            <ul class="dropdown-content">
+              <li><a href="#">Visual Product</a></li>
+              <li><a href="#">Other Event Services</a></li>
+            </ul>
+          </li>
           <li><a href="product/">Product</a></li>
-          <li><a href="#">Portfolio</a></li>
-          <li><a href="#">Login</a></li>
+          <li><a href="Portfolio/">Portfolio</a></li>
+          <li><a href="login/">Login</a></li>
           <li><a href="#">Sign Up</a></li>
-          <li><a href="#">EN ▾</a></li>
         </ul>
       </nav>
     </header>
@@ -43,5 +57,18 @@
         <a href="#" class="cta-button">Explore Events</a>
       </div>
     </main>
+    <div class="carousel-container">
+      <div class="carousel-track">
+        <img src="{% static 'image/bb.jpg' %}" alt="Event 1" />
+        <img src="{% static 'image/ee.jpg' %}" alt="Event 2" />
+        <img src="{% static 'image/ww.jpg' %}" alt="Event 3" />
+        <img src="{% static 'image/birth.jpg' %}" alt="Event 4" />
+        <!-- Duplicate images for seamless scroll -->
+        <img src="{% static 'image/bb.jpg' %}" alt="Event 1" />
+        <img src="{% static 'image/ee.jpg' %}" alt="Event 2" />
+        <img src="{% static 'image/ww.jpg' %}" alt="Event 3" />
+        <img src="{% static 'image/birth.jpg' %}" alt="Event 4" />
+      </div>
+    </div>
   </body>
 </html>
