@@ -26,5 +26,6 @@ urlpatterns = [
     path('login/', e_views.login, name='login'),
     path('C_profile/', e_views.C_profile, name='C_profile'),
     path('product/', e_views.product, name='product'),
+    path('meet_the_teem/', e_views.meet_the_teem, name='meet_the_teem'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

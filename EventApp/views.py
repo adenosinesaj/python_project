@@ -16,3 +16,6 @@ def product(request):
     context = {'products': products}
     return render(request, template_name='EventApp/product.html', context = context)
 
+def meet_the_teem(request):
+    return render(request, template_name='EventApp/meet_the_teem.html')
+    
