@@ -24,3 +24,16 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name    
+class C_profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=15, blank=True)
+    profile_picture = models.ImageField(
+        upload_to='profile/',
+        default='profile/user.png',  # Set default image path
+        blank=True,
+        null=True
+    )
+    bio = models.TextField(blank=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
