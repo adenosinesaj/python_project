@@ -20,10 +20,20 @@ def product(request):
     context = {'products': products}
     return render(request, template_name='EventApp/product.html', context = context)
 
-<<<<<<< HEAD
-def meet_the_teem(request):
-    return render(request, template_name='EventApp/meet_the_teem.html')
-=======
+def product_details(request, id):
+    product = Product.objects.get(pk = id)
+    context = {'product': product}
+    return render(request,template_name = 'EventApp/product_details.html', context = context)
+
+def meet_the_team(request):
+    return render(request, template_name='team_profiles/meet_the_teem.html')
+
+def profile_sajid(request):
+    return render(request, template_name='team_profiles/profile_sajid.html')
+
+def profile_toma(request):
+    return render(request, template_name='team_profiles/profile_toma.html')
+
 def signup_view(request): 
     if request.method == 'POST':
         form = SignUpForm(request.POST, request.FILES)
@@ -88,5 +98,4 @@ def profile_view(request):
     return render(request, 'EventApp/profile.html', {'profile': profile})
 
 
->>>>>>> b58b5a293aa34cf80eb86e1e0959da4c7edab15a
     

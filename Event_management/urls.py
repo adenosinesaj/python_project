@@ -29,17 +29,17 @@ urlpatterns = [
     path('', e_views.home, name='home'),
     path('login/', e_views.login, name='login'),
     path('product/', e_views.product, name='product'),
-<<<<<<< HEAD
-    path('meet_the_teem/', e_views.meet_the_teem, name='meet_the_teem'),
-=======
     path('signup/', e_views.signup_view, name='signup'),
     path('profile/', e_views.profile_view, name='profile'), 
     path('login/', e_views.user_login, name='login'),
     path('logout/', e_views.user_logout, name='logout'),
+    path('meet_the_team/', e_views.meet_the_team, name='meet_the_team'),
+    path('product/<str:id>', e_views.product_details, name = 'product_details'),
+    path('meet_the_team/sajid/', e_views.profile_sajid, name='sajid_info'),
+    path('meet_the_team/toma/', e_views.profile_toma, name='toma_info'),
   
 
 
 
->>>>>>> b58b5a293aa34cf80eb86e1e0959da4c7edab15a
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
