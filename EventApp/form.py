@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from .models import C_profile
 from django.core.exceptions import ValidationError
 
+# SignUpForm (no change)
 class SignUpForm(forms.ModelForm):
     username = forms.CharField(label="Username")
     email = forms.EmailField(label="Email")
@@ -37,12 +38,27 @@ class SignUpForm(forms.ModelForm):
         user.set_password(self.cleaned_data['password'])
         if commit:
             user.save()
-            # Create C_profile object linked to user
+            profile_pic = self.cleaned_data.get('profile_picture')
+            if not profile_pic:
+                profile_pic = 'profile/user.png'  # Default image path
+
             C_profile.objects.create(
                 user=user,
                 phone=self.cleaned_data.get('phone'),
-                profile_picture=self.cleaned_data.get('profile_picture'),
+                profile_picture=profile_pic,
                 bio=self.cleaned_data.get('bio')
             )
         return user
 
+# ProfilePictureForm to handle profile picture updates
+class ProfilePictureForm(forms.ModelForm):
+    class Meta:
+        model = C_profile
+        fields = ['profile_picture']
+
+    def clean_profile_picture(self):
+        profile_picture = self.cleaned_data.get('profile_picture')
+        if profile_picture:
+            if profile_picture.size > 5 * 1024 * 1024:  # 5 MB limit
+                raise forms.ValidationError("Profile picture is too large. Maximum size is 5MB.")
+        return profile_picture

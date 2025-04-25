@@ -5,8 +5,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Event Planner Homepage</title>
-    <link rel="stylesheet" href="{% static 'css/home.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+
 
     <link
       rel="stylesheet"
@@ -18,45 +19,61 @@
     />
   </head>
   <body>
-    <header class="header">
-      <nav class="nav-bar">
-        <ul>
-          <li class="dropdown">
-            <a href="#">About Us ▾</a>
-            <ul class="dropdown-content">
-              <li><a href="#">Meet The Team</a></li>
-              <li><a href="#">Reviews</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#">Services ▾</a>
-            <ul class="dropdown-content">
-              <li><a href="#">Visual Product</a></li>
-              <li><a href="#">Other Event Services</a></li>
-            </ul>
-          </li>
-          <li><a href="product/">Product</a></li>
-          <li><a href="Portfolio/">Portfolio</a></li>
-          <li><a href="login/">Login</a></li>
-          <li><a href="signup/">Sign Up</a></li>
-          <li><a href="profile/"> <img src="{% static 'image/user.png' %}"class="nav-profile-icon"></a></li>
-        </ul>
-      </nav>
-    </header>
+    <!-- Sticky Transparent Header -->
+    <header class="header" id="mainHeader">
+        <nav class="nav-bar">
+          <ul>
+            <li class="dropdown">
+              <a href="#">About Us ▾</a>
+              <ul class="dropdown-content">
+                <li><a href="#">Meet The Team</a></li>
+                <li><a href="#">Reviews</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#">Services ▾</a>
+              <ul class="dropdown-content">
+                <li><a href="#">Visual Product</a></li>
+                <li><a href="#">Other Services</a></li>
+              </ul>
+            </li>
+            <li><a href="{% url 'product' %}">Product</a></li>
+            <li><a href="{#}">Portfolio</a></li>
 
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            <li>
+              <a href="{% url 'profile' %}"
+                ><img
+                  src="{% static 'image/user.png' %}"
+                  class="nav-profile-icon"
+              /></a>
+            </li>
+            {% else %}
+            <li><a href="{% url 'login' %}" id="loginBtn">Login</a></li>
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+     <!-- Space below header to prevent content being hidden -->
+      <div class="header-space"></div>
+    </header>
+    <!-- Hero Section (Main Area) -->
     <main class="main-section">
-      <div class="left">
-        <p class="tagline">
-          FROM CITIES TO SHORES – THE BEST PLACES TO HOST YOUR EVENT
-        </p>
-        <h1>Precision, Passion, Perfection – Event Planning Redefined.</h1>
-        <p class="subtext">
-          Upon the terrace, they spoke in hushed tones, where dusk painted
-          secrets in gold.
-        </p>
-        <a href="#" class="cta-button">Explore Events</a>
-      </div>
+      <section class="hero">
+        <!-- Left: Headline -->
+        <div class="hero-text">
+          <h1>Precision, Passion,<br/> Perfection – Event<br/> Planning Redefined.</h1>
+          <p>From cities to shores — the best places to host your event.</p>
+          <a href="#" class="cta-button">Explore Events</a>
+        </div>
+      <!-- Right: Logo (Looks great here!) -->
+        <div class="hero-logo">
+          <img src="{% static 'image/M.png' %}" alt="Logo">
+        </div>
+      </section>
     </main>
+     <!-- Image Carousel -->
     <div class="carousel-container">
       <div class="carousel-track">
         <img src="{% static 'image/bb.jpg' %}" alt="Event 1" />
@@ -64,13 +81,13 @@
         <img src="{% static 'image/ww.jpg' %}" alt="Event 3" />
         <img src="{% static 'image/birth.jpg' %}" alt="Event 4" />
         <!-- Duplicate images for seamless scroll -->
-
         <img src="{% static 'image/bb.jpg' %}" alt="Event 1" />
         <img src="{% static 'image/ee.jpg' %}" alt="Event 2" />
         <img src="{% static 'image/ww.jpg' %}" alt="Event 3" />
         <img src="{% static 'image/birth.jpg' %}" alt="Event 4" />
       </div>
     </div>
+
     <!-- Footer-->
 
     <footer class="footer">
@@ -117,6 +134,17 @@
         </div>
       </div>
     </footer>
+    <script>
+      const header = document.getElementById("mainHeader");
+    
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 10) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+      });
+    </script>
+    
   </body>
-</html> 
-
+</html>
