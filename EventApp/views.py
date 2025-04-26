@@ -28,6 +28,19 @@ def product(request):
 def cart_view(request):
     # This is a placeholder; replace it with actual logic
     return render(request, 'cart.html')  # Make sure you create cart.html!
+def product_details(request, id):
+    product = Product.objects.get(pk = id)
+    context = {'product': product}
+    return render(request,template_name = 'EventApp/product_details.html', context = context)
+
+def meet_the_team(request):
+    return render(request, template_name='team_profiles/meet_the_teem.html')
+
+def profile_sajid(request):
+    return render(request, template_name='team_profiles/profile_sajid.html')
+
+def profile_toma(request):
+    return render(request, template_name='team_profiles/profile_toma.html')
 
 def signup_view(request): 
     if request.method == 'POST':

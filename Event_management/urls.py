@@ -32,6 +32,13 @@ urlpatterns = [
     path('login/', e_views.user_login, name='login'),
     path('logout/', e_views.user_logout, name='logout'),
     path('cart/', e_views.cart_view, name='cart'),
+    path('meet_the_team/', e_views.meet_the_team, name='meet_the_team'),
+    path('product/<str:id>', e_views.product_details, name = 'product_details'),
+    path('meet_the_team/sajid/', e_views.profile_sajid, name='sajid_info'),
+    path('meet_the_team/toma/', e_views.profile_toma, name='toma_info'),
+  
+
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
