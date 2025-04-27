@@ -24,6 +24,7 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name    
+    
 class C_profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=15, blank=True)
@@ -34,6 +35,7 @@ class C_profile(models.Model):
         null=True
     )
     bio = models.TextField(blank=True)
+    address = models.CharField(max_length=255, blank=True)  # Add address field
 
     def __str__(self):
         return f"{self.user.username}'s Profile"

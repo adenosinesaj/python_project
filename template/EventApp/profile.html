@@ -1,25 +1,234 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Profile</title>
-</head>
-<body>
-    <div class="container" style="max-width: 600px; margin: 50px auto;">
-        <h2>Your Profile</h2>
-        {% if profile %}
-            <p><strong>Username:</strong> {{ profile.user.username }}</p>
-            <p><strong>Full Name:</strong> {{ profile.full_name }}</p>
-            <p><strong>Email:</strong> {{ profile.email }}</p>
-            <p><strong>Phone:</strong> {{ profile.phone }}</p>
-            <p><strong>Bio:</strong> {{ profile.bio }}</p>
-            <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" style="max-width: 200px;">
-        {% else %}
-            <p>No profile found for this user. Please create a profile.</p>
-        {% endif %}
-        <br>
-        <a href="{% url 'logout' %}">Logout</a> <!-- Add your logout link if needed -->
+  <head>
+    <meta charset="UTF-8" />
+    <title>Customer Profile</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <!--Header-->
+    <div class="header profile-header-bar">
+      <nav class="nav-links">
+        <a href="/">Homepage</a>
+        <a href="/product/">Product</a>
+        <a href="#">Messages</a>
+      </nav>
     </div>
-</body>
+
+    <!-- Profile-->
+    <div class="profile-wrapper">
+      <div class="profile-card">
+        <!-- Form for editing profile information -->
+        <form method="POST" enctype="multipart/form-data" action="{% url 'profile' %}">
+          {% csrf_token %}
+
+          <div class="profile-header">
+            <div class="profile-img-wrapper">
+              <img
+                id="profile-preview"
+                src="{{ profile.profile_picture.url }}"
+                alt="Profile Picture"
+                class="profile-img"
+              />
+              {% if editable %}
+                <!-- File input is shown only in edit mode -->
+                <input
+                  type="file"
+                  id="profile-upload"
+                  name="profile_picture"
+                  accept="image/*"
+                  style="display: inline-block;"
+                />
+              {% else %}
+                <input type="file" id="profile-upload" name="profile_picture" accept="image/*" style="display: none;" />
+              {% endif %}
+            </div>
+            <div class="profile-header-text">
+              <h2>{{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
+              <p class="username">Username: {{ profile.user.username }}</p>
+            </div>
+          </div>
+
+          <div class="profile-info">
+            <div>
+              <label for="first_name">First Name:</label>
+              <input
+                type="text"
+                id="first_name"
+                name="first_name"
+                value="{{ profile.user.first_name }}"
+                class="editable-field"
+                {% if not editable %}disabled{% endif %}
+              />
+            </div>
+            <div>
+              <label for="last_name">Last Name:</label>
+              <input
+                type="text"
+                id="last_name"
+                name="last_name"
+                value="{{ profile.user.last_name }}"
+                class="editable-field"
+                {% if not editable %}disabled{% endif %}
+              />
+            </div>
+            <div>
+              <label for="phone">Phone:</label>
+              <input
+                type="text"
+                id="phone"
+                name="phone"
+                value="{{ profile.phone }}"
+                class="editable-field"
+                {% if not editable %}disabled{% endif %}
+              />
+            </div>
+            <div>
+              <label for="address">Address:</label>
+              <input
+                type="text"
+                id="address"
+                name="address"
+                value="{{ profile.address }}"
+                class="editable-field"
+                {% if not editable %}disabled{% endif %}
+              />
+            </div>
+            <div>
+              <label for="bio">Bio:</label>
+              <textarea
+                id="bio"
+                name="bio"
+                class="editable-field"
+                {% if not editable %}disabled{% endif %}
+              >{{ profile.bio }}</textarea>
+            </div>
+          </div>
+
+          <!-- Save Button to submit the changes (only enabled when in edit mode) -->
+          {% if editable %}
+          <button type="submit" class="btn save-btn" id="save-btn" disabled>
+            Save Changes
+          </button>
+          {% endif %}
+        </form>
+
+        <!-- Edit Profile Button to toggle editable mode -->
+        {% if not editable %}
+        <div class="profile-actions">
+          <a href="?edit=true" class="btn edit-btn">✏️ Edit Profile</a>
+        </div>
+        {% endif %}
+
+        <div class="profile-actions">
+          <a href="cart/" class="btn cart-btn">🛒 Cart</a>
+          <a href="{% url 'logout' %}" class="btn logout-btn">🚪 Logout</a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <!-- Column 1: Logo -->
+        <div class="footer-column logo-column">
+          <img src="{% static 'image/our_logo.png' %}" alt="ManageHouse Logo" class="footer-logo" />
+          <p class="footer-small">Event Solutions</p>
+        </div>
+    
+        <!-- Column 2 -->
+        <div class="footer-column">
+          <p><a href="#">About Us</a></p>
+          <p><a href="#">Contact Us</a></p>
+          <p><a href="#">Terms & Conditions</a></p>
+          <p><a href="#">Privacy Policy</a></p>
+        </div>
+    
+        <!-- Column 3 -->
+        <div class="footer-column">
+          <p><a href="#">Services</a></p>
+          <p><a href="#">Event Packages</a></p>
+          <p><a href="#">Gallery</a></p>
+          <p><a href="#">FAQs</a></p>
+        </div>
+    
+        <!-- Column 4 -->
+        <div class="footer-column">
+          <p><a href="#">Support</a></p>
+          <p><a href="#">Submit Ticket</a></p>
+          <p><a href="#">Resources</a></p>
+          <p><a href="#">Affiliates</a></p>
+        </div>
+      </div>
+    
+      <div class="footer-divider"></div>
+    
+      <!-- Social Icons -->
+      <div class="footer-social">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-google-plus-g"></i></a>
+        <a href="#"><i class="fab fa-flickr"></i></a>
+      </div>
+    
+      <!-- Copyright -->
+      <p class="footer-copy">©Copyright. All rights reserved.</p>
+    </footer>
+    
+    
+
+    <!-- Script for previewing image and detecting changes -->
+    <script>
+      const uploadInput = document.getElementById("profile-upload");
+      const previewImg = document.getElementById("profile-preview");
+      const saveBtn = document.getElementById("save-btn");
+      const editableFields = document.querySelectorAll(".editable-field");
+
+      function detectChanges() {
+        let changesMade = false;
+
+        editableFields.forEach((field) => {
+          if (field.value !== field.defaultValue) {
+            changesMade = true;
+          }
+        });
+
+        if (changesMade || uploadInput.files.length > 0) {
+          saveBtn.disabled = false;
+          saveBtn.style.backgroundColor = "#555";
+        } else {
+          saveBtn.disabled = true;
+          saveBtn.style.backgroundColor = "#ccc";
+        }
+      }
+
+      function previewImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            previewImg.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+        detectChanges(); // Also trigger change detection
+      }
+
+      editableFields.forEach((field) => {
+        field.addEventListener("input", detectChanges);
+      });
+
+      uploadInput.addEventListener("change", previewImage);
+
+      detectChanges();
+    </script>
+  </body>
 </html>
