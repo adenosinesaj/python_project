@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Document</title>
+  
+  <!-- CSS Link (fixed space) -->
+  <link rel="stylesheet" href="{% static 'css/cart.css' %}" />
+</head>
+
+<body>
+
+  <header class="header" id="mainHeader">
+    <div class="header-container">
+      <!-- Left: Logo or Brand Name -->
+      <div class="logo">
+        <a href="#">
+          <img src="{% static 'image/manage.png' %}" alt="ManageHouse Logo" />
+        </a>
+      </div>
+
+      <!-- Center: Navigation Menu -->
+      <nav class="nav-bar">
+        <ul>
+          <li class="dropdown">
+            <a href="#">About Us ▾</a>
+            <ul class="dropdown-content">
+              <li><a href="#">Meet The Team</a></li>
+              <li><a href="#">Reviews</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#">Services ▾</a>
+            <ul class="dropdown-content">
+              <li><a href="#">Visual Product</a></li>
+              <li><a href="#">Other Services</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Product</a></li>
+          <li><a href="#">Portfolio</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+          {% else %}
+          <li><a href="{% url 'login' %}" id="loginBtn">Login</a></li>
+          <li><a href="{% url 'signup' %}">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+
+      <!-- Right: Icons -->
+      <div class="header-icons">
+        {% if user.is_authenticated %}
+        <!-- Cart Icon -->
+        <a href="{% url 'cart' %}">
+          <img src="{% static 'Image/cart.png' %}" alt="Cart" class="nav-icon" />
+        </a>
+
+        <!-- Search Form -->
+        <form class="search-form" action="/search/" method="GET">
+          <input type="text" name="q" class="search-input" placeholder="Search..." />
+          <button type="submit" class="search-button">🔍</button>
+        </form>
+
+        <!-- Profile Picture Icon -->
+        <a href="{% url 'profile' %}">
+          <img src="{{ user.c_profile.profile_picture.url }}" alt="Profile" class="nav-profile-icon" />
+        </a>
+        {% endif %}
+      </div>
+
+    </div>
+  </header>
+
+<!-- New ellipse group for design -->
+  <div class="ellipse-group">
+    <div class="ellipse ellipse1"></div>
+    <div class="ellipse ellipse2"></div>
+    <div class="ellipse ellipse3"></div>
+    <div class="ellipse ellipse4"></div>
+   </div>
+</body>
+</html>

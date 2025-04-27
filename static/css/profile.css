@@ -77,6 +77,7 @@ body {
   position: relative;
   width: 120px;
   height: 120px;
+ 
 }
 
 .profile-img {
@@ -86,8 +87,11 @@ body {
   border-radius: 50%;
   border: 3px solid white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
 }
-
+.profile-img:hover {
+  transform: scale(1.1); 
+}
 .edit-profile-pic {
   position: absolute;
   bottom: 5px;
@@ -156,7 +160,12 @@ body {
   justify-content: center;
   gap: 15px;
   flex-wrap: wrap;
+  transition: transform 0.3s ease;
 }
+.profile-actions:hover {
+  transform: scale(1.1); 
+}
+
 /* Optional: add some padding at the bottom of each input box */
 .profile-info input,
 .profile-info textarea {
@@ -176,14 +185,17 @@ body {
   text-decoration: none;
   transition: background 0.3s ease;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+
 }
 
 .edit-btn {
   background-color: #7b2cbf;
+  
 }
 
 .edit-btn:hover {
   background-color: #5a189a;
+
 }
 
 .cart-btn {
@@ -294,10 +306,13 @@ body {
   margin: 0 10px;
   font-size: 16px;
   text-decoration: none;
+  transition: transform 0.3s ease;
 }
 
 .footer-social a:hover {
   color: #ddd;
+  transform: scale(1.1); 
+  
 }
 
 .footer-copy {

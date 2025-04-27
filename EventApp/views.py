@@ -25,9 +25,15 @@ def product(request):
     context = {'products': products}
     return render(request, template_name='EventApp/product.html', context = context)
 
-def cart_view(request):
+def search(request):
+    query = request.GET.get('q')
+    results = []
+    if query:
+        results = Product.objects.filter(name__icontains=query)
+    return render(request, 'search_results.html', {'results': results})
+def cart(request):
     # This is a placeholder; replace it with actual logic
-    return render(request, 'cart.html')  # Make sure you create cart.html!
+    return render(request, 'EventApp/cart.html')  # Make sure you create cart.html!
 def product_details(request, id):
     product = Product.objects.get(pk = id)
     context = {'product': product}

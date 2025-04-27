@@ -1,0 +1,304 @@
+.header {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(to bottom, rgb(205, 60, 60) 80%, #ffffff 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  padding: 15px 30px;
+}
+
+/* This creates a soft wave effect inside the header bottom using pseudo-element */
+.header::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 60px; /* Control how big/small the wave is */
+  background: radial-gradient(
+    ellipse at top,
+    rgb(205, 60, 60) 30%,
+    transparent 70%
+  );
+  z-index: -1; /* Puts wave behind the header content */
+}
+
+/* Your existing nav-bar, dropdowns, logo, icons stay SAME */
+.header-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative; /* optional but safer */
+  z-index: 1; /* optional but safer */
+}
+/* ===== HEADER SPACE TO PREVENT CONTENT HIDE ===== */
+.header-space {
+  height: 80px; /* Adjust according to header height */
+}
+
+/* ===== NAVIGATION BAR ===== */
+.nav-bar {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.nav-bar ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-bar ul li {
+  position: relative;
+}
+
+.nav-bar ul li a {
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-bar ul li a:hover {
+  color: #ffd1d1;
+}
+/*navbar logo*/
+.logo {
+  margin-left: -10px; /* move logo a little more left */
+}
+.logo img {
+  height: 100px; /* control logo size */
+  width: auto;
+  /* transition: transform 0.3s ease; /* smooth hover animation */
+  transition: transform 0.4s ease, filter 0.4s ease; /* smooth zoom and color */
+}
+
+/* Hover effect */
+.logo img:hover {
+  /*transform: scale(1.1); /* zoom in a little when hover */
+  transform: scale(1.1) rotate(-2deg); /* slight rotation + zoom */
+  filter: brightness(1.2); /* make it a bit brighter */
+}
+
+/* ===== DROPDOWN MENU ===== */
+.nav-bar ul li ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #af3d3d;
+  padding: 8px 0;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-bar ul li:hover ul {
+  display: block;
+}
+
+.nav-bar ul li ul li {
+  width: 180px;
+}
+
+.nav-bar ul li ul li a {
+  padding: 10px 20px;
+  display: block;
+  font-size: 16px;
+}
+
+/* ===== NAV RIGHT SIDE (PROFILE + CART + SEARCH) ===== */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Profile Picture */
+.nav-profile-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid white;
+  background-color: white;
+  transition: transform 0.3s ease;
+}
+.nav-profile-icon:hover {
+  transform: scale(1.1);
+}
+/* Cart + Search Icons */
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: transform 0.3s ease;
+}
+.nav-icons:hover {
+  transform: scale(1.1);
+}
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.nav-icon:hover {
+  transform: scale(1.1);
+}
+
+/* ====== LOGO ====== */
+.hero-logo img {
+  width: 180px;
+  height: auto;
+  object-fit: contain;
+  margin-right: 50px; /* Add space between logo and nav */
+}
+
+/* ====== ICONS AREA (Right Side) ====== */
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 25px; /* Space between user/cart/search */
+  margin-left: 50px; /* Push icons a bit away from nav */
+}
+
+/* Profile picture (after login) */
+.nav-profile-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+/* ====== SEARCH BOX ====== */
+.search-form {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 20px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  transition: box-shadow 0.3s ease;
+}
+
+.search-form:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: transparent;
+  width: 120px;
+  transition: width 0.4s ease;
+  color: black;
+}
+
+.search-input:focus {
+  width: 200px;
+}
+
+.search-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #c76464;
+}
+
+/* ====== HEADER SPACER ====== */
+.header-space {
+  height: 10px; /* Just enough to push content under sticky header */
+}
+
+/* ====== SCROLL EFFECT COLORS ====== */
+.header.scrolled .nav-bar ul li a,
+.header.scrolled .header-icons a {
+  color: #9c0d0d;
+}
+
+.header.scrolled .nav-profile-icon {
+  border-color: #222;
+}
+/* ====== SEARCH INPUT MODERN ANIMATION ====== */
+.search-input {
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 14px;
+  width: 120px;
+  transition: width 0.4s ease, background-color 0.4s ease;
+  background-color: white;
+  color: black;
+}
+
+.search-input:focus {
+  width: 200px;
+  background-color: #fff;
+}
+
+/* Optional: tweak page content position */
+.main-content {
+  position: relative;
+  z-index: 2;
+  background: white;
+}
+/* Ellipse Group */
+.ellipse-group {
+  position: relative;
+  width: 100%;
+  height: 100px; /* how much space ellipses take */
+  background: white;
+  overflow: hidden;
+  margin-top: -50px; /* pull it under header */
+  z-index: 0;
+}
+
+.ellipse {
+  position: absolute;
+  background-color: rgba(205, 60, 60, 0.3); /* semi-transparent red */
+  border-radius: 50%;
+}
+
+/* Each ellipse with different size and position */
+.ellipse1 {
+  width: 150px;
+  height: 80px;
+  top: 10px;
+  left: 10%;
+}
+
+.ellipse2 {
+  width: 100px;
+  height: 50px;
+  top: 30px;
+  left: 30%;
+}
+
+.ellipse3 {
+  width: 120px;
+  height: 60px;
+  top: 20px;
+  left: 60%;
+}
+
+.ellipse4 {
+  width: 90px;
+  height: 45px;
+  top: 40px;
+  left: 80%;
+}
