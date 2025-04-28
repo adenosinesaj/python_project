@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+  <!---Working on pop up massage home.html html+js.................home.css .popup-->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,16 +16,36 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
   <body>
-    <!-- Sticky Transparent Header -->
+    {% if messages %}
+    <script>
+      {% for message in messages %}
+        showPopup("{{ message }}", "{{ message.tags }}");
+      {% endfor %}
+    </script>
+    {% endif %}
+
     <header class="header" id="mainHeader">
+      <div class="header-container">
+        <!-- Left: Logo or Brand Name -->
+        <div class="logo">
+          <a href="#">
+            <img src="{% static 'image/manage.png' %}" alt="ManageHouse Logo" />
+          </a>
+        </div>
+
+        <!-- Center: Navigation Menu -->
         <nav class="nav-bar">
           <ul>
             <li class="dropdown">
               <a href="#">About Us ▾</a>
               <ul class="dropdown-content">
-                <li><a href="{#}">Meet The Team</a></li>
+                <li><a href="{% url 'meet_the_team' %}">Meet The Team</a></li>
                 <li><a href="#">Reviews</a></li>
               </ul>
             </li>
@@ -36,42 +57,76 @@
               </ul>
             </li>
             <li><a href="{% url 'product' %}">Product</a></li>
-            <li><a href="{#}">Portfolio</a></li>
-
+            <li><a href="#">Portfolio</a></li>
             {% if user.is_authenticated %}
             <li><a href="{% url 'logout' %}">Logout</a></li>
-            <li>
-              <a href="{% url 'profile' %}"
-                ><img
-                  src="{% static 'image/user.png' %}"
-                  class="nav-profile-icon"
-              /></a>
-            </li>
             {% else %}
             <li><a href="{% url 'login' %}" id="loginBtn">Login</a></li>
             <li><a href="{% url 'signup' %}">Sign Up</a></li>
             {% endif %}
           </ul>
         </nav>
-     <!-- Space below header to prevent content being hidden -->
-      <div class="header-space"></div>
+
+        <!-- Right: Icons -->
+        <div class="header-icons">
+          {% if user.is_authenticated %}
+          <!-- Cart Icon -->
+          <a href="{% url 'cart' %}">
+            <img
+              src="{% static 'Image/cart.png' %}"
+              alt="Cart"
+              class="nav-icon"
+            />
+          </a>
+
+          <!-- Search Form -->
+          <form class="search-form" action="/search/" method="GET">
+            <input type="text" name="q" class="search-input" placeholder="Search..." />
+            <button type="submit" class="search-button">🔍</button>
+          </form>
+
+
+          <!-- Profile Picture Icon -->
+          <a href="{% url 'profile' %}">
+            <img
+              src="{{ user.c_profile.profile_picture.url }}"
+              alt="Profile"
+              class="nav-profile-icon"
+            />
+          </a>
+          {% endif %}
+        </div>
+      </div>
     </header>
+    <div class="header-wave">
+      <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+        <!-- Front wave -->
+        <path
+          d="M0,50 C150,130 350,30 500,50 L500,0 L0,0 Z"
+          style="stroke: none; fill: #d33f3f"
+        ></path>
+      </svg>
+    </div>
     <!-- Hero Section (Main Area) -->
     <main class="main-section">
       <section class="hero">
         <!-- Left: Headline -->
         <div class="hero-text">
-          <h1>Precision, Passion,<br/> Perfection – Event<br/> Planning Redefined.</h1>
+          <h1>
+            Precision, Passion,<br />
+            Perfection – Event<br />
+            Planning Redefined.
+          </h1>
           <p>From cities to shores — the best places to host your event.</p>
           <a href="#" class="cta-button">Explore Events</a>
         </div>
-      <!-- Right: Logo (Looks great here!) -->
+        <!-- Right: Logo (Looks great here!) -->
         <div class="hero-logo">
-          <img src="{% static 'image/our_logo.png' %}" alt="Logo">
+          <img src="{% static 'image/our_logo.png' %}" alt="Logo" />
         </div>
       </section>
     </main>
-     <!-- Image Carousel -->
+    <!-- Image Carousel -->
     <div class="carousel-container">
       <div class="carousel-track">
         <img src="{% static 'image/bb.jpg' %}" alt="Event 1" />
@@ -88,41 +143,91 @@
 
     <!-- Footer-->
 
-    <footer class="footer" style="background-color: #910000; color: white; padding: 40px 80px;">
-      <div class="footer-container" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+    <footer
+      class="footer"
+      style="background-color: #910000; color: white; padding: 40px 80px"
+    >
+      <div
+        class="footer-container"
+        style="display: flex; justify-content: space-between; flex-wrap: wrap"
+      >
         <!-- Left Text -->
-        <div class="footer-image" style="flex: 1; min-width: 250px; max-width: 300px; margin-bottom: 20px;">
-          <img src="{% static 'image/our_logo.png' %}" alt="Footer Visual" style="width: 100%; height: auto; border-radius: 10px;" />
+        <div
+          class="footer-image"
+          style="
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            margin-bottom: 20px;
+          "
+        >
+          <img
+            src="{% static 'image/our_logo.png' %}"
+            alt="Footer Visual"
+            style="width: 100%; height: auto; border-radius: 10px"
+          />
         </div>
-        <div class="footer-description" style="flex: 1; min-width: 300px; max-width: 600px; margin-bottom: 20px;">
-          <p style="font-family: 'Volkhov-Bold', sans-serif; font-size: 18px; line-height: 1.6;">
-            At ManageHoise, we bring your dream events to life with seamless planning, creative execution, and top-tier management. Whether it's a grand corporate gathering, a dreamy wedding, or an exclusive private event, we handle every detail with precision and passion.
+        <div
+          class="footer-description"
+          style="
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+            margin-bottom: 20px;
+          "
+        >
+          <p
+            style="
+              font-family: 'Volkhov-Bold', sans-serif;
+              font-size: 18px;
+              line-height: 1.6;
+            "
+          >
+            At ManageHoise, we bring your dream events to life with seamless
+            planning, creative execution, and top-tier management. Whether it's
+            a grand corporate gathering, a dreamy wedding, or an exclusive
+            private event, we handle every detail with precision and passion.
           </p>
         </div>
-    
+
         <!-- Company Links -->
-        <div class="footer-links" style="flex: 1; min-width: 200px; margin-bottom: 20px;">
-          <h3 style="font-size: 22px; margin-bottom: 10px;">Company</h3>
-          <ul style="line-height: 2;">
+        <div
+          class="footer-links"
+          style="flex: 1; min-width: 200px; margin-bottom: 20px"
+        >
+          <h3 style="font-size: 22px; margin-bottom: 10px">Company</h3>
+          <ul style="line-height: 2">
             <li>About us</li>
             <li>Contact us</li>
             <li>Terms &amp; Conditions</li>
             <li>Privacy Policy</li>
           </ul>
         </div>
-    
+
         <!-- Contact Info -->
-        <div class="footer-contact" style="flex: 1; min-width: 250px;">
-          <div style="display: flex; align-items: center; margin-bottom: 10px;">
-            <img src="{% static 'image/map-pin0.svg' %}" alt="Location" style="width: 24px; margin-right: 10px;" />
+        <div class="footer-contact" style="flex: 1; min-width: 250px">
+          <div style="display: flex; align-items: center; margin-bottom: 10px">
+            <img
+              src="{% static 'image/map-pin0.svg' %}"
+              alt="Location"
+              style="width: 24px; margin-right: 10px"
+            />
             <span>74/A, Green Road, Dhaka - 1207</span>
           </div>
-          <div style="display: flex; align-items: center; margin-bottom: 10px;">
-            <img src="{% static 'image/phone0.svg' %}" alt="Phone" style="width: 24px; margin-right: 10px;" />
+          <div style="display: flex; align-items: center; margin-bottom: 10px">
+            <img
+              src="{% static 'image/phone0.svg' %}"
+              alt="Phone"
+              style="width: 24px; margin-right: 10px"
+            />
             <span>+8801795733422</span>
           </div>
-          <div style="display: flex; align-items: center;">
-            <img src="{% static 'image/mail0.svg' %}" alt="Email" style="width: 24px; margin-right: 10px;" />
+          <div style="display: flex; align-items: center">
+            <img
+              src="{% static 'image/mail0.svg' %}"
+              alt="Email"
+              style="width: 24px; margin-right: 10px"
+            />
             <span>managehoise@gmail.com</span>
           </div>
         </div>
@@ -130,7 +235,7 @@
     </footer>
     <script>
       const header = document.getElementById("mainHeader");
-    
+
       window.addEventListener("scroll", () => {
         if (window.scrollY > 10) {
           header.classList.add("scrolled");
@@ -138,7 +243,20 @@
           header.classList.remove("scrolled");
         }
       });
+
+      function showPopup(message, type = "success") {
+        const popup = document.getElementById("popup");
+        const popupMessage = document.getElementById("popup-message");
+
+        popup.className = "popup"; // Reset classes
+        popup.classList.add(type); // Add new type
+        popupMessage.innerText = message;
+        popup.classList.add("show");
+
+        setTimeout(() => {
+          popup.classList.remove("show");
+        }, 3000);
+      }
     </script>
-    
   </body>
 </html>

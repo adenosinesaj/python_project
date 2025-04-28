@@ -9,20 +9,76 @@
 </head>
 <body>
 
-  <header class="hero-section">
-    <img src="{% static 'image/our_logo.png' %}" alt="Logo" class="logo" />
-    <div class="hero-text">
-      <h1>Meet the Team</h1>
+  <header class="header" id="mainHeader">
+    <div class="header-container">
+      <!-- Left: Logo or Brand Name -->
+      <div class="header-logo">
+        <a href="#">
+          <img src="{% static 'image/manage.png' %}" alt="ManageHouse Logo" />
+        </a>
+      </div>
+
+      <!-- Center: Navigation Menu -->
+      <nav class="nav-bar">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li class="dropdown">
+            <a href="#">Services ▾</a>
+            <ul class="dropdown-content">
+              <li><a href="#">Visual Product</a></li>
+              <li><a href="#">Other Services</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Portfolio</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+          {% else %}
+          <li><a href="{% url 'login' %}" id="loginBtn">Login</a></li>
+          <li><a href="{% url 'signup' %}">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+
+      <!-- Right: Icons -->
+      <div class="header-icons">
+        {% if user.is_authenticated %}
+        <!-- Cart Icon -->
+        <a href="{% url 'cart' %}">
+          <img
+            src="{% static 'Image/cart.png' %}"
+            alt="Cart"
+            class="nav-icon"
+          />
+        </a>
+
+        <!-- Search Form -->
+        <form class="search-form" action="/search/" method="GET">
+          <input type="text" name="q" class="search-input" placeholder="Search..." />
+          <button type="submit" class="search-button">🔍</button>
+        </form>
+
+
+        <!-- Profile Picture Icon -->
+        <a href="{% url 'profile' %}">
+          <img
+            src="{{ user.c_profile.profile_picture.url }}"
+            alt="Profile"
+            class="nav-profile-icon"
+          />
+        </a>
+        {% endif %}
+      </div>
     </div>
   </header>
-
-  <nav class="navbar">
-    <ul>
-      <li><a href="">Home</a></li>
-      <li><a href="#">About Us</a></li>
-      <li><a href="#">Meet The Team</a></li>
-    </ul>
-  </nav>
+  <div class="header-wave">
+    <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+      <!-- Front wave -->
+      <path
+        d="M0,50 C150,130 350,30 500,50 L500,0 L0,0 Z"
+        style="stroke: none; fill: #d33f3f"
+      ></path>
+    </svg>
+  </div>
 
   <section class="intro">
     <p><strong>Introducing the people of <img src="{% static 'image/our_logo.png' %}" alt="Brand" class="inline-icon" /></strong></p>
@@ -171,10 +227,5 @@
   
     </div>
   </footer>
-  
-  
-  
-  
-
 </body>
 </html>
