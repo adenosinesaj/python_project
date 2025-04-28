@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from .models import C_profile
-from .form import ProfilePictureForm
+from .form import *
 from django.contrib.auth.decorators import login_required
 from .form import SignUpForm
 from django.contrib import messages
@@ -13,6 +13,16 @@ from django.contrib import messages
 
 
 
+def add_product(request):
+    form = ProductForm()
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Product added successfully!")
+            return redirect('product_details', id = form.instance.id) 
+    context = {'form': form}    
+    return render(request, 'EventApp/add_product.html', context=context) 
 
 
 # Create your views here.
