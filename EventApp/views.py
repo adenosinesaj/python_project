@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from .models import C_profile
-from .form import ProfilePictureForm
+from .form import *
 from django.contrib.auth.decorators import login_required
 from .form import SignUpForm
 from django.contrib import messages
@@ -14,6 +14,38 @@ from django.shortcuts import render, get_object_or_404
 
 
 
+
+def add_product(request):
+    form = ProductForm()
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Product added successfully!")
+            return redirect('product') 
+    context = {'form': form}    
+    return render(request, 'EventApp/add_product.html', context=context) 
+
+def update_product(request, id):
+    product = Product.objects.get(pk = id)
+    form = ProductForm(instance=product)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Product updated successfully!")
+            return redirect('product')
+    conext = {'form': form}
+    return render(request, template_name= 'EventApp/add_product.html', context=conext)
+
+def delete_product(request, id):
+    product = Product.objects.get(pk = id)
+    if request.method == 'POST':
+        product.delete()
+        messages.success(request, "Product deleted successfully!")
+        return redirect('product')
+    context = {'product': product}
+    return render(request, template_name='EventApp/delete_product.html', context=context)
 
 
 

@@ -1,8 +1,14 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import C_profile
+from .models import *
 from django.core.exceptions import ValidationError
+from django.forms import ModelForm
+
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = '__all__'
 
 # SignUpForm (no change)
 class SignUpForm(forms.ModelForm):

@@ -9,42 +9,64 @@
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
+      background-color: #f8f9fa;
     }
     .product-card {
-      border: 1px solid #ccc;
+      background: #fff;
+      border: 1px solid #dee2e6;
       border-radius: 8px;
       padding: 16px;
-      margin-bottom: 20px;
+      transition: box-shadow 0.3s;
+      height: 100%;
     }
-    .product-card h2 {
-      margin-top: 0;
+    .product-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
-    .status {
-      font-weight: bold;
+    .product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+    .btn-group {
+      gap: 10px;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-  <h1>Product List</h1>
+  <div class="container">
+    <h1 class="text-center mb-4">Product List</h1>
 
-  {% for product in products %}
-  <div class="product-card">
-    {% if product.p_photo %}
-        <img src="{{ product.p_photo.url }}" alt="{{ product.name }}" style="width: 150px; height: auto;">
-    {% else %}
-      <img src="https://via.placeholder.com/150" alt="No image">
-    {% endif %}
-    <div class="product-card">
-      <h2>{{ product.name }}</h2>
-      <p><strong>Price:</strong> ${{ product.price }}</p>
-      <a href="{% url 'product_details' product.id %}" class="btn btn-primary">Details</a>
-
-
+    <div class="d-flex justify-content-end mb-3">
+      <a href="{% url 'add_product' %}" class="btn btn-success">Add Product</a>
     </div>
-  {% empty %}
-    <p>No products available.</p>
-  {% endfor %}
+
+    <div class="row">
+      {% for product in products %}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+          <div class="product-card d-flex flex-column">
+            {% if product.p_photo %}
+              <img src="{{ product.p_photo.url }}" alt="{{ product.name }}" class="product-image">
+            {% else %}
+              <img src="https://via.placeholder.com/200x200?text=No+Image" alt="No image" class="product-image">
+            {% endif %}
+            <h5 class="text-center">{{ product.name }}</h5>
+            <p class="text-center"><strong>Price:</strong> ${{ product.price }}</p>
+            <div class="d-flex justify-content-center btn-group">
+              <a href="{% url 'product_details' product.id %}" class="btn btn-primary btn-sm">Details</a>
+              <a href="{% url 'update_product' product.id %}" class="btn btn-warning btn-sm">Update</a>
+              <a href="{% url 'delete_product' product.id %}" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-center">No products available.</p>
+      {% endfor %}
+    </div>
+  </div>
 
 </body>
 </html>
