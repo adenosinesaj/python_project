@@ -6,226 +6,122 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meet the Team</title>
   <link rel="stylesheet" href="{% static 'css/team_profiles/meet_the_team.css' %}"/>
+  <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+
 </head>
 <body>
 
-  <header class="header" id="mainHeader">
-    <div class="header-container">
-      <!-- Left: Logo or Brand Name -->
-      <div class="header-logo">
-        <a href="#">
-          <img src="{% static 'image/manage.png' %}" alt="ManageHouse Logo" />
-        </a>
-      </div>
+  {% include 'header.html' %}
+  <main class="main-content">
 
-      <!-- Center: Navigation Menu -->
-      <nav class="nav-bar">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li class="dropdown">
-            <a href="#">Services ▾</a>
-            <ul class="dropdown-content">
-              <li><a href="#">Visual Product</a></li>
-              <li><a href="#">Other Services</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Portfolio</a></li>
-          {% if user.is_authenticated %}
-          <li><a href="{% url 'logout' %}">Logout</a></li>
-          {% else %}
-          <li><a href="{% url 'login' %}" id="loginBtn">Login</a></li>
-          <li><a href="{% url 'signup' %}">Sign Up</a></li>
-          {% endif %}
-        </ul>
-      </nav>
+      <section class="intro">
+        <p><strong>Introducing the people of <img src="{% static 'image/our_logo.png' %}" alt="Brand" class="inline-icon" /></strong></p>
+      </section>
 
-      <!-- Right: Icons -->
-      <div class="header-icons">
-        {% if user.is_authenticated %}
-        <!-- Cart Icon -->
-        <a href="{% url 'cart' %}">
-          <img
-            src="{% static 'Image/cart.png' %}"
-            alt="Cart"
-            class="nav-icon"
-          />
-        </a>
-
-        <!-- Search Form -->
-        <form class="search-form" action="/search/" method="GET">
-          <input type="text" name="q" class="search-input" placeholder="Search..." />
-          <button type="submit" class="search-button">🔍</button>
-        </form>
-
-
-        <!-- Profile Picture Icon -->
-        <a href="{% url 'profile' %}">
-          <img
-            src="{{ user.c_profile.profile_picture.url }}"
-            alt="Profile"
-            class="nav-profile-icon"
-          />
-        </a>
-        {% endif %}
-      </div>
-    </div>
-  </header>
-  <div class="header-wave">
-    <svg viewBox="0 0 500 150" preserveAspectRatio="none">
-      <!-- Front wave -->
-      <path
-        d="M0,50 C150,130 350,30 500,50 L500,0 L0,0 Z"
-        style="stroke: none; fill: #d33f3f"
-      ></path>
-    </svg>
-  </div>
-
-  <section class="intro">
-    <p><strong>Introducing the people of <img src="{% static 'image/our_logo.png' %}" alt="Brand" class="inline-icon" /></strong></p>
-  </section>
-
-  <section class="team-grid">
-    <!-- Example team member -->
-    <a href="{% url 'toma_info' %}" style="text-decoration: none; color: inherit;">
-     <div class="team-member">
-      <img src="{% static 'image/Toma.jpg' %}" alt="Toma" />
-      <p><strong style="color: blue;">Sanjida Rahman</strong></p>
-      <p>Chairman</p>
-    </div>
-    </a>
-    <!-- Copy and change image/text for other members -->
-
-    <a href="{% url 'sajid_info' %}" style="text-decoration: none; color: inherit;">
-      <div class="team-member">
-        <img src="{% static 'image/Sajid.jpg' %}" alt="Sajid" />
-        <p><strong style="color: blue;">Sajid Shahan Rahman</strong></p>
-        <p>Managing Director</p>
-      </div>
-    </a>
-    
-    <div class="team-member">
-        <img src="{% static 'image/Tanisha.jpg' %}" alt="Tanisha Tarannun" />
-        <p><strong style="color: blue;">Tanisha </strong></p>
-        <p>Chief Executive Officer (CEO)</p>
-    </div>
-
-    <!-- Add rest of the members following this format -->
-  </section>
-
-
-  <section class="team-grid">
-    <!-- Example team member -->
-    <div class="team-member">
-      <img src="{% static 'image/Sydul.jpg' %}" alt="Sydul" />
-      <p><strong style="color: blue;">Sydul Islam Zubair</strong></p>
-      <p>Event Coordinator</p>
-    </div>
-
-    <!-- Copy and change image/text for other members -->
-    <div class="team-member">
-      <img src="{% static 'image/Shoily.jpg' %}" alt="Shoily" />
-      <p><strong style="color: blue;">F.H.Shoily</strong></p>
-      <p>Creative Director</p>
-      
-    </div>
-    
-    <div class="team-member">
-        <img src="{% static 'image/Asif.jpeg' %}" alt="Asif" />
-        <p><strong style="color: blue;">Asif Iqbal </strong></p>
-        <p>Marketing and Public
-            Relations Specialist</p>
-    </div>
-
-    <!-- Add rest of the members following this format -->
-  </section>
-  <section class="team-grid">
-    <!-- Example team member -->
-    <div class="team-member">
-      <img src="{% static 'image/Shakib.jpeg' %}" alt="Shakib" />
-      <p><strong style="color: blue;">Shakib Hossain</strong></p>
-      <p>Technical Director</p>
-    </div>
-
-    <!-- Copy and change image/text for other members -->
-    <div class="team-member">
-      <img src="{% static 'image/jisan.jpg' %}" alt="Mizanur" />
-      <p><strong style="color: blue;">Mizanur Rahman</strong></p>
-      <p>Technical Director</p>
-      
-    </div>
-    
-    <div class="team-member">
-        <img src="{% static 'image/Tabiur.jpeg' %}" alt="Tabiur" />
-        <p><strong style="color: blue;">Tabiur Rahman</strong></p>
-        <p>Production Manager</p>
-    </div>
-
-    <!-- Add rest of the members following this format -->
-  </section>
-  <section class="team-grid">
-    <!-- Example team member -->
-    <div class="team-member">
-      <img src="{% static 'image/Rifat.jpg' %}" alt="Rifat" />
-      <p><strong style="color: blue;">Gazi Rifat Nur</strong></p>
-      <p>Venue Manager</p>
-    </div>
-
-    <!-- Copy and change image/text for other members -->
-    <div class="team-member">
-      <img src="{% static 'image/riyad.jpg' %}" alt="Mehedi" />
-      <p><strong style="color: blue;">Mehedi Hasan Khan</strong></p>
-      <p>Event Designer</p>
-      
-    </div>
-    
-    <div class="team-member">
-        <img src="{% static 'image/mamim.jpg' %}" alt="Mamim" />
-        <p><strong style="color: blue;">Shahid Al Mamim</strong></p>
-        <p>Event Security Manager</p>
-    </div>
-
-    <!-- Add rest of the members following this format -->
-  </section>
-  
-    
-  <footer class="custom-footer">
-    <div class="footer-container">
-      
-      <!-- Left: Logo + Description -->
-      <div class="footer-left">
-        <div class="footer-logo-box">
-          <img src="{% static 'image/our_logo.png' %}" alt="Logo" class="footer-logo" />
+      <section class="team-grid">
+        <!-- Example team member -->
+        <a href="{% url 'toma_info' %}" style="text-decoration: none; color: inherit;">
+        <div class="team-member">
+          <img src="{% static 'image/Toma.jpg' %}" alt="Toma" />
+          <p><strong style="color: blue;">Sanjida Rahman</strong></p>
+          <p>Chairman</p>
         </div>
-        <div class="footer-description">
-          <p>
-            At <strong>ManageHoise</strong>, we bring your dream events to life with seamless planning,
-            creative execution, and top-tier management. Whether it's a grand corporate gathering, a dreamy
-            wedding, or an exclusive private event, we handle every detail with precision and passion.
-          </p>
+        </a>
+        <!-- Copy and change image/text for other members -->
+
+        <a href="{% url 'sajid_info' %}" style="text-decoration: none; color: inherit;">
+          <div class="team-member">
+            <img src="{% static 'image/Sajid.jpg' %}" alt="Sajid" />
+            <p><strong style="color: blue;">Sajid Shahan Rahman</strong></p>
+            <p>Managing Director</p>
+          </div>
+        </a>
+        
+        <div class="team-member">
+            <img src="{% static 'image/Tanisha.jpg' %}" alt="Tanisha Tarannun" />
+            <p><strong style="color: blue;">Tanisha </strong></p>
+            <p>Chief Executive Officer (CEO)</p>
         </div>
-      </div>
-  
-      <!-- Center: Company Links -->
-      <div class="footer-center">
-        <div class="footer-links">
-          <h3>Company</h3>
-          <ul>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Contact us</a></li>
-            <li><a href="#">Terms & Conditions</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-          </ul>
+
+        <!-- Add rest of the members following this format -->
+      </section>
+
+
+      <section class="team-grid">
+        <!-- Example team member -->
+        <div class="team-member">
+          <img src="{% static 'image/Sydul.jpg' %}" alt="Sydul" />
+          <p><strong style="color: blue;">Sydul Islam Zubair</strong></p>
+          <p>Event Coordinator</p>
         </div>
-      </div>
-  
-      <!-- Right: Contact Info -->
-      <div class="footer-right">
-        <p><span>📍</span> 74/A, Green Road, Dhaka - 1207</p>
-        <p><span>📞</span> +8801795733422</p>
-        <p><span>📧</span> managehoise@gmail.com</p>
-      </div>
-  
-    </div>
-  </footer>
+
+        <!-- Copy and change image/text for other members -->
+        <div class="team-member">
+          <img src="{% static 'image/Shoily.jpg' %}" alt="Shoily" />
+          <p><strong style="color: blue;">F.H.Shoily</strong></p>
+          <p>Creative Director</p>
+          
+        </div>
+        
+        <div class="team-member">
+            <img src="{% static 'image/Asif.jpeg' %}" alt="Asif" />
+            <p><strong style="color: blue;">Asif Iqbal </strong></p>
+            <p>Marketing and Public
+                Relations Specialist</p>
+        </div>
+
+        <!-- Add rest of the members following this format -->
+      </section>
+      <section class="team-grid">
+        <!-- Example team member -->
+        <div class="team-member">
+          <img src="{% static 'image/Shakib.jpeg' %}" alt="Shakib" />
+          <p><strong style="color: blue;">Shakib Hossain</strong></p>
+          <p>Technical Director</p>
+        </div>
+
+        <!-- Copy and change image/text for other members -->
+        <div class="team-member">
+          <img src="{% static 'image/jisan.jpg' %}" alt="Mizanur" />
+          <p><strong style="color: blue;">Mizanur Rahman</strong></p>
+          <p>Technical Director</p>
+          
+        </div>
+        
+        <div class="team-member">
+            <img src="{% static 'image/Tabiur.jpeg' %}" alt="Tabiur" />
+            <p><strong style="color: blue;">Tabiur Rahman</strong></p>
+            <p>Production Manager</p>
+        </div>
+
+        <!-- Add rest of the members following this format -->
+      </section>
+      <section class="team-grid">
+        <!-- Example team member -->
+        <div class="team-member">
+          <img src="{% static 'image/Rifat.jpg' %}" alt="Rifat" />
+          <p><strong style="color: blue;">Gazi Rifat Nur</strong></p>
+          <p>Venue Manager</p>
+        </div>
+
+        <!-- Copy and change image/text for other members -->
+        <div class="team-member">
+          <img src="{% static 'image/riyad.jpg' %}" alt="Mehedi" />
+          <p><strong style="color: blue;">Mehedi Hasan Khan</strong></p>
+          <p>Event Designer</p>
+          
+        </div>
+        
+        <div class="team-member">
+            <img src="{% static 'image/mamim.jpg' %}" alt="Mamim" />
+            <p><strong style="color: blue;">Shahid Al Mamim</strong></p>
+            <p>Event Security Manager</p>
+        </div>
+
+        <!-- Add rest of the members following this format -->
+      </section>
+  </main>
+  {% include 'footer.html' %}
 </body>
 </html>

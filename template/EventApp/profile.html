@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -5,6 +6,8 @@
     <meta charset="UTF-8" />
     <title>Customer Profile</title>
     <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -135,53 +138,7 @@
       </div>
     </div>
 
-    <footer class="footer">
-      <div class="footer-container">
-        <!-- Column 1: Logo -->
-        <div class="footer-column logo-column">
-          <img src="{% static 'image/our_logo.png' %}" alt="ManageHouse Logo" class="footer-logo" />
-          <p class="footer-small">Event Solutions</p>
-        </div>
-    
-        <!-- Column 2 -->
-        <div class="footer-column">
-          <p><a href="#">About Us</a></p>
-          <p><a href="#">Contact Us</a></p>
-          <p><a href="#">Terms & Conditions</a></p>
-          <p><a href="#">Privacy Policy</a></p>
-        </div>
-    
-        <!-- Column 3 -->
-        <div class="footer-column">
-          <p><a href="#">Services</a></p>
-          <p><a href="#">Event Packages</a></p>
-          <p><a href="#">Gallery</a></p>
-          <p><a href="#">FAQs</a></p>
-        </div>
-    
-        <!-- Column 4 -->
-        <div class="footer-column">
-          <p><a href="#">Support</a></p>
-          <p><a href="#">Submit Ticket</a></p>
-          <p><a href="#">Resources</a></p>
-          <p><a href="#">Affiliates</a></p>
-        </div>
-      </div>
-    
-      <div class="footer-divider"></div>
-    
-      <!-- Social Icons -->
-      <div class="footer-social">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-linkedin"></i></a>
-        <a href="#"><i class="fab fa-google-plus-g"></i></a>
-        <a href="#"><i class="fab fa-flickr"></i></a>
-      </div>
-    
-      <!-- Copyright -->
-      <p class="footer-copy">©Copyright. All rights reserved.</p>
-    </footer>
+  
     
     
 
@@ -230,5 +187,6 @@
 
       detectChanges();
     </script>
+    {% include 'footer.html' %}
   </body>
 </html>

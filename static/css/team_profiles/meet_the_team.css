@@ -1,8 +1,13 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -14,19 +19,18 @@ body {
   position: relative; /* normal flow */
   width: 100%;
   background-color: rgb(205, 60, 60); /* or whatever your header bg is */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* soft shadow for elegance */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* soft shadow for elegance */
   transition: all 0.3s ease;
   z-index: 1000;
-  height: 80px; 
+  height: 80px;
   padding-top: 30px; /* move everything inside lower */
   padding-bottom: 20px; /* optional: also gives some breathing room at bottom */
-
 }
 .header-container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
- /* margin-left: 20px;  This will move the entire header container to the right */
+  /* margin-left: 20px;  This will move the entire header container to the right */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -73,7 +77,7 @@ body {
   align-items: center;
   gap: 30px;
   margin: 0;
-  padding:  15px 25px;
+  padding: 15px 25px;
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* floating effect */
   background: rgba(255, 255, 255, 0.3); /* lighter transparent background */
@@ -104,9 +108,8 @@ body {
 .header-logo img {
   height: 100px; /* control logo size */
   width: auto;
- /* transition: transform 0.3s ease; /* smooth hover animation */
+  /* transition: transform 0.3s ease; /* smooth hover animation */
   transition: transform 0.4s ease, filter 0.4s ease; /* smooth zoom and color */
-
 }
 
 /* Hover effect */
@@ -115,7 +118,6 @@ body {
   transform: scale(1.1) rotate(-2deg); /* slight rotation + zoom */
   filter: brightness(1.2); /* make it a bit brighter */
 }
-
 
 /* ===== DROPDOWN MENU ===== */
 .nav-bar ul li ul {
@@ -126,7 +128,7 @@ body {
   background-color: #af3d3d;
   padding: 8px 0;
   border-radius: 0 0 8px 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .nav-bar ul li:hover ul {
@@ -162,7 +164,7 @@ body {
   transition: transform 0.3s ease;
 }
 .nav-profile-icon:hover {
-  transform: scale(1.1); 
+  transform: scale(1.1);
 }
 /* Cart + Search Icons */
 .nav-icons {
@@ -172,7 +174,7 @@ body {
   transition: transform 0.3s ease;
 }
 .nav-icons:hover {
-  transform: scale(1.1); 
+  transform: scale(1.1);
 }
 .nav-icon {
   width: 24px;
@@ -181,15 +183,19 @@ body {
   transition: transform 0.3s ease;
 }
 .nav-icon:hover {
-  transform: scale(1.1); 
+  transform: scale(1.1);
 }
 
 /* Other Icon Effects */
-.nav-icon, .nav-profile-icon, .nav-icons {
+.nav-icon,
+.nav-profile-icon,
+.nav-icons {
   transition: transform 0.3s ease; /* Apply transition for zoom effect */
 }
 
-.nav-icon:hover, .nav-profile-icon:hover, .nav-icons:hover {
+.nav-icon:hover,
+.nav-profile-icon:hover,
+.nav-icons:hover {
   transform: scale(1.1); /* Zoom effect */
 }
 /* ====== LOGO ====== */
@@ -217,7 +223,7 @@ body {
   border: 2px solid white;
 }
 
- /* ====== SEARCH BOX ====== */
+/* ====== SEARCH BOX ====== */
 .search-form {
   display: flex;
   align-items: center;
@@ -254,8 +260,6 @@ body {
   color: #c76464;
 }
 
-
-
 /* ====== HEADER SPACER ====== */
 .header-space {
   height: 10px; /* Just enough to push content under sticky header */
@@ -290,7 +294,7 @@ body {
 
 /* Hero section */
 .hero-section {
-  background: url('image/header-bg.jpg') no-repeat center/cover;
+  background: url("image/header-bg.jpg") no-repeat center/cover;
   height: 200px;
   display: flex;
   align-items: center;
@@ -328,7 +332,8 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 30px;
-  padding: 0px 40px 40px 40px;  text-align: center;
+  padding: 0px 40px 40px 40px;
+  text-align: center;
 }
 
 .team-member {
@@ -350,7 +355,7 @@ body {
   background-color: #8b0000;
   color: white;
   padding: 40px 30px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .footer-container {
@@ -454,7 +459,8 @@ body {
     flex-direction: column;
   }
 
-  .footer-center, .footer-right {
+  .footer-center,
+  .footer-right {
     align-self: flex-start;
   }
 }

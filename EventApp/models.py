@@ -1,13 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
+# Category model to categorize products
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name    
-
+# # Product model
 class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
@@ -24,7 +24,7 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name    
-    
+# C_profile model to store user profile information
 class C_profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=15, blank=True)
@@ -39,3 +39,24 @@ class C_profile(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
+    
+# Event model to store event information
+class  Portfolio (models.Model):
+    image = models.ImageField(upload_to='events_images/', null=True, blank=True)
+    title = models.CharField(max_length=100, blank=True)
+    event_type = models.CharField(max_length=100, null=True, blank=True)
+    event_date = models.DateField()
+    location = models.CharField(max_length=255, null=True, blank=True)
+    status = models.CharField(max_length=50, choices=[
+        ('completed', 'Completed'),
+        ('ongoing', 'Ongoing'),
+        ('canceled', 'Canceled'),
+    ], default='completed')
+    team_or_individual = models.CharField(max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        return self.title if self.title else "Event"
+
+
+
+   

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Event Planner Homepage</title>
     <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       rel="stylesheet"
@@ -46,7 +47,7 @@
               <a href="#">About Us ▾</a>
               <ul class="dropdown-content">
                 <li><a href="{% url 'meet_the_team' %}">Meet The Team</a></li>
-                <li><a href="#">Reviews</a></li>
+                <li><a href="{% url 'policy' %}">Policy</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -54,10 +55,11 @@
               <ul class="dropdown-content">
                 <li><a href="#">Visual Product</a></li>
                 <li><a href="#">Other Services</a></li>
+                <li><a href="#">Help</a></li>
               </ul>
             </li>
             <li><a href="{% url 'product' %}">Product</a></li>
-            <li><a href="#">Portfolio</a></li>
+            <li><a href="{% url 'event_list' %}">Portfolio</a></li>
             {% if user.is_authenticated %}
             <li><a href="{% url 'logout' %}">Logout</a></li>
             {% else %}
@@ -141,98 +143,7 @@
       </div>
     </div>
 
-    <!-- Footer-->
-
-    <footer
-      class="footer"
-      style="background-color: #910000; color: white; padding: 40px 80px"
-    >
-      <div
-        class="footer-container"
-        style="display: flex; justify-content: space-between; flex-wrap: wrap"
-      >
-        <!-- Left Text -->
-        <div
-          class="footer-image"
-          style="
-            flex: 1;
-            min-width: 250px;
-            max-width: 300px;
-            margin-bottom: 20px;
-          "
-        >
-          <img
-            src="{% static 'image/our_logo.png' %}"
-            alt="Footer Visual"
-            style="width: 100%; height: auto; border-radius: 10px"
-          />
-        </div>
-        <div
-          class="footer-description"
-          style="
-            flex: 1;
-            min-width: 300px;
-            max-width: 600px;
-            margin-bottom: 20px;
-          "
-        >
-          <p
-            style="
-              font-family: 'Volkhov-Bold', sans-serif;
-              font-size: 18px;
-              line-height: 1.6;
-            "
-          >
-            At ManageHoise, we bring your dream events to life with seamless
-            planning, creative execution, and top-tier management. Whether it's
-            a grand corporate gathering, a dreamy wedding, or an exclusive
-            private event, we handle every detail with precision and passion.
-          </p>
-        </div>
-
-        <!-- Company Links -->
-        <div
-          class="footer-links"
-          style="flex: 1; min-width: 200px; margin-bottom: 20px"
-        >
-          <h3 style="font-size: 22px; margin-bottom: 10px">Company</h3>
-          <ul style="line-height: 2">
-            <li>About us</li>
-            <li>Contact us</li>
-            <li>Terms &amp; Conditions</li>
-            <li>Privacy Policy</li>
-          </ul>
-        </div>
-
-        <!-- Contact Info -->
-        <div class="footer-contact" style="flex: 1; min-width: 250px">
-          <div style="display: flex; align-items: center; margin-bottom: 10px">
-            <img
-              src="{% static 'image/map-pin0.svg' %}"
-              alt="Location"
-              style="width: 24px; margin-right: 10px"
-            />
-            <span>74/A, Green Road, Dhaka - 1207</span>
-          </div>
-          <div style="display: flex; align-items: center; margin-bottom: 10px">
-            <img
-              src="{% static 'image/phone0.svg' %}"
-              alt="Phone"
-              style="width: 24px; margin-right: 10px"
-            />
-            <span>+8801795733422</span>
-          </div>
-          <div style="display: flex; align-items: center">
-            <img
-              src="{% static 'image/mail0.svg' %}"
-              alt="Email"
-              style="width: 24px; margin-right: 10px"
-            />
-            <span>managehoise@gmail.com</span>
-          </div>
-        </div>
-      </div>
-    </footer>
+       
     <script>
       const header = document.getElementById("mainHeader");
 
@@ -258,5 +169,6 @@
         }, 3000);
       }
     </script>
+    {% include 'footer.html' %}
   </body>
 </html>

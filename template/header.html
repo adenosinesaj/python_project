@@ -1,0 +1,79 @@
+{% load static %}
+<header class="header" id="mainHeader">
+  <div class="header-container">
+    <!-- Left: Logo or Brand Name -->
+    <div class="logo">
+      <a href="#">
+        <img src="{% static 'image/manage.png' %}" alt="ManageHouse Logo" />
+      </a>
+    </div>
+
+    <!-- Center: Navigation Menu -->
+    <nav class="nav-bar">
+      <ul>
+        <li class="dropdown">
+          <a href="#">About Us ▾</a>
+          <ul class="dropdown-content">
+            <li><a href="{% url 'meet_the_team' %}">Meet The Team</a></li>
+            <li><a href="{% url 'policy' %}">Policy</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#">Services ▾</a>
+          <ul class="dropdown-content">
+            <li><a href="#">Visual Product</a></li>
+            <li><a href="#">Other Services</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+        </li>
+        <li><a href="{% url 'product' %}">Product</a></li>
+        <li><a href="{% url 'event_list' %}">Portfolio</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+        <li><a href="{% url 'login' %}" id="loginBtn">Login</a></li>
+        <li><a href="{% url 'signup' %}">Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+
+    <!-- Right: Icons -->
+    <div class="header-icons">
+      {% if user.is_authenticated %}
+      <!-- Cart Icon -->
+      <a href="{% url 'cart' %}">
+        <img src="{% static 'Image/cart.png' %}" alt="Cart" class="nav-icon" />
+      </a>
+
+      <!-- Search Form -->
+      <form class="search-form" action="/search/" method="GET">
+        <input
+          type="text"
+          name="q"
+          class="search-input"
+          placeholder="Search..."
+        />
+        <button type="submit" class="search-button">🔍</button>
+      </form>
+
+      <!-- Profile Picture Icon -->
+      <a href="{% url 'profile' %}">
+        <img
+          src="{{ user.c_profile.profile_picture.url }}"
+          alt="Profile"
+          class="nav-profile-icon"
+        />
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</header>
+<div class="header-wave">
+  <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+    <!-- Front wave -->
+    <path
+      d="M0,50 C150,130 350,30 500,50 L500,0 L0,0 Z"
+      style="stroke: none; fill: #d33f3f"
+    ></path>
+  </svg>
+</div>

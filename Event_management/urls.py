@@ -36,8 +36,10 @@ urlpatterns = [
     path('product/<str:id>', e_views.product_details, name = 'product_details'),
     path('meet_the_team/sajid/', e_views.profile_sajid, name='sajid_info'),
     path('meet_the_team/toma/', e_views.profile_toma, name='toma_info'),
-    path('search/', e_views.search, name='search')
-
+    path('search/', e_views.search, name='search'),
+    path('policy/', e_views.policy, name='policy'),
+    path('event_list/', e_views.event_list, name='event_list'),
+    path('event_list/<int:pk>/', e_views.event_details, name='event_detail'),
 
 
 

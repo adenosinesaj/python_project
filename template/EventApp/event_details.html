@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>event</title>
+</head>
+<body>
+    <div class="event-detail">
+        <img src="{{ event.image.url }}" alt="{{ event.title }}">
+        <h2>{{ event.title }}</h2>
+        <p><strong>Type:</strong> {{ event.event_type }}</p>
+        <p><strong>Date:</strong> {{ event.event_date }}</p>
+        <p><strong>Location:</strong> {{ event.location }}</p>
+        <p><strong>Status:</strong> {{ event.status }}</p>
+        <p><strong>Team/Individual:</strong> {{ event.team_or_individual }}</p>
+    </div>
+    
+</body>
+</html>

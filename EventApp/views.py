@@ -9,6 +9,8 @@ from .form import ProfilePictureForm
 from django.contrib.auth.decorators import login_required
 from .form import SignUpForm
 from django.contrib import messages
+from django.shortcuts import render, get_object_or_404
+
 
 
 
@@ -24,6 +26,9 @@ def product(request):
     products = Product.objects.all()
     context = {'products': products}
     return render(request, template_name='EventApp/product.html', context = context)
+
+def policy(request):
+    return render(request , 'EventApp/policy.html')
 
 def search(request):
     query = request.GET.get('q')
@@ -47,6 +52,17 @@ def profile_sajid(request):
 
 def profile_toma(request):
     return render(request, template_name='team_profiles/profile_toma.html')
+
+
+def event_list(request):
+    events = Portfolio.objects.all()
+    return render(request, 'EventApp/event_list.html', {'events': events})
+
+def event_details(request, pk):
+    event = get_object_or_404(Portfolio, pk=pk)
+    return render(request, 'EventApp/event_details.html', {'event': event})
+
+
 
 def signup_view(request): 
     if request.method == 'POST':
@@ -92,6 +108,9 @@ def user_login(request):
         messages.success(request, "Logged in successfully!")
         return redirect('home')
     return render(request, 'EventApp/login.html', {'form': form})
+
+
+
 
 
 def user_logout(request):

@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/event_list.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+
+    <title>Events</title>
+  </head>
+  <body>
+    {% include 'header.html' %}
+    <main class="main-content">
+        <div class="events-container">
+        {% for event in events %}
+        <div class="event-box">
+            <a href="{% url 'event_detail' event.pk %}">
+            <img src="{{ event.image.url }}" alt="{{ event.title }}" />
+            <div class="event-content">
+                <h3>{{ event.title }}</h3>
+                <p>{{ event.event_type }} | {{ event.event_date }}</p>
+            </div>
+            </a>
+        </div>
+        {% endfor %}
+        </div>
+    </main>
+    {% include 'footer.html' %}
+  </body>
+</html>

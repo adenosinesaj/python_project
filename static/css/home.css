@@ -1,13 +1,22 @@
-
+* {
+  box-sizing: border-box;
+}
 /* Optional: smoother scroll */
 html {
   scroll-behavior: smooth;
 }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 /* Base Styles */
 body {
   margin: 0;
   /*font-family: "Roboto", sans-serif;*/
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   background-color: white;
 }
 
@@ -27,10 +36,18 @@ body {
   z-index: 9999;
 }
 
-.popup.success { background: #4CAF50; }
-.popup.error { background: #f44336; }
-.popup.warning { background: #ff9800; }
-.popup.info { background: #2196F3; }
+.popup.success {
+  background: #4caf50;
+}
+.popup.error {
+  background: #f44336;
+}
+.popup.warning {
+  background: #ff9800;
+}
+.popup.info {
+  background: #2196f3;
+}
 
 .popup.show {
   opacity: 1;
@@ -45,19 +62,17 @@ body {
   transform: translateY(0);
 }
 
-
 /* ===== GENERAL HEADER ===== */
 header {
   position: relative; /* normal flow */
   width: 100%;
   background-color: rgb(205, 60, 60); /* or whatever your header bg is */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* soft shadow for elegance */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* soft shadow for elegance */
   transition: all 0.3s ease;
   z-index: 1000;
-  height: 50px; 
+  height: 100px;
   padding-top: 30px; /* move everything inside lower */
   padding-bottom: 20px; /* optional: also gives some breathing room at bottom */
-
 }
 .header-container {
   width: 100%;
@@ -87,7 +102,7 @@ header {
 .header-wave svg {
   display: block;
   width: 100%;
-  height: 80px; /* you can adjust height here if you want deeper curve */
+  height: 100px; /* you can adjust height here if you want deeper curve */
 }
 .header-wave path {
   fill: rgb(205, 60, 60); /* Same as your header background */
@@ -100,7 +115,6 @@ header {
   justify-content: center;
   align-items: center;
   padding-top: 20px;
-
 }
 
 .nav-bar ul {
@@ -110,7 +124,7 @@ header {
   background: rgba(255, 255, 255, 0.3); /* lighter transparent */
   gap: 30px;
   margin: 0;
-  padding: 15px 25px ;
+  padding: 15px 25px;
   border-radius: 15px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px); /* <-- THIS creates the blur effect */
@@ -141,9 +155,8 @@ header {
 .logo img {
   height: 100px; /* control logo size */
   width: auto;
- /* transition: transform 0.3s ease; /* smooth hover animation */
+  /* transition: transform 0.3s ease; /* smooth hover animation */
   transition: transform 0.4s ease, filter 0.4s ease; /* smooth zoom and color */
-
 }
 
 /* Hover effect */
@@ -152,7 +165,6 @@ header {
   transform: scale(1.1) rotate(-2deg); /* slight rotation + zoom */
   filter: brightness(1.2); /* make it a bit brighter */
 }
-
 
 /* ===== DROPDOWN MENU ===== */
 .nav-bar ul li ul {
@@ -163,7 +175,7 @@ header {
   background-color: #af3d3d;
   padding: 8px 0;
   border-radius: 0 0 8px 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .nav-bar ul li:hover ul {
@@ -198,7 +210,7 @@ header {
   transition: transform 0.3s ease;
 }
 .nav-profile-icon:hover {
-  transform: scale(1.1); 
+  transform: scale(1.1);
 }
 /* Cart + Search Icons */
 .nav-icons {
@@ -208,7 +220,7 @@ header {
   transition: transform 0.3s ease;
 }
 .nav-icons:hover {
-  transform: scale(1.1); 
+  transform: scale(1.1);
 }
 .nav-icon {
   width: 24px;
@@ -217,15 +229,19 @@ header {
   transition: transform 0.3s ease;
 }
 .nav-icon:hover {
-  transform: scale(1.1); 
+  transform: scale(1.1);
 }
 
 /* Other Icon Effects */
-.nav-icon, .nav-profile-icon, .nav-icons {
+.nav-icon,
+.nav-profile-icon,
+.nav-icons {
   transition: transform 0.3s ease; /* Apply transition for zoom effect */
 }
 
-.nav-icon:hover, .nav-profile-icon:hover, .nav-icons:hover {
+.nav-icon:hover,
+.nav-profile-icon:hover,
+.nav-icons:hover {
   transform: scale(1.1); /* Zoom effect */
 }
 /* ====== LOGO ====== */
@@ -253,7 +269,7 @@ header {
   border: 2px solid white;
 }
 
- /* ====== SEARCH BOX ====== */
+/* ====== SEARCH BOX ====== */
 .search-form {
   display: flex;
   align-items: center;
@@ -289,8 +305,6 @@ header {
   cursor: pointer;
   color: #c76464;
 }
-
-
 
 /* ====== HEADER SPACER ====== */
 .header-space {
@@ -340,7 +354,7 @@ header {
 }
 
 .hero-text {
-  max-width:  500px; /* So text doesn't stretch too wide */
+  max-width: 500px; /* So text doesn't stretch too wide */
   margin-top: -80px; /* Moves the text upward */
 }
 
@@ -353,7 +367,7 @@ header {
   font-size: 48px;
   line-height: 1.2;
   text-align: left; /* Force text alignment */
-  font-family: 'Merriweather', serif;
+  font-family: "Merriweather", serif;
 }
 
 .hero-text p {
@@ -390,7 +404,6 @@ header {
   text-align: center;
 }
 
-
 .left {
   max-width: 50%;
 }
@@ -418,8 +431,6 @@ h1 {
   font-size: 0.9rem;
 }
 
-
-
 /* Responsive Styles */
 @media (max-width: 768px) {
   .hero {
@@ -446,7 +457,6 @@ h1 {
     align-items: center;
     padding: 1rem 0;
   }
-
 }
 .carousel-container {
   overflow: hidden;
@@ -478,102 +488,5 @@ h1 {
   }
   100% {
     transform: translateX(-50%);
-  }
-}
-
-/* Footer */
-.footer {
-  background-color: #910000;
-  color: white;
-  padding: 40px 20px;
-  font-family: "Volkhov", serif;
-  width: 89%;
-}
-
-.footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 40px;
-}
-
-.footer-left,
-.footer-center,
-.footer-right {
-  flex: 1 1 300px;
-}
-
-.footer-logo {
-  width: 100px;
-  height: auto;
-  margin-bottom: 20px;
-}
-
-.footer-desc {
-  font-size: 14px;
-  line-height: 1.7;
-  max-width: 320px;
-}
-
-.footer-heading {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 12px;
-}
-
-.footer-links {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-links li {
-  margin-bottom: 10px;
-}
-
-.footer-links a {
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.footer-links a:hover {
-  text-decoration: underline;
-}
-
-.contact-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
-  font-size: 14px;
-}
-
-.contact-item img {
-  width: 20px;
-  height: 20px;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-
-  .footer-left,
-  .footer-center,
-  .footer-right {
-    align-items: center;
-  }
-
-  .footer-desc,
-  .footer-links,
-  .contact-item {
-    text-align: center;
   }
 }
