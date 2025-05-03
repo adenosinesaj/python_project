@@ -47,6 +47,46 @@ def delete_product(request, id):
     context = {'product': product}
     return render(request, template_name='EventApp/delete_product.html', context=context)
 
+@login_required
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    cart_item, created = CartItem.objects.get_or_create(user=request.user, product=product)
+    if not created:
+        cart_item.quantity += 1
+    cart_item.save()
+    return redirect('view_cart')
+
+@login_required
+def view_cart(request):
+    cart_items = CartItem.objects.filter(user=request.user)
+    total_price = sum(item.product.price * item.quantity for item in cart_items)
+    return render(request, 'EventApp/cart.html', {'cart_items': cart_items, 'total_price': total_price})
+
+@login_required
+def remove_from_cart(request, item_id):
+    item = get_object_or_404(CartItem, id=item_id, user=request.user)
+    item.delete()
+    return redirect('view_cart')
+
+@login_required
+def checkout(request):
+    cart_items = CartItem.objects.filter(user=request.user)
+    if not cart_items:
+        messages.error(request, "Your cart is empty.")
+        return redirect('view_cart')
+
+    order = Order.objects.create(user=request.user, is_paid=True)  # You can manage payment status later
+    for item in cart_items:
+        OrderItem.objects.create(order=order, product=item.product, quantity=item.quantity)
+    cart_items.delete()
+    messages.success(request, "Order placed successfully!")
+    return redirect('order_history')
+
+@login_required
+def order_history(request):
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'EventApp/order_history.html', {'orders': orders})
+
 
 
 # Create your views here.
@@ -56,8 +96,18 @@ def home(request):
 
 def product(request):
     products = Product.objects.all()
-    context = {'products': products}
-    return render(request, template_name='EventApp/product.html', context = context)
+    role = None
+    if request.user.is_authenticated:
+        try:
+            role = C_profile.objects.get(user=request.user).role
+        except C_profile.DoesNotExist:
+            role = None
+    context = {
+        'products': products,
+        'role': role,
+    }
+    return render(request, 'EventApp/product.html', context)
+
 
 def policy(request):
     return render(request , 'EventApp/policy.html')
@@ -68,6 +118,7 @@ def search(request):
     if query:
         results = Product.objects.filter(name__icontains=query)
     return render(request, 'search_results.html', {'results': results})
+
 def cart(request):
     # This is a placeholder; replace it with actual logic
     return render(request, 'EventApp/cart.html')  # Make sure you create cart.html!
@@ -112,29 +163,16 @@ def signup(request):
                 messages.error(request, 'Email already registered.')
                 return render(request, 'EventApp/signup.html', {'form': form})
 
-            # Create user manually instead of form.save()
-            user = User(
-                username=username,
-                email=email,
-            )
-            user.set_password(form.cleaned_data['password'])
-            user.save()
-
-            # Get the role and other fields
-            role = request.POST.get('role')
-            phone = form.cleaned_data.get('phone')
-            profile_picture = form.cleaned_data.get('profile_picture') or 'profile/user.png'
-            bio = form.cleaned_data.get('bio')
-
-            # Save profile
-            C_profile.objects.create(
-                user=user,
-                phone=phone,
-                profile_picture=profile_picture,
-                bio=bio,
-                role=role
-            )
-
+            # ✅ Create user and profile
+            user = form.save()
+            profile_picture = form.cleaned_data.get('profile_picture')
+            if not C_profile.objects.filter(user=user).exists():
+                C_profile.objects.create(
+                    user=user,
+                    phone=form.cleaned_data.get('phone', ''),
+                    bio=form.cleaned_data.get('bio', ''),
+                    profile_picture=profile_picture if profile_picture else 'profile/user.png',
+                )
             login(request, user)
             messages.success(request, "Signup successful! Welcome 🎉")
             return redirect('home')

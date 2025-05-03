@@ -12,6 +12,7 @@ class ProductForm(ModelForm):
 
 # SignUpForm (no change)
 class SignUpForm(forms.ModelForm):
+    role = forms.ChoiceField(choices=C_profile.ROLE_CHOICES, required=True)
     username = forms.CharField(label="Username")
     email = forms.EmailField(label="Email")
     password = forms.CharField(widget=forms.PasswordInput, label="Password")
@@ -24,7 +25,7 @@ class SignUpForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'email', 'password', 'confirm_password', 'role']
 
     def clean_username(self):
         username = self.cleaned_data['username']

@@ -56,9 +56,13 @@
             <h5 class="text-center">{{ product.name }}</h5>
             <p class="text-center"><strong>Price:</strong> ${{ product.price }}</p>
             <div class="d-flex justify-content-center btn-group">
+              {% if role == 'buyer' %}
+              <a href="{% url 'add_to_cart' product.id %}" class="btn btn-outline-success btn-sm">Add to Cart</a>
+          {% elif role == 'seller' %}
               <a href="{% url 'product_details' product.id %}" class="btn btn-primary btn-sm">Details</a>
               <a href="{% url 'update_product' product.id %}" class="btn btn-warning btn-sm">Update</a>
               <a href="{% url 'delete_product' product.id %}" class="btn btn-danger btn-sm">Delete</a>
+          {% endif %}
             </div>
           </div>
         </div>

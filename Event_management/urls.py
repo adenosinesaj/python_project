@@ -43,6 +43,11 @@ urlpatterns = [
     path('policy/', e_views.policy, name='policy'),
     path('event_list/', e_views.event_list, name='event_list'),
     path('event_list/<int:pk>/', e_views.event_details, name='event_detail'),
+    path('cart/', e_views.view_cart, name='view_cart'),
+    path('cart/add/<int:product_id>/', e_views.add_to_cart, name='add_to_cart'),
+    path('cart/remove/<int:item_id>/', e_views.remove_from_cart, name='remove_from_cart'),
+    path('checkout/', e_views.checkout, name='checkout'),
+    path('orders/', e_views.order_history, name='order_history'),
 
 
 
