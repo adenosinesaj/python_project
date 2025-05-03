@@ -114,6 +114,15 @@
                 {% if not editable %}disabled{% endif %}
               >{{ profile.bio }}</textarea>
             </div>
+            <div>
+              <label for="role">Role</label>
+              <textarea
+                id="role"
+                name="role"
+                class="editable-field"
+                {% if not editable %}disabled{% endif %}
+              >{{ profile.bio }}</textarea>
+            </div>
           </div>
 
           <!-- Save Button to submit the changes (only enabled when in edit mode) -->

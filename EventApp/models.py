@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
+from django.utils.translation import gettext_lazy as _
+
 
 # Category model to categorize products
 class Category(models.Model):
@@ -27,7 +30,9 @@ class Product(models.Model):
 # C_profile model to store user profile information
 class C_profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=15, blank=True)
+    phone = models.CharField(
+        max_length=15, blank=True,
+        validators=[RegexValidator(r'^\d{11}$', message='Enter an 11-digit phone number')])
     profile_picture = models.ImageField(
         upload_to='profile/',
         default='profile/user.png',  # Set default image path
@@ -36,6 +41,8 @@ class C_profile(models.Model):
     )
     bio = models.TextField(blank=True)
     address = models.CharField(max_length=255, blank=True)  # Add address field
+    role = models.CharField(max_length=10, choices=[('CUSTOMER', 'Customer'), ('VENDOR', 'Vendor')], default='CUSTOMER')
+
 
     def __str__(self):
         return f"{self.user.username}'s Profile"

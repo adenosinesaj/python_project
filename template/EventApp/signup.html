@@ -8,7 +8,14 @@
   <body>
     <h2>Sign Up</h2>
     <form method="post" enctype="multipart/form-data">
-      {% csrf_token %} {{ form.as_p }}
+      {% csrf_token %} 
+      {{ form.as_p }}
+          <!-- Role Selection -->
+      <label for="role">Select Role</label>
+      <select name="role" id="role" required>
+          <option value="CUSTOMER">Customer</option>
+          <option value="VENDOR">Vendor</option>
+      </select>
       <button type="submit">Sign Up</button>
     </form>
     <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>

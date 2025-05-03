@@ -350,7 +350,7 @@ header {
   justify-content: space-between; /* Push text to left, logo to right */
   align-items: center;
   padding: 100px 50px; /* Padding from top-bottom and left-right */
-  gap: 50px; /* space between text and image */
+  gap: 70px; /* space between text and image */
 }
 
 .hero-text {
