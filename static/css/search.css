@@ -1,0 +1,50 @@
+/* Container row spacing */
+.row {
+    margin-top: 20px;
+}
+
+/* Card styling */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 15px;
+    margin-bottom: 30px;
+    text-align: center;
+    background-color: #fff;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Image styling */
+.card img {
+    max-height: 180px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    object-fit: contain;
+
+}
+
+/* Product title */
+.card-title {
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+/* Price styling */
+.card-text {
+    font-size: 16px;
+    margin: 0;
+}
+
+/* Button style */
+.btn-outline-primary {
+    margin-top: 10px;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 14px;
+}

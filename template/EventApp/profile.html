@@ -4,9 +4,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Customer Profile</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
 
     <link
       rel="stylesheet"
@@ -17,15 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
-    <!--Header-->
-    <div class="header profile-header-bar">
-      <nav class="nav-links">
-        <a href="/">Homepage</a>
-        <a href="/product/">Product</a>
-        <a href="#">Messages</a>
-      </nav>
-    </div>
-
+    {% include 'header.html' %}
     <!-- Profile-->
     <div class="profile-wrapper">
       <div class="profile-card">
@@ -116,13 +109,16 @@
             </div>
             <div>
               <label for="role">Role</label>
-              <textarea
+              <input
+                type="text"
                 id="role"
                 name="role"
-                class="editable-field"
-                {% if not editable %}disabled{% endif %}
-              >{{ profile.bio }}</textarea>
+                value="{{ profile.role }}"
+                disabled
+                readonly
+              />
             </div>
+            
           </div>
 
           <!-- Save Button to submit the changes (only enabled when in edit mode) -->

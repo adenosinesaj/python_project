@@ -25,7 +25,7 @@ class SignUpForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'confirm_password', 'role']
+        fields = ['username', 'email', 'password', 'confirm_password']
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -53,7 +53,9 @@ class SignUpForm(forms.ModelForm):
                 user=user,
                 phone=self.cleaned_data.get('phone'),
                 profile_picture=profile_pic,
-                bio=self.cleaned_data.get('bio')
+                bio=self.cleaned_data.get('bio'),
+                role=self.cleaned_data.get('role')  # ✅ Save the role here
+
             )
         return user
 

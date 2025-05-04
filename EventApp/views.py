@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from .form import SignUpForm
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
+
 
 
 
@@ -35,8 +37,8 @@ def update_product(request, id):
             form.save()
             messages.success(request, "Product updated successfully!")
             return redirect('product')
-    conext = {'form': form}
-    return render(request, template_name= 'EventApp/add_product.html', context=conext)
+    context = {'form': form}
+    return render(request, template_name= 'EventApp/add_product.html', context=context)
 
 def delete_product(request, id):
     product = Product.objects.get(pk = id)
@@ -117,7 +119,7 @@ def search(request):
     results = []
     if query:
         results = Product.objects.filter(name__icontains=query)
-    return render(request, 'search_results.html', {'results': results})
+    return render(request, 'EventApp/search_results.html', {'results': results})
 
 def cart(request):
     # This is a placeholder; replace it with actual logic
@@ -166,12 +168,15 @@ def signup(request):
             # ✅ Create user and profile
             user = form.save()
             profile_picture = form.cleaned_data.get('profile_picture')
+            role = form.cleaned_data.get('role')  # ✅ Get role from form
+
             if not C_profile.objects.filter(user=user).exists():
                 C_profile.objects.create(
                     user=user,
                     phone=form.cleaned_data.get('phone', ''),
                     bio=form.cleaned_data.get('bio', ''),
                     profile_picture=profile_picture if profile_picture else 'profile/user.png',
+                    role=role  # ✅ Save role here
                 )
             login(request, user)
             messages.success(request, "Signup successful! Welcome 🎉")

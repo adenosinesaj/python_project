@@ -75,8 +75,6 @@ class C_profile(models.Model):
     )
     bio = models.TextField(blank=True)
     address = models.CharField(max_length=255, blank=True)  # Add address field
-    role = models.CharField(max_length=10, choices=[('CUSTOMER', 'Customer'), ('VENDOR', 'Vendor')], default='CUSTOMER')
-
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
