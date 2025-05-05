@@ -11,7 +11,28 @@ class Category(models.Model):
     def __str__(self):
         return self.name    
     
+# C_profile model to store user profile information
+class C_profile(models.Model):
+    ROLE_CHOICES = (
+        ('buyer', 'Buyer'),
+        ('seller', 'Seller'),
+    )
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='buyer')
+    phone = models.CharField(max_length=15, blank=True)
+    profile_picture = models.ImageField(
+        upload_to='profile/',
+        default='profile/user.png',  # Set default image path
+        blank=True,
+        null=True
+    )
+    bio = models.TextField(blank=True)
+    address = models.CharField(max_length=255, blank=True)  # Add address field
 
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
+    
 # # Product model
 class Product(models.Model):
     name = models.CharField(max_length=100)
@@ -57,27 +78,7 @@ class OrderItem(models.Model):
 
 
 
-# C_profile model to store user profile information
-class C_profile(models.Model):
-    ROLE_CHOICES = (
-        ('buyer', 'Buyer'),
-        ('seller', 'Seller'),
-    )
-    
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='buyer')
-    phone = models.CharField(max_length=15, blank=True)
-    profile_picture = models.ImageField(
-        upload_to='profile/',
-        default='profile/user.png',  # Set default image path
-        blank=True,
-        null=True
-    )
-    bio = models.TextField(blank=True)
-    address = models.CharField(max_length=255, blank=True)  # Add address field
 
-    def __str__(self):
-        return f"{self.user.username}'s Profile"
     
 # Event model to store event information
 class  Portfolio (models.Model):
@@ -95,7 +96,3 @@ class  Portfolio (models.Model):
 
     def __str__(self):
         return self.title if self.title else "Event"
-
-
-
-   

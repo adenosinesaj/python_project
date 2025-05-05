@@ -1,20 +1,36 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>event</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="{% static 'css/event_details.css' %}" />
+    <title>Event Details</title>
 </head>
 <body>
-    <div class="event-detail">
-        <img src="{{ event.image.url }}" alt="{{ event.title }}">
-        <h2>{{ event.title }}</h2>
-        <p><strong>Type:</strong> {{ event.event_type }}</p>
-        <p><strong>Date:</strong> {{ event.event_date }}</p>
-        <p><strong>Location:</strong> {{ event.location }}</p>
-        <p><strong>Status:</strong> {{ event.status }}</p>
-        <p><strong>Team/Individual:</strong> {{ event.team_or_individual }}</p>
+    <div class="event-wrapper">
+        <!-- Left side: image -->
+        <div class="event-image-container">
+            <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-img" />
+        </div>
+
+        <!-- Right side: content -->
+        <div class="event-content">
+            <p class="event-author">By Admin</p>
+            <h1 class="event-title">{{ event.title }}</h1>
+            <p class="event-description">
+                <strong>Type:</strong> {{ event.event_type }} <br>
+                <strong>Date:</strong> {{ event.event_date }} <br>
+                <strong>Location:</strong> {{ event.location }} <br>
+                <strong>Status:</strong> {{ event.status }} <br>
+                <strong>Team/Individual:</strong> {{ event.team_or_individual }}
+            </p>
+            <div class="event-meta">
+                <p>{{ event.event_date|date:"F j, Y" }} </p>
+            </div>
+            <a href="{% url 'event_list' %}" class="back-btn">🔙 Back</a>
+        </div>
     </div>
-    
 </body>
 </html>

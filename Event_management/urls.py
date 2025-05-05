@@ -40,6 +40,7 @@ urlpatterns = [
     path('meet_the_team/sajid/', e_views.profile_sajid, name='sajid_info'),
     path('meet_the_team/toma/', e_views.profile_toma, name='toma_info'),
     path('policy/', e_views.policy, name='policy'),
+    path('help/', e_views.help, name='help'),
     path('event_list/', e_views.event_list, name='event_list'),
     path('event_list/<int:pk>/', e_views.event_details, name='event_detail'),
     path('cart/', e_views.view_cart, name='view_cart'),
@@ -48,7 +49,9 @@ urlpatterns = [
     path('checkout/', e_views.checkout, name='checkout'),
     path('orders/', e_views.order_history, name='order_history'),
     path('search/', e_views.search, name='search'),
-
+    path('vendors/', e_views.vendor_list, name='vendor_list'),
+    path('vendor/<int:user_id>/', e_views.vendor_profile, name='vendor_profile'),
+ 
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

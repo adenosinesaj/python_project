@@ -1,0 +1,128 @@
+body {
+    background-color: #ffeaea;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-y: hidden;  /* Enables scroll if needed */
+
+
+  }
+  
+  .form-container {
+    background-color: #ffd6d6;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border: 1px solid #cc6666;
+    width: 650px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #b35c5c;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    flex-grow: 1;
+    overflow: hidden;
+  }
+  
+  /* Full-width for long fields like Bio or Profile Picture */
+  form p {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  form p:nth-child(7),
+  form p:nth-child(8),
+  form p:last-of-type {
+    grid-column: span 2;
+  }
+  
+  form label {
+    margin-bottom: 3px;
+    color: #5c0000;
+    font-size: 14px;
+  }
+  
+  form input,
+  form select,
+  form textarea {
+    padding: 6px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    background-color: #fefefe;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  form textarea {
+    resize: vertical;
+    max-height: 60px;
+  }
+  
+  button {
+    grid-column: span 2;
+    background-color: #c85c5c;
+    color: white;
+    padding: 8px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #b34d4d;
+  }
+  
+  p:last-of-type {
+    text-align: center;
+    grid-column: span 2;
+    margin-top: 15px;
+    color: #884444;
+    font-size: 14px;
+  }
+  
+  p:last-of-type a {
+    color: #cc4444;
+    text-decoration: none;
+  }
+  
+  p:last-of-type a:hover {
+    text-decoration: underline;
+  }
+ /* Responsive fallback */
+@media (max-width: 600px) {
+    form {
+      grid-template-columns: 1fr;
+    }
+  
+    button,
+    p:last-of-type {
+      grid-column: span 1;
+    }
+  
+    .form-container {
+      height: auto;
+      margin: 20px;
+    }
+  }

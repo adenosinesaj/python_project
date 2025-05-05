@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/vendor_profile.css' %}">
+    <title>Vendor1</title>
+</head>
+<body>
+    <div class="vendor-profile-container">
+        {% block content %}
+        <div class="profile-wrapper">
+            <div class="card-container">
+                <!-- Left: Image Card -->
+                <div class="card-left">
+                    <img src="{{ profile.profile_picture.url }}" alt="Vendor Picture" class="profile-img" />
+                </div>
+        
+                <!-- Right: Info Card -->
+                <div class="card-right">
+                    <h2>{{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
+                    <p class="username">Username: {{ profile.user.username }}</p>
+                    <p><strong>Phone:</strong> {{ profile.phone }}</p>
+                    <p><strong>Address:</strong> {{ profile.address }}</p>
+                    <p><strong>Bio:</strong> {{ profile.bio }}</p>
+                    <p><strong>Role:</strong> {{ profile.role }}</p>
+                    <div class="profile-actions">
+                        <a href="{% url 'vendor_list' %}" class="btn">🔙 Back to Vendor List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% endblock %}
+    </div>
+</body>
+</html>

@@ -3,15 +3,18 @@
 <html>
   <head>
     <title>Sign Up</title>
-    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}" />
   </head>
   <body>
-    <h2>Sign Up</h2>
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %} 
-      {{ form.as_p }}
-      <button type="submit">Sign Up</button>
-    </form>
-    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    <div class="form-container">
+      <h2>Sign Up</h2>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Sign Up</button>
+      </form>
+      <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </div>
   </body>
+  
 </html>

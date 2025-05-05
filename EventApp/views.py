@@ -5,6 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from .models import C_profile
+from django.contrib.auth.models import User
 from .form import *
 from django.contrib.auth.decorators import login_required
 from .form import SignUpForm
@@ -113,7 +114,8 @@ def product(request):
 
 def policy(request):
     return render(request , 'EventApp/policy.html')
-
+def help(request):
+    return render(request , 'EventApp/help.html')
 def search(request):
     query = request.GET.get('q')
     results = []
@@ -245,3 +247,21 @@ def profile_view(request):
             messages.success(request, "Profile updated successfully!")
 
     return render(request, 'EventApp/profile.html', {'profile': profile, 'editable': editable})
+
+@login_required
+def vendor_list(request):
+    vendors = C_profile.objects.filter(role='seller')
+    return render(request, 'EventApp/vendor_list.html', {'vendors': vendors})
+
+
+@login_required
+def vendor_profile(request, user_id):
+    try:
+        vendor = C_profile.objects.get(user__id=user_id, role='seller')
+    except C_profile.DoesNotExist:
+        messages.error(request, "Vendor not found.")
+        return redirect('vendor_list')
+
+    return render(request, 'EventApp/vendor_profile.html', {'profile': vendor})
+
+
