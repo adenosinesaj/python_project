@@ -140,6 +140,36 @@ def profile_sajid(request):
 def profile_toma(request):
     return render(request, template_name='team_profiles/profile_toma.html')
 
+def profile_tanisha(request):
+    return render(request, template_name='team_profiles/profile_tanisha.html')
+
+def profile_asif(request):
+    return render(request, template_name='team_profiles/profile_asif.html')
+
+def profile_sydul(request):
+    return render(request, template_name='team_profiles/profile_sydul.html')
+
+def profile_shoily(request):
+    return render(request, template_name='team_profiles/profile_shoily.html')
+
+def profile_jisan(request):
+    return render(request, template_name='team_profiles/profile_jisan.html')
+
+def profile_rifat(request):
+    return render(request, template_name='team_profiles/profile_rifat.html')
+
+def profile_riyad(request):
+    return render(request, template_name='team_profiles/profile_riyad.html')
+
+def profile_tabiur(request):
+    return render(request, template_name='team_profiles/profile_tabiur.html')
+
+def profile_mamim(request):
+    return render(request, template_name='team_profiles/profile_mamim.html')
+
+def profile_shakib(request):
+    return render(request, template_name='team_profiles/profile_shakib.html')
+
 
 def event_list(request):
     events = Portfolio.objects.all()
