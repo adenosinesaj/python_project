@@ -30,7 +30,6 @@ urlpatterns = [
     path('profile/', e_views.profile_view, name='profile'), 
     path('login/', e_views.user_login, name='login'),
     path('logout/', e_views.user_logout, name='logout'),
-    path('cart/', e_views.cart, name='cart'),
     path('meet_the_team/', e_views.meet_the_team, name='meet_the_team'),
     path('product/', e_views.product, name='product'),
     path('product/<str:id>', e_views.product_details, name = 'product_details'),

@@ -56,13 +56,24 @@ def add_to_cart(request, product_id):
     if not created:
         cart_item.quantity += 1
     cart_item.save()
-    return redirect('view_cart')
+    print(f"CartItem for user {request.user} and product {product.name} is {cart_item.quantity} now.")
+    return redirect('view_cart')    
 
 @login_required
 def view_cart(request):
     cart_items = CartItem.objects.filter(user=request.user)
-    total_price = sum(item.product.price * item.quantity for item in cart_items)
-    return render(request, 'EventApp/cart.html', {'cart_items': cart_items, 'total_price': total_price})
+    
+    # Attach subtotal to each item (custom attribute)
+    for item in cart_items:
+        item.subtotal = item.product.price * item.quantity
+
+    total_price = sum(item.subtotal for item in cart_items)
+
+    return render(request, 'EventApp/cart.html', {
+        'cart_items': cart_items,
+        'total_price': total_price,
+    })
+
 
 @login_required
 def remove_from_cart(request, item_id):

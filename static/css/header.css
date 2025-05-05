@@ -61,7 +61,8 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 8px; /* move it up */
+    padding-top: 12px; /* move it up */
+    padding-bottom: 12px;
 
 
   }
@@ -71,7 +72,7 @@ header {
     display: flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.3); /* lighter transparent */
-    gap: 30px;
+    gap: 40px;
     margin: 0;
     padding: 15px 25px;
     border-radius: 15px;
@@ -102,7 +103,7 @@ header {
     margin-left: -10px; /* move logo a little more left */
   }
   .logo img {
-    height: 100px; /* control logo size */
+    height: 80px; /* control logo size */
     width: auto;
     /* transition: transform 0.3s ease; /* smooth hover animation */
     transition: transform 0.4s ease, filter 0.4s ease; /* smooth zoom and color */
@@ -150,8 +151,8 @@ header {
   
   /* Profile Picture */
   .nav-profile-icon {
-    width: 36px;
-    height: 36px;
+    width: 50px;
+    height: 50px;
     object-fit: cover;
     border-radius: 50%;
     border: 2px solid white;
@@ -205,7 +206,7 @@ header {
   .header-icons {
     display: flex;
     align-items: center;
-    gap: 25px; /* Space between user/cart/search */
+    gap: 35px; /* Space between user/cart/search */
     margin-left: 50px; /* Push icons a bit away from nav */
   }
   

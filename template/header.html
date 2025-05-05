@@ -3,7 +3,7 @@
   <div class="header-container">
     <!-- Left: Logo or Brand Name -->
     <div class="logo">
-      <a href="#">
+      <a href="{% url 'home' %}">
         <img src="{% static 'image/manage.png' %}" alt="ManageHouse Logo" />
       </a>
     </div>
@@ -26,7 +26,7 @@
     <div class="header-icons">
       {% if user.is_authenticated %}
       <!-- Cart Icon -->
-      <a href="{% url 'cart' %}">
+      <a href="{% url 'view_cart' %}">
         <img src="{% static 'Image/cart.png' %}" alt="Cart" class="nav-icon" />
       </a>
  <!-- Search Form -->

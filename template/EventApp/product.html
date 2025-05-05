@@ -1,16 +1,20 @@
-<!-- templates/products.html -->
-<!DOCTYPE html>
-<html lang="en">
+{% load static %}
 <head>
   <meta charset="UTF-8">
   <title>Product List</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f8f9fa;
-    }
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
     .product-card {
       background: #fff;
       border: 1px solid #dee2e6;
@@ -37,6 +41,8 @@
 </head>
 <body>
 
+  {% include 'header.html' %}
+
   <div class="container">
     <h1 class="text-center mb-4">Product List</h1>
 
@@ -58,8 +64,9 @@
             <div class="d-flex justify-content-center btn-group">
               {% if role == 'buyer' %}
               <a href="{% url 'add_to_cart' product.id %}" class="btn btn-outline-success btn-sm">Add to Cart</a>
-          {% elif role == 'seller' %}
               <a href="{% url 'product_details' product.id %}" class="btn btn-primary btn-sm">Details</a>
+          {% elif role == 'seller' %}
+              
               <a href="{% url 'update_product' product.id %}" class="btn btn-warning btn-sm">Update</a>
               <a href="{% url 'delete_product' product.id %}" class="btn btn-danger btn-sm">Delete</a>
           {% endif %}
@@ -71,6 +78,8 @@
       {% endfor %}
     </div>
   </div>
+
+  {% include 'footer.html' %}
 
 </body>
 </html>

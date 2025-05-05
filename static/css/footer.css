@@ -18,7 +18,7 @@
     width: 100%;
     background-color: #910000;
     color: white;
-    padding: 40px 20px;
+    padding: 2.5rem 1.25rem;
     font-family: "Volkhov", serif;
   }
   
@@ -32,8 +32,9 @@
     text-align: left;
   }
   
-  .footer-column {
-    min-width: 150px;
+  .footer-column p,
+  .footer-column a {
+  font-size: 0.875rem;
   }
   
   .footer-logo {
@@ -66,6 +67,7 @@
   
   .footer-column a:hover {
     text-decoration: underline;
+    color: #ffcfcf;
   }
   
   .footer-divider {
