@@ -4,13 +4,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Real Estate Agent Card</title>
-  <link rel="stylesheet" href="{% static 'css/team_profiles/profile_sajid.css' %}"/>
+  <title>Sajid</title>
+  <link rel="stylesheet" href="{% static 'css/team_profiles/profile_sajid.css' %}" />
 </head>
 <body>
+  <a href="{% url 'meet_the_team' %}" class="close-button" title="Back to Team">X</a>
+
   <div class="card">
     <div class="left">
-        <h2 class="title">Meet our amazing Managing Director</h2>
+      <h2 class="title">Meet our amazing Managing Director</h2>
       <h1 class="name">Sajid Shahan Rahman</h1>
       <div class="info">
         <p>sajidshahanrahman@gmail.com</p>
@@ -20,14 +22,14 @@
             🔗 LinkedIn: @sajidshahanrahman
           </a>
         </p>
-                <hr />
+        <hr />
         <p>44/i3</p>
         <p>West Rajabazar,</p>
         <p>Farmgate</p>
       </div>
     </div>
     <div class="right">
-      <img src="{% static 'image/sajid.jpg' %}" alt="Sajid" />
+      <img src="{% static 'image/Sajid.jpg' %}" alt="Sajid" />
     </div>
   </div>
 </body>

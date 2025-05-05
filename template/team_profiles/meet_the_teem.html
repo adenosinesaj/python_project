@@ -15,112 +15,131 @@
   {% include 'header.html' %}
   <main class="main-content">
 
-      <section class="intro">
-        <p><strong>Introducing the people of <img src="{% static 'image/our_logo.png' %}" alt="Brand" class="inline-icon" /></strong></p>
-      </section>
+  <section class="intro">
+    <p><strong>Introducing the people of <img src="{% static 'image/our_logo.png' %}" alt="Brand" class="inline-icon" /></strong></p>
+  </section>
 
-      <section class="team-grid">
-        <!-- Example team member -->
-        <a href="{% url 'toma_info' %}" style="text-decoration: none; color: inherit;">
-        <div class="team-member">
-          <img src="{% static 'image/Toma.jpg' %}" alt="Toma" />
-          <p><strong style="color: blue;">Sanjida Rahman</strong></p>
-          <p>Chairman</p>
-        </div>
-        </a>
-        <!-- Copy and change image/text for other members -->
+  <section class="team-grid">
+    <!-- Example team member -->
+    <a href="{% url 'toma_info' %}" style="text-decoration: none; color: inherit;"> 
+    <div class="team-member">
+      <img src="{% static 'image/toma.jpg' %}" alt="Toma" />
+      <p><strong style="color: blue;">Sanjida Rahman</strong></p>
+      <p>Chairman</p>
+    </div>
+    </a>
+    <!-- Copy and change image/text for other members -->
 
-        <a href="{% url 'sajid_info' %}" style="text-decoration: none; color: inherit;">
-          <div class="team-member">
-            <img src="{% static 'image/Sajid.jpg' %}" alt="Sajid" />
-            <p><strong style="color: blue;">Sajid Shahan Rahman</strong></p>
-            <p>Managing Director</p>
-          </div>
-        </a>
+    <a href="{% url 'sajid_info' %}" style="text-decoration: none; color: inherit;">
+    <div class="team-member">
+      <img src="{% static 'image/Sajid.jpg' %}" alt="Sajid" />
+      <p><strong style="color: blue;">Sajid Shahan Rahman</strong></p>
+      <p>Managing Director</p>
+    </div>
+    </a>
         
-        <div class="team-member">
-            <img src="{% static 'image/Tanisha.jpg' %}" alt="Tanisha Tarannun" />
-            <p><strong style="color: blue;">Tanisha </strong></p>
-            <p>Chief Executive Officer (CEO)</p>
-        </div>
+    <a href="{% url 'tanisha_info' %}" style="text-decoration: none; color: inherit;">
+    <div class="team-member">
+      <img src="{% static 'image/Tanisha.jpg' %}" alt="Tanisha Tarannun" />
+      <p><strong style="color: blue;">Tanisha </strong></p>
+      <p>Chief Executive Officer (CEO)</p>
+    </div>
+    </a>     
+    <!-- Add rest of the members following this format -->
+  </section>
+        
+        
+  <section class="team-grid">
+    <!-- Example team member -->
+    <a href="{% url 'sydul_info' %}" style="text-decoration: none; color: inherit;">
+    <div class="team-member">
+      <img src="{% static 'image/Sydul.jpg' %}" alt="Sydul" />
+      <p><strong style="color: blue;">Sydul Islam Zubair</strong></p>
+      <p>Event Coordinator</p>
+    </div>
+    </a>
+            
+    <!-- Copy and change image/text for other members -->
+    <a href="{% url 'shoily_info' %}" style="text-decoration: none; color: inherit;">
+    <div class="team-member">
+      <img src="{% static 'image/Shoily.jpg' %}" alt="Shoily" />
+      <p><strong style="color: blue;">F.H.Shoily</strong></p>
+      <p>Creative Director</p>
+                
+    </div>
+    </a>
+              
+    <a href="{% url 'asif_info' %}" style="text-decoration: none; color: inherit;">
+    <div class="team-member">
+      <img src="{% static 'image/Asif.jpeg' %}" alt="Asif" />
+      <p><strong style="color: blue;">Asif Iqbal </strong></p>
+      <p>Marketing and Public
+          Relations Specialist</p>
+    </div>
+    </a>
+                  
+                  <!-- Add rest of the members following this format -->
+  </section>
+  <section class="team-grid">
+          <!-- Example team member -->
+    <a href="{% url 'shakib_info' %}" style="text-decoration: none; color: inherit;">
+    <div class="team-member">
+      <img src="{% static 'image/Shakib.jpeg' %}" alt="Shakib" />
+      <p><strong style="color: blue;">Shakib Hossain</strong></p>
+      <p>Technical Director</p>
+    </div>
+    </a>
+                    
+                    <!-- Copy and change image/text for other members -->
+    <a href="{% url 'jisan_info' %}" style="text-decoration: none; color: inherit;">
+    <div class="team-member">
+      <img src="{% static 'image/jisan.jpg' %}" alt="Mizanur" />
+      <p><strong style="color: blue;">Mizanur Rahman</strong></p>
+      <p>Technical Director</p>
+                        
+    </div>
+    </a>
+                      
+    <a href="{% url 'tabiur_info' %}" style="text-decoration: none; color: inherit;">
+    <div class="team-member">
+      <img src="{% static 'image/Tabiur.jpeg' %}" alt="Tabiur" />
+      <p><strong style="color: blue;">Tabiur Rahman</strong></p>
+      <p>Production Manager</p>
+    </div>
+    </a>
+                        
+        <!-- Add rest of the members following this format -->
+  </section>
+  <section class="team-grid">
+                        <!-- Example team member -->
+    <a href="{% url 'rifat_info' %}" style="text-decoration: none; color: inherit;">
+    <div class="team-member">
+      <img src="{% static 'image/Rifat.jpg' %}" alt="Rifat" />
+      <p><strong style="color: blue;">Gazi Rifat Nur</strong></p>
+      <p>Venue Manager</p>
+    </div>
+    </a>
+                          
+          <!-- Copy and change image/text for other members -->
+    <a href="{% url 'riyad_info' %}" style="text-decoration: none; color: inherit;">
+    <div class="team-member">
+      <img src="{% static 'image/riyad.jpg' %}" alt="Mehedi" />
+      <p><strong style="color: blue;">Mehedi Hasan Khan</strong></p>
+      <p>Event Designer</p>
+                              
+    </div>
+    </a>
+                            
+    <a href="{% url 'mamim_info' %}" style="text-decoration: none; color: inherit;">
+    <div class="team-member">
+      <img src="{% static 'image/mamim.jpg' %}" alt="Mamim" />
+      <p><strong style="color: blue;">Shahid Al Mamim</strong></p>
+      <p>Event Security Manager</p>
+    </div>
+    </a>
 
         <!-- Add rest of the members following this format -->
-      </section>
-
-
-      <section class="team-grid">
-        <!-- Example team member -->
-        <div class="team-member">
-          <img src="{% static 'image/Sydul.jpg' %}" alt="Sydul" />
-          <p><strong style="color: blue;">Sydul Islam Zubair</strong></p>
-          <p>Event Coordinator</p>
-        </div>
-
-        <!-- Copy and change image/text for other members -->
-        <div class="team-member">
-          <img src="{% static 'image/Shoily.jpg' %}" alt="Shoily" />
-          <p><strong style="color: blue;">F.H.Shoily</strong></p>
-          <p>Creative Director</p>
-          
-        </div>
-        
-        <div class="team-member">
-            <img src="{% static 'image/Asif.jpeg' %}" alt="Asif" />
-            <p><strong style="color: blue;">Asif Iqbal </strong></p>
-            <p>Marketing and Public
-                Relations Specialist</p>
-        </div>
-
-        <!-- Add rest of the members following this format -->
-      </section>
-      <section class="team-grid">
-        <!-- Example team member -->
-        <div class="team-member">
-          <img src="{% static 'image/Shakib.jpeg' %}" alt="Shakib" />
-          <p><strong style="color: blue;">Shakib Hossain</strong></p>
-          <p>Technical Director</p>
-        </div>
-
-        <!-- Copy and change image/text for other members -->
-        <div class="team-member">
-          <img src="{% static 'image/jisan.jpg' %}" alt="Mizanur" />
-          <p><strong style="color: blue;">Mizanur Rahman</strong></p>
-          <p>Technical Director</p>
-          
-        </div>
-        
-        <div class="team-member">
-            <img src="{% static 'image/Tabiur.jpeg' %}" alt="Tabiur" />
-            <p><strong style="color: blue;">Tabiur Rahman</strong></p>
-            <p>Production Manager</p>
-        </div>
-
-        <!-- Add rest of the members following this format -->
-      </section>
-      <section class="team-grid">
-        <!-- Example team member -->
-        <div class="team-member">
-          <img src="{% static 'image/Rifat.jpg' %}" alt="Rifat" />
-          <p><strong style="color: blue;">Gazi Rifat Nur</strong></p>
-          <p>Venue Manager</p>
-        </div>
-
-        <!-- Copy and change image/text for other members -->
-        <div class="team-member">
-          <img src="{% static 'image/riyad.jpg' %}" alt="Mehedi" />
-          <p><strong style="color: blue;">Mehedi Hasan Khan</strong></p>
-          <p>Event Designer</p>
-          
-        </div>
-        
-        <div class="team-member">
-            <img src="{% static 'image/mamim.jpg' %}" alt="Mamim" />
-            <p><strong style="color: blue;">Shahid Al Mamim</strong></p>
-            <p>Event Security Manager</p>
-        </div>
-
-        <!-- Add rest of the members following this format -->
-      </section>
+  </section>
   </main>
   {% include 'footer.html' %}
 </body>
