@@ -55,17 +55,22 @@
               <ul class="dropdown-content">
                 <li><a href="#">Visual Product</a></li>
                 <li><a href="#">Other Services</a></li>
-                <li><a href="#">Help</a></li>
+                <li><a href="{% url 'help' %}">Help</a></li>
               </ul>
             </li>
             <li><a href="{% url 'product' %}">Product</a></li>
             <li><a href="{% url 'event_list' %}">Portfolio</a></li>
             {% if user.is_authenticated %}
+            {% with user.c_profile as profile %}
+              {% if profile.role == 'buyer' %}
+                <li><a href="{% url 'vendor_list' %}">Vendors</a></li>
+              {% endif %}
+            {% endwith %}
             <li><a href="{% url 'logout' %}">Logout</a></li>
-            {% else %}
+          {% else %}
             <li><a href="{% url 'login' %}" id="loginBtn">Login</a></li>
             <li><a href="{% url 'signup' %}">Sign Up</a></li>
-            {% endif %}
+          {% endif %}
           </ul>
         </nav>
 

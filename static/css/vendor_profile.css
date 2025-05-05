@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #b57370; 
+}
+
+.vendor-profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.card-container {
+    display: flex;
+    background-color: #f7d7d3; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    overflow: hidden;
+    max-width: 900px;
+    width: 100%;
+}
+
+.card-left {
+    flex: 1;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    border-right: 1px solid #ddd;
+}
+
+.card-left .profile-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.card-right {
+    flex: 2;
+    padding: 30px;
+    color: #333;
+}
+
+.card-right h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.card-right p {
+    margin: 8px 0;
+    line-height: 1.4;
+}
+
+.username {
+    font-style: italic;
+    color: #555;
+}
+
+.profile-actions {
+    margin-top: 20px;
+}
+
+.btn {
+    background-color: #d94f4f;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #b83f3f;
+}

@@ -128,6 +128,22 @@
           </button>
           {% endif %}
         </form>
+        <!-- Inside profile.html -->
+        {% if profile.role == 'seller' %}
+        <p>You are a <strong>Seller</strong>. Manage your product listings below.</p>
+        {% elif profile.role == 'buyer' %}
+        <p>You are a <strong>Buyer</strong>. View your orders and cart.</p>
+        {% endif %}
+        {% if profile.role == 'seller' %}
+        <div class="profile-actions">
+          <a href="{% url 'add_product' %}" class="btn seller-btn">➕ Add Product</a>
+          <a href="{% url 'product' %}" class="btn seller-btn">🛠 Manage Products</a>
+        </div>
+        {% elif profile.role == 'buyer' %}
+        <div class="profile-actions">
+          <a href="{% url 'order_history' %}" class="btn buyer-btn">📦 My Orders</a>
+        </div>
+        {% endif %}
 
         <!-- Edit Profile Button to toggle editable mode -->
         {% if not editable %}
@@ -137,7 +153,6 @@
         {% endif %}
 
         <div class="profile-actions">
-          <a href="cart/" class="btn cart-btn">🛒 Cart</a>
           <a href="{% url 'logout' %}" class="btn logout-btn">🚪 Logout</a>
         </div>
       </div>

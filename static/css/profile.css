@@ -181,7 +181,21 @@ body {
 .save-btn:hover {
   background-color: #333;
 }
+.seller-btn {
+  background-color: #b6983d;
+  
+}
 
+.seller-btn:hover {
+  background-color: #8d752d;
+
+}
+.buyer-btn{
+    background-color: #a8172a;
+  }
+.buyer-btn:hover {
+  background-color: #d83e23;
+}
 .editable-field:disabled {
   background-color: #f0f0f0;
   border: none;

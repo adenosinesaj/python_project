@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/vendor_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+    <title>Vendor List</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="vendor-list-container">
+        <h1>Vendor List</h1>
+        <div class="vendor-grid">
+            {% for vendor in vendors %}
+                <div class="vendor-card">
+                    <img src="{{ vendor.profile_picture.url }}" alt="Vendor" />
+                    <h3>{{ vendor.user.first_name }} {{ vendor.user.last_name }}</h3>
+                    <p>@{{ vendor.user.username }}</p>
+                    <a href="{% url 'vendor_profile' vendor.user.id %}">View Profile</a>
+                </div>
+            {% empty %}
+                <p>No vendors available.</p>
+            {% endfor %}
+        </div>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>
