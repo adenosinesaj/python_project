@@ -1,0 +1,288 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planner Dashboard | manageHoise?</title>
+  
+  <!-- Font Awesome Icons & Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- App Static Stylesheets -->
+  <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/planner_dashboard.css' %}" />
+  <script src="{% static 'js/header.js' %}" defer></script>
+</head>
+<body class="mh-body">
+
+  {% include 'header.html' %}
+
+  <main class="mh-planner-app">
+    <div class="mh-container">
+
+      <!-- Header Banner Section -->
+      <header class="mh-dashboard-header">
+        <div class="mh-header-text">
+          <span class="mh-badge-pill"><i class="fa-solid fa-wand-magic-sparkles"></i> Event Workspace</span>
+          <h1 class="mh-title">Event Planner Dashboard</h1>
+          <p class="mh-subtitle">Track checklist milestones, manage budgets, and oversee your event logistics.</p>
+        </div>
+        <div class="mh-header-actions">
+          <button class="mh-btn mh-btn-primary" onclick="openModal('addTaskModal')">
+            <i class="fa-solid fa-plus"></i> Add Task
+          </button>
+          <button class="mh-btn mh-btn-glass" onclick="openModal('addBudgetModal')">
+            <i class="fa-solid fa-file-invoice-dollar"></i> Add Expense
+          </button>
+        </div>
+      </header>
+
+      <!-- Metrics KPI Cards Row -->
+      <section class="mh-kpi-grid">
+        
+        <div class="mh-kpi-card mh-kpi-blue">
+          <div class="mh-kpi-icon">
+            <i class="fa-solid fa-list-check"></i>
+          </div>
+          <div class="mh-kpi-info">
+            <span class="mh-kpi-label">Total Tasks</span>
+            <h2 class="mh-kpi-value">{{ tasks.count }}</h2>
+            <small class="mh-kpi-sub">Items in checklist</small>
+          </div>
+        </div>
+
+        <div class="mh-kpi-card mh-kpi-cyan">
+          <div class="mh-kpi-icon">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <div class="mh-kpi-info">
+            <span class="mh-kpi-label">Estimated Cost</span>
+            <h2 class="mh-kpi-value">৳{{ total_est|floatformat:2 }}</h2>
+            <small class="mh-kpi-sub">Projected total budget</small>
+          </div>
+        </div>
+
+        <div class="mh-kpi-card mh-kpi-amber">
+          <div class="mh-kpi-icon">
+            <i class="fa-solid fa-wallet"></i>
+          </div>
+          <div class="mh-kpi-info">
+            <span class="mh-kpi-label">Actual Spent</span>
+            <h2 class="mh-kpi-value">৳{{ total_act|floatformat:2 }}</h2>
+            <small class="mh-kpi-sub">Total logged expenses</small>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Main Dual Panel Layout -->
+      <div class="mh-panels-grid">
+
+        <!-- Panel 1: Checklist Section -->
+        <section class="mh-panel">
+          <div class="mh-panel-header">
+            <div class="mh-panel-title">
+              <i class="fa-solid fa-square-check panel-icon"></i>
+              <h3>Event Checklist</h3>
+            </div>
+            <span class="mh-chip mh-chip-primary">{{ tasks.count }} Tasks</span>
+          </div>
+
+          <div class="mh-panel-body">
+            {% if tasks %}
+              <ul class="mh-task-list">
+                {% for task in tasks %}
+                  <li class="mh-task-item {% if task.is_completed %}completed{% endif %}">
+                    
+                    <div class="mh-task-main">
+                      <a href="{% url 'toggle_checklist_task' task.id %}" class="mh-checkbox-btn" title="Toggle Status">
+                        {% if task.is_completed %}
+                          <i class="fa-solid fa-circle-check"></i>
+                        {% else %}
+                          <i class="fa-regular fa-circle"></i>
+                        {% endif %}
+                      </a>
+
+                      <div class="mh-task-details">
+                        <span class="mh-task-title">{{ task.title }}</span>
+                        {% if task.due_date %}
+                          <span class="mh-task-date">
+                            <i class="fa-regular fa-calendar"></i> Due: {{ task.due_date|date:"M d, Y" }}
+                          </span>
+                        {% endif %}
+                      </div>
+                    </div>
+
+                    <div class="mh-task-meta">
+                      <span class="mh-priority-tag priority-{{ task.priority|lower }}">
+                        {{ task.get_priority_display }}
+                      </span>
+                      <a href="{% url 'delete_checklist_task' task.id %}" class="mh-action-delete" title="Delete Task" onclick="return confirm('Delete this task?');">
+                        <i class="fa-regular fa-trash-can"></i>
+                      </a>
+                    </div>
+
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <div class="mh-empty-state">
+                <i class="fa-solid fa-clipboard-list empty-icon"></i>
+                <p class="empty-text">No checklist items created yet.</p>
+                <button class="mh-btn-text" onclick="openModal('addTaskModal')">+ Add your first task</button>
+              </div>
+            {% endif %}
+          </div>
+        </section>
+
+        <!-- Panel 2: Budget Breakdown Section -->
+        <section class="mh-panel">
+          <div class="mh-panel-header">
+            <div class="mh-panel-title">
+              <i class="fa-solid fa-coins panel-icon"></i>
+              <h3>Budget Breakdown</h3>
+            </div>
+            <span class="mh-chip mh-chip-success">৳{{ total_act|floatformat:2 }} Spent</span>
+          </div>
+
+          <div class="mh-panel-body">
+            {% if budget_items %}
+              <div class="mh-table-wrapper">
+                <table class="mh-table">
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th>Category</th>
+                      <th>Est. Cost</th>
+                      <th>Actual Cost</th>
+                      <th class="text-end">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in budget_items %}
+                      <tr>
+                        <td class="mh-fw-bold">{{ item.title }}</td>
+                        <td><span class="mh-cat-pill">{{ item.category|default:"General" }}</span></td>
+                        <td class="mh-text-muted">৳{{ item.estimated_cost|floatformat:2 }}</td>
+                        <td class="mh-text-highlight">৳{{ item.actual_cost|floatformat:2 }}</td>
+                        <td class="text-end">
+                          <a href="{% url 'delete_budget_item' item.id %}" class="mh-action-delete" title="Delete Expense" onclick="return confirm('Delete this expense?');">
+                            <i class="fa-regular fa-trash-can"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% else %}
+              <div class="mh-empty-state">
+                <i class="fa-solid fa-receipt empty-icon"></i>
+                <p class="empty-text">No budget expenses logged yet.</p>
+                <button class="mh-btn-text" onclick="openModal('addBudgetModal')">+ Add your first expense</button>
+              </div>
+            {% endif %}
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- Add Task Modal -->
+  <div class="mh-modal-overlay" id="addTaskModal">
+    <div class="mh-modal-card">
+      <div class="mh-modal-header">
+        <h3><i class="fa-solid fa-list-check"></i> Add Checklist Task</h3>
+        <button class="mh-modal-close" onclick="closeModal('addTaskModal')">&times;</button>
+      </div>
+      <form action="{% url 'add_checklist_task' %}" method="POST">
+        {% csrf_token %}
+        <div class="mh-modal-body">
+          <div class="mh-form-group">
+            <label>Task Title</label>
+            <input type="text" name="title" required placeholder="e.g. Reserve Catering Vendor">
+          </div>
+          <div class="mh-form-group">
+            <label>Due Date</label>
+            <input type="date" name="due_date">
+          </div>
+          <div class="mh-form-group">
+            <label>Priority Level</label>
+            <select name="priority">
+              <option value="low">Low Priority</option>
+              <option value="medium" selected>Medium Priority</option>
+              <option value="high">High Priority</option>
+            </select>
+          </div>
+        </div>
+        <div class="mh-modal-footer">
+          <button type="button" class="mh-btn mh-btn-secondary" onclick="closeModal('addTaskModal')">Cancel</button>
+          <button type="submit" class="mh-btn mh-btn-primary">Save Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Budget Item Modal -->
+  <div class="mh-modal-overlay" id="addBudgetModal">
+    <div class="mh-modal-card">
+      <div class="mh-modal-header">
+        <h3><i class="fa-solid fa-receipt"></i> Add Budget Expense</h3>
+        <button class="mh-modal-close" onclick="closeModal('addBudgetModal')">&times;</button>
+      </div>
+      <form action="{% url 'add_budget_item' %}" method="POST">
+        {% csrf_token %}
+        <div class="mh-modal-body">
+          <div class="mh-form-group">
+            <label>Item Description</label>
+            <input type="text" name="title" required placeholder="e.g. Venue Rental Advance">
+          </div>
+          <div class="mh-form-group">
+            <label>Category</label>
+            <input type="text" name="category" placeholder="Catering, Sound, Lighting...">
+          </div>
+          <div class="mh-form-row">
+            <div class="mh-form-group">
+              <label>Estimated (৳)</label>
+              <input type="number" step="0.01" name="estimated_cost" value="0.00">
+            </div>
+            <div class="mh-form-group">
+              <label>Actual (৳)</label>
+              <input type="number" step="0.01" name="actual_cost" value="0.00">
+            </div>
+          </div>
+        </div>
+        <div class="mh-modal-footer">
+          <button type="button" class="mh-btn mh-btn-secondary" onclick="closeModal('addBudgetModal')">Cancel</button>
+          <button type="submit" class="mh-btn mh-btn-primary">Add Expense</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% include 'footer.html' %}
+
+  <!-- JavaScript for Custom Pure-CSS Modals -->
+  <script>
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+    window.onclick = function(e) {
+      if (e.target.classList.contains('mh-modal-overlay')) {
+        e.target.classList.remove('active');
+      }
+    }
+  </script>
+</body>
+</html>

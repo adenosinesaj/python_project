@@ -1,50 +1,228 @@
-/* Container row spacing */
-.row {
-    margin-top: 20px;
+/* ==========================================================================
+   ManageHouse Search Results - Scoped Theme
+   ========================================================================== */
+
+:root {
+  /* --mh-font: 'Montserrat', sans-serif; */
+  --mh-bg-page: #cfb9b9;
+  --mh-bg-card: #c76464;
+  --mh-banner-bg: #a84b4b;
+  --mh-primary: rgb(173, 48, 32);
+  --mh-primary-hover: #8c281b;
+  --mh-text-light: #ffffff;
+  --mh-text-dark: #282828;
+  --mh-border: rgba(255, 255, 255, 0.25);
+  --mh-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  --mh-shadow-hover: 0 12px 25px rgba(0, 0, 0, 0.22);
 }
 
-/* Card styling */
-.card {
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    padding: 15px;
-    margin-bottom: 30px;
-    text-align: center;
-    background-color: #fff;
-    transition: transform 0.2s ease-in-out;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-}
-
-/* Image styling */
-.card img {
-    max-height: 180px;
-    object-fit: contain;
-    margin-bottom: 10px;
-    object-fit: contain;
+body.mh-body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--mh-bg-page);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 
 }
 
-/* Product title */
-.card-title {
-    font-size: 18px;
-    margin-top: 10px;
-    margin-bottom: 5px;
+.mh-search-wrapper {
+  flex-grow: 1;
+  padding-bottom: 4rem;
+  font-family: var(--mh-font);
 }
 
-/* Price styling */
-.card-text {
-    font-size: 16px;
-    margin: 0;
+/* Page Banner */
+.mh-search-banner {
+  background-color: var(--mh-banner-bg);
+  color: var(--mh-text-light);
+  padding: 3rem 1.5rem;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Button style */
-.btn-outline-primary {
-    margin-top: 10px;
-    border-radius: 20px;
-    padding: 5px 15px;
-    font-size: 14px;
+.mh-banner-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mh-banner-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.mh-banner-subtitle {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.mh-banner-subtitle strong {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Container & Grid */
+.mh-search-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.mh-product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.75rem;
+}
+
+/* Product Card Component */
+.mh-product-card {
+  background: var(--mh-bg-card);
+  color: var(--mh-text-light);
+  border-radius: 16px;
+  border: 1px solid var(--mh-border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--mh-shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mh-product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--mh-shadow-hover);
+}
+
+/* Card Media Header */
+.mh-card-media {
+  width: 100%;
+  height: 200px;
+  background-color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.mh-product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.mh-product-card:hover .mh-product-img {
+  transform: scale(1.05);
+}
+
+.mh-media-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.85);
+  color: var(--mh-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+/* Card Content Body */
+.mh-card-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.mh-product-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mh-product-price {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 1.25rem 0;
+}
+
+/* Card Actions */
+.mh-card-actions {
+  margin-top: auto;
+}
+
+.mh-btn-details {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.65rem 1rem;
+  background-color: var(--mh-primary);
+  color: #ffffff;
+  font-family: var(--mh-font);
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+}
+
+.mh-btn-details:hover {
+  background-color: var(--mh-primary-hover);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Empty State */
+.mh-empty-search {
+  text-align: center;
+  padding: 4rem 1.5rem;
+  background-color: var(--mh-bg-card);
+  color: var(--mh-text-light);
+  border-radius: 16px;
+  box-shadow: var(--mh-shadow);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.mh-empty-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  opacity: 0.85;
+}
+
+.mh-empty-search h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+}
+
+.mh-empty-search p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 640px) {
+  .mh-search-banner {
+    padding: 2.25rem 1rem;
+  }
+  
+  .mh-banner-title {
+    font-size: 1.75rem;
+  }
 }

@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meet the Team | manageHoise?</title>
+
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/team_profiles/meet_the_team.css' %}" />
+</head>
+<body class="mh-body">
+
+  {% include 'header.html' %}
+
+  <main class="main-section">
+    <!-- Hero Banner -->
+    <section class="team-hero-section">
+      <div class="team-hero-container">
+        <span class="badge-pill">
+          <i class="fa-solid fa-users"></i> Leadership & Staff
+        </span>
+        <h1 class="team-hero-title">Meet the Minds Behind ManageHouse</h1>
+        <p class="team-hero-subtext">The dedicated professionals making your events seamless and extraordinary.</p>
+      </div>
+    </section>
+
+    <!-- Team Cards Grid -->
+    <section class="team-content-section">
+      <div class="container">
+        <div class="team-grid">
+
+          <!-- Sanjida Rahman -->
+          <a href="#" class="team-card-link">
+            <div class="team-card">
+              <div class="team-image-wrapper">
+                <img src="{% static 'image/toma.jpg' %}" alt="Sanjida Rahman" class="team-image" />
+              </div>
+              <div class="team-card-info">
+                <h3 class="team-member-name">Sanjida Rahman</h3>
+                <span class="team-member-role">Chairman</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Sajid Shahan Rahman -->
+          <a href="#" class="team-card-link">
+            <div class="team-card">
+              <div class="team-image-wrapper">
+                <img src="{% static 'image/Sajid.jpg' %}" alt="Sajid Shahan Rahman" class="team-image" />
+              </div>
+              <div class="team-card-info">
+                <h3 class="team-member-name">Sajid Shahan Rahman</h3>
+                <span class="team-member-role">Managing Director</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Tanisha -->
+          <a href="#" class="team-card-link">
+            <div class="team-card">
+              <div class="team-image-wrapper">
+                <img src="{% static 'image/Tanisha.jpg' %}" alt="Tanisha" class="team-image" />
+              </div>
+              <div class="team-card-info">
+                <h3 class="team-member-name">Tanisha</h3>
+                <span class="team-member-role">Chief Executive Officer</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Sydul Islam Zubair -->
+          <a href="#" class="team-card-link">
+            <div class="team-card">
+              <div class="team-image-wrapper">
+                <img src="{% static 'image/Sydul.jpg' %}" alt="Sydul Islam Zubair" class="team-image" />
+              </div>
+              <div class="team-card-info">
+                <h3 class="team-member-name">Sydul Islam Zubair</h3>
+                <span class="team-member-role">Event Coordinator</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- F.H.Shoily -->
+          <a href="#" class="team-card-link">
+            <div class="team-card">
+              <div class="team-image-wrapper">
+                <img src="{% static 'image/Shoily.jpg' %}" alt="F.H.Shoily" class="team-image" />
+              </div>
+              <div class="team-card-info">
+                <h3 class="team-member-name">F.H.Shoily</h3>
+                <span class="team-member-role">Creative Director</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Asif Iqbal -->
+          <a href="#" class="team-card-link">
+            <div class="team-card">
+              <div class="team-image-wrapper">
+                <img src="{% static 'image/Asif.jpeg' %}" alt="Asif Iqbal" class="team-image" />
+              </div>
+              <div class="team-card-info">
+                <h3 class="team-member-name">Asif Iqbal</h3>
+                <span class="team-member-role">PR & Marketing Specialist</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Shakib Hossain -->
+          <a href="#" class="team-card-link">
+            <div class="team-card">
+              <div class="team-image-wrapper">
+                <img src="{% static 'image/Shakib.jpeg' %}" alt="Shakib Hossain" class="team-image" />
+              </div>
+              <div class="team-card-info">
+                <h3 class="team-member-name">Shakib Hossain</h3>
+                <span class="team-member-role">Technical Director</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Mizanur Rahman -->
+          <a href="#" class="team-card-link">
+            <div class="team-card">
+              <div class="team-image-wrapper">
+                <img src="{% static 'image/jisan.jpg' %}" alt="Mizanur Rahman" class="team-image" />
+              </div>
+              <div class="team-card-info">
+                <h3 class="team-member-name">Mizanur Rahman</h3>
+                <span class="team-member-role">Technical Director</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Tabiur Rahman -->
+          <a href="#" class="team-card-link">
+            <div class="team-card">
+              <div class="team-image-wrapper">
+                <img src="{% static 'image/Tabiur.jpeg' %}" alt="Tabiur Rahman" class="team-image" />
+              </div>
+              <div class="team-card-info">
+                <h3 class="team-member-name">Tabiur Rahman</h3>
+                <span class="team-member-role">Production Manager</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Gazi Rifat Nur -->
+          <a href="#" class="team-card-link">
+            <div class="team-card">
+              <div class="team-image-wrapper">
+                <img src="{% static 'image/Rifat.jpg' %}" alt="Gazi Rifat Nur" class="team-image" />
+              </div>
+              <div class="team-card-info">
+                <h3 class="team-member-name">Gazi Rifat Nur</h3>
+                <span class="team-member-role">Venue Manager</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Mehedi Hasan Khan -->
+          <a href="#" class="team-card-link">
+            <div class="team-card">
+              <div class="team-image-wrapper">
+                <img src="{% static 'image/riyad.jpg' %}" alt="Mehedi Hasan Khan" class="team-image" />
+              </div>
+              <div class="team-card-info">
+                <h3 class="team-member-name">Mehedi Hasan Khan</h3>
+                <span class="team-member-role">Event Designer</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Shahid Al Mamim -->
+          <a href="#" class="team-card-link">
+            <div class="team-card">
+              <div class="team-image-wrapper">
+                <img src="{% static 'image/mamim.jpg' %}" alt="Shahid Al Mamim" class="team-image" />
+              </div>
+              <div class="team-card-info">
+                <h3 class="team-member-name">Shahid Al Mamim</h3>
+                <span class="team-member-role">Security Manager</span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  {% include 'footer.html' %}
+
+</body>
+</html>

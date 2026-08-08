@@ -1,20 +1,125 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="{% static 'css/signup.css' %}" />
-  </head>
-  <body>
-    <div class="form-container">
-      <h2>Sign Up</h2>
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign Up</button>
-      </form>
-      <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
-    </div>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up | manageHoise?</title>
   
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/signup.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="mh-signup-body">
+
+  {% include 'header.html' %}
+
+  <!-- Main Signup Section -->
+  <main class="mh-signup-wrapper">
+    <div class="mh-signup-card">
+      
+      <!-- Card Header -->
+      <div class="mh-signup-header">
+        <div class="mh-signup-icon">
+          <i class="fa-solid fa-user-plus"></i>
+        </div>
+        <h2>Create an Account</h2>
+        <p>Join manageHoise? to host, plan, and manage extraordinary events</p>
+      </div>
+
+      <!-- Messages & Non-field Errors -->
+      {% if messages %}
+        <div class="mh-alert-container">
+          {% for message in messages %}
+            <div class="mh-alert mh-alert-{{ message.tags }}">
+              <i class="fa-solid fa-circle-info me-2"></i> {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if form.non_field_errors %}
+        <div class="mh-alert mh-alert-error">
+          {% for error in form.non_field_errors %}
+            <p class="m-0"><i class="fa-solid fa-circle-xmark me-2"></i> {{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <!-- Signup Form -->
+      <form method="post" enctype="multipart/form-data" class="mh-signup-form">
+        {% csrf_token %}
+
+        {% if form.visible_fields %}
+          <div class="mh-form-grid">
+            {% for field in form.visible_fields %}
+              <div class="mh-input-group {% if field.name == 'address' or field.name == 'bio' %}full-width{% endif %}">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                
+                <div class="mh-input-field">
+                  <!-- Contextual Field Icons -->
+                  {% if 'user' in field.name %}
+                    <i class="fa-solid fa-user input-icon"></i>
+                  {% elif 'email' in field.name %}
+                    <i class="fa-solid fa-envelope input-icon"></i>
+                  {% elif 'pass' in field.name %}
+                    <i class="fa-solid fa-lock input-icon"></i>
+                  {% elif 'phone' in field.name %}
+                    <i class="fa-solid fa-phone input-icon"></i>
+                  {% elif 'role' in field.name or 'type' in field.name %}
+                    <i class="fa-solid fa-user-gear input-icon"></i>
+                  {% else %}
+                    <i class="fa-solid fa-pen input-icon"></i>
+                  {% endif %}
+
+                  {{ field }}
+                </div>
+
+                {% if field.help_text %}
+                  <small class="mh-field-help">{{ field.help_text|safe }}</small>
+                {% endif %}
+
+                {% if field.errors %}
+                  <span class="mh-field-error">{{ field.errors.0 }}</span>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <!-- Default Form Fallback -->
+          {{ form.as_p }}
+        {% endif %}
+
+        <!-- Terms & Conditions Checkbox -->
+        <div class="mh-terms-option">
+          <label class="mh-remember">
+            <input type="checkbox" name="terms" required />
+            <span>I agree to the <a href="{% url 'policy' %}" target="_blank">Terms & Conditions</a> and <a href="{% url 'policy' %}" target="_blank">Privacy Policy</a></span>
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="mh-submit-btn">
+          <span>Create Account</span>
+          <i class="fa-solid fa-arrow-right ms-2"></i>
+        </button>
+      </form>
+
+      <!-- Card Footer -->
+      <div class="mh-signup-footer">
+        <p>Already have an account? <a href="{% url 'login' %}" class="mh-login-link">Login</a></p>
+      </div>
+
+    </div>
+  </main>
+
+  {% include 'footer.html' %}
+
+</body>
 </html>

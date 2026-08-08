@@ -1,179 +1,155 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <!---Working on pop up massage home.html html+js.................home.css .popup-->
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Event Planner Homepage</title>
-    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-  </head>
-  <body>
-    <!-- {% if messages %}
-    <script>
-      {% for message in messages %}
-        showPopup("{{ message }}", "{{ message.tags }}");
-      {% endfor %}
-    </script>
-    {% endif %} -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>managehoise? | Premier Event Planning & Marketplace</title>
 
-    <header class="header" id="mainHeader">
-      <div class="header-container">
-        <!-- Left: Logo or Brand Name -->
-        <div class="logo">
-          <a href="#">
-            <img src="{% static 'image/manage.png' %}" alt="ManageHouse Logo" />
-          </a>
-        </div>
+  <!-- Typography & Styling Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,300&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-        <!-- Center: Navigation Menu -->
-        <nav class="nav-bar">
-          <ul>
-            <li class="dropdown">
-              <a href="#">About Us ▾</a>
-              <ul class="dropdown-content">
-                <li><a href="{% url 'meet_the_team' %}">Meet The Team</a></li>
-                <li><a href="{% url 'policy' %}">Policy</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#">Services ▾</a>
-              <ul class="dropdown-content">
-                <li><a href="#">Visual Product</a></li>
-                <li><a href="#">Other Services</a></li>
-                <li><a href="{% url 'help' %}">Help</a></li>
-              </ul>
-            </li>
-            <li><a href="{% url 'product' %}">Product</a></li>
-            <li><a href="{% url 'event_list' %}">Portfolio</a></li>
-            {% if user.is_authenticated %}
-            {% with user.c_profile as profile %}
-              {% if profile.role == 'buyer' %}
-                <li><a href="{% url 'vendor_list' %}">Vendors</a></li>
-              {% endif %}
-            {% endwith %}
-            <li><a href="{% url 'logout' %}">Logout</a></li>
-          {% else %}
-            <li><a href="{% url 'login' %}" id="loginBtn">Login</a></li>
-            <li><a href="{% url 'signup' %}">Sign Up</a></li>
-          {% endif %}
-          </ul>
-        </nav>
+  <!-- Updated Font Awesome to v6.5.1 (Fixes missing X / Twitter icon) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-        <!-- Right: Icons -->
-        <div class="header-icons">
-          {% if user.is_authenticated %}
-          <!-- Cart Icon -->
-          <a href="{% url 'view_cart' %}">
-            <img
-              src="{% static 'Image/cart.png' %}"
-              alt="Cart"
-              class="nav-icon"
-            />
-          </a>
+  <!-- Modular App Stylesheets -->
+  <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+</head>
+<body>
 
-          <!-- Search Form -->
-          <form class="search-form" action="/search/" method="GET">
-            <input type="text" name="q" class="search-input" placeholder="Search..." />
-            <button type="submit" class="search-button">🔍</button>
-          </form>
+  <!-- Navigation Header Inclusion -->
+  {% include 'header.html' %}
 
-
-          <!-- Profile Picture Icon -->
-          <a href="{% url 'profile' %}">
-            <img
-              src="{{ user.c_profile.profile_picture.url }}"
-              alt="Profile"
-              class="nav-profile-icon"
-            />
-          </a>
-          {% endif %}
-        </div>
-      </div>
-    </header>
-    <div class="header-wave">
-      <svg viewBox="0 0 500 150" preserveAspectRatio="none">
-        <!-- Front wave -->
-        <path
-          d="M0,50 C150,130 350,30 500,50 L500,0 L0,0 Z"
-          style="stroke: none; fill: #d33f3f"
-        ></path>
-      </svg>
-    </div>
-    <!-- Hero Section (Main Area) -->
-    <main class="main-section">
-      <section class="hero">
-        <!-- Left: Headline -->
-        <div class="hero-text">
-          <h1>
-            Precision, Passion,<br />
-            Perfection – Event<br />
-            Planning Redefined.
+  <main class="main-section">
+    
+    <!-- Hero Section with Background Glow -->
+    <section class="hero-section">
+      <div class="hero-container">
+        
+        <div class="hero-text-content">
+          <span class="badge-pill">
+            <i class="fa-solid fa-sparkles"></i> Redefining Modern Events
+          </span>
+          <h1 class="hero-headline">
+            Precision, Passion, Perfection – Event Planning <span class="gradient-text">Redefined.</span>
           </h1>
-          <p>From cities to shores — the best places to host your event.</p>
-          <a href="#" class="cta-button">Explore Events</a>
+          <p class="hero-subtext">
+            From intimate rooftop gatherings to vast seaside venues — find and reserve top suppliers, rentals, and services in one place.
+          </p>
+          
+          <div class="hero-actions">
+            <a href="{% url 'product_list' %}" class="cta-button primary-cta">
+              Explore Marketplace <i class="fa-solid fa-arrow-right-long"></i>
+            </a>
+            <a href="#features-overview" class="cta-button secondary-cta">
+              Learn More
+            </a>
+          </div>
+
+          <!-- Quick Stats Counter -->
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">500+</span>
+              <span class="stat-label">Venues & Services</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-number">99%</span>
+              <span class="stat-label">Satisfied Clients</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-number">24/7</span>
+              <span class="stat-label">Planner Support</span>
+            </div>
+          </div>
         </div>
-        <!-- Right: Logo (Looks great here!) -->
-        <div class="hero-logo">
-          <img src="{% static 'image/our_logo.png' %}" alt="Logo" />
+
+        <div class="hero-visual">
+          <div class="logo-card-wrapper">
+            <div class="floating-badge badge-top">
+              <i class="fa-solid fa-star text-amber"></i> 4.9 Rated Vendors
+            </div>
+            <img src="{% static 'image/our_logo.png' %}" alt="ManageHouse Event Logo" class="hero-logo-img" />
+            <div class="floating-badge badge-bottom">
+              <i class="fa-solid fa-calendar-check text-emerald"></i> Instant Booking
+            </div>
+          </div>
         </div>
-      </section>
-    </main>
-    <!-- Image Carousel -->
-    <div class="carousel-container">
-      <div class="carousel-track">
-        <img src="{% static 'image/bb.jpg' %}" alt="Event 1" />
-        <img src="{% static 'image/ee.jpg' %}" alt="Event 2" />
-        <img src="{% static 'image/ww.jpg' %}" alt="Event 3" />
-        <img src="{% static 'image/birth.jpg' %}" alt="Event 4" />
-        <!-- Duplicate images for seamless scroll -->
-        <img src="{% static 'image/bb.jpg' %}" alt="Event 1" />
-        <img src="{% static 'image/ee.jpg' %}" alt="Event 2" />
-        <img src="{% static 'image/ww.jpg' %}" alt="Event 3" />
-        <img src="{% static 'image/birth.jpg' %}" alt="Event 4" />
+
       </div>
-    </div>
+    </section>
 
-       
-    <script>
-      const header = document.getElementById("mainHeader");
+    <!-- Infinite Image Carousel Section -->
+    <section class="carousel-section">
+      <div class = "container">
+      <div class="section-title-wrapper text-center">
+        <h2 class="section-heading">Featured Event Setups</h2>
+        <p class="section-subheading">Inspiration from recent celebrations managed with manageHoise?</p>
+      </div>
+      </div>
 
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > 10) {
-          header.classList.add("scrolled");
-        } else {
-          header.classList.remove("scrolled");
-        }
-      });
+      <div class="carousel-container">
+        <div class="carousel-overlay overlay-left"></div>
+        <div class="carousel-overlay overlay-right"></div>
+        <div class="carousel-track">
+          <!-- Duplicate set for smooth infinite loop -->
+          <div class="carousel-slide"><img src="{% static 'image/bb.jpg' %}" alt="Event Setup 1" /></div>
+          <div class="carousel-slide"><img src="{% static 'image/ee.jpg' %}" alt="Event Setup 2" /></div>
+          <div class="carousel-slide"><img src="{% static 'image/ww.jpg' %}" alt="Event Setup 3" /></div>
+          <div class="carousel-slide"><img src="{% static 'image/birth.jpg' %}" alt="Birthday Celebration" /></div>
+          <div class="carousel-slide"><img src="{% static 'image/bb.jpg' %}" alt="Event Setup 1" /></div>
+          <div class="carousel-slide"><img src="{% static 'image/ee.jpg' %}" alt="Event Setup 2" /></div>
+          <div class="carousel-slide"><img src="{% static 'image/ww.jpg' %}" alt="Event Setup 3" /></div>
+          <div class="carousel-slide"><img src="{% static 'image/birth.jpg' %}" alt="Birthday Celebration" /></div>
+        </div>
+      </div>
+    </section>
 
-      function showPopup(message, type = "success") {
-        const popup = document.getElementById("popup");
-        const popupMessage = document.getElementById("popup-message");
+    <!-- Why Choose Us Features Grid -->
+    <section id="features-overview" class="features-section">
+      <div class="container">
+        <div class="section-title-wrapper text-center">
+          <h2 class="section-heading">Everything You Need To Plan</h2>
+          <p class="section-subheading">Seamless event coordination built for organizers, hosts, and vendors.</p>
+        </div>
 
-        popup.className = "popup"; // Reset classes
-        popup.classList.add(type); // Add new type
-        popupMessage.innerText = message;
-        popup.classList.add("show");
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="icon-box">
+              <i class="fa-solid fa-shop"></i>
+            </div>
+            <h3>Verified Marketplace</h3>
+            <p>Browse high-quality products, decor, equipment, and venues offered by top sellers.</p>
+          </div>
 
-        setTimeout(() => {
-          popup.classList.remove("show");
-        }, 3000);
-      }
-    </script>
-    {% include 'footer.html' %}
-  </body>
+          <div class="feature-card">
+            <div class="icon-box">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <h3>Fast Reservation</h3>
+            <p>Direct communication and fast checkout pipeline to secure your gear instantly.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="icon-box">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3>Quality Guaranteed</h3>
+            <p>Strict vendor checks and client reviews ensure your event runs smoothly without hiccups.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Inclusion -->
+  {% include 'footer.html' %}
+
+</body>
 </html>

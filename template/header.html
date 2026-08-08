@@ -1,64 +1,102 @@
 {% load static %}
-<header class="header" id="mainHeader">
-  <div class="header-container">
-    <!-- Left: Logo or Brand Name -->
-    <div class="logo">
-      <a href="{% url 'home' %}">
-        <img src="{% static 'image/manage.png' %}" alt="ManageHouse Logo" />
-      </a>
-    </div>
 
-    <!-- Center: Navigation Menu -->
-    <nav class="nav-bar">
-      <ul>
-        <li><a href="{% url 'home' %}">Home</a></li>
-        <li><a href="{% url 'product' %}">Product</a></li>
+<header class="mh-site-header">
+  <div class="mh-header-inner">
+    
+    <!-- Brand Logo -->
+    <a href="{% url 'home' %}" class="mh-brand">
+      <img src="{% static 'image/manage.png' %}" alt="ManageHouse Logo" class="mh-logo-img" />
+    </a>
+
+    <!-- Mobile Hamburger Toggle -->
+    <button class="mh-mobile-toggle" id="mhMobileToggle" aria-label="Toggle Navigation">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <!-- Navigation Bar -->
+    <nav class="mh-nav" id="mhNavMenu">
+      <ul class="mh-nav-list">
+        
+        <!-- About Dropdown -->
+        <li class="mh-nav-item mh-dropdown">
+          <a href="#" class="mh-nav-link">
+            About <i class="fa-solid fa-chevron-down mh-arrow"></i>
+          </a>
+          <ul class="mh-dropdown-menu">
+            <li><a href="{% url 'meet_the_team' %}">Meet The Team</a></li>
+            <li><a href="{% url 'policy' %}">Policy</a></li>
+          </ul>
+        </li>
+
+        <!-- Services Dropdown -->
+        <li class="mh-nav-item mh-dropdown">
+          <a href="#" class="mh-nav-link">
+            Services <i class="fa-solid fa-chevron-down mh-arrow"></i>
+          </a>
+          <ul class="mh-dropdown-menu">
+            <li><a href="{% url 'planner_dashboard' %}">Event Planner</a></li>
+            <li><a href="{% url 'help' %}">Help Center</a></li>
+          </ul>
+        </li>
+
+        <li class="mh-nav-item">
+          <a href="{% url 'product_list' %}" class="mh-nav-link">Products</a>
+        </li>
+        <li class="mh-nav-item">
+          <a href="{% url 'event_list' %}" class="mh-nav-link">Portfolio</a>
+        </li>
+
         {% if user.is_authenticated %}
-        <li><a href="{% url 'logout' %}">Logout</a></li>
-        {% else %}
-        <li><a href="{% url 'login' %}" id="loginBtn">Login</a></li>
-        <li><a href="{% url 'signup' %}">Sign Up</a></li>
+          {% with user.c_profile as profile %}
+            {% if profile.role == 'buyer' %}
+              <li class="mh-nav-item">
+                <a href="{% url 'vendor_list' %}" class="mh-nav-link">Vendors</a>
+              </li>
+            {% endif %}
+          {% endwith %}
+          <li class="mh-nav-item">
+            <a href="{% url 'planner_dashboard' %}" class="mh-nav-link">Planner</a>
+          </li>
         {% endif %}
       </ul>
     </nav>
 
-    <!-- Right: Icons -->
-    <div class="header-icons">
+    <!-- Right Controls / Search / Auth / Profile -->
+    <div class="mh-header-actions">
       {% if user.is_authenticated %}
-      <!-- Cart Icon -->
-      <a href="{% url 'view_cart' %}">
-        <img src="{% static 'Image/cart.png' %}" alt="Cart" class="nav-icon" />
-      </a>
- <!-- Search Form -->
-      <form class="search-form" action="{% url 'search'%}" method="GET">
-        <input
-          type="text"
-          name="q"
-          class="search-input"
-          placeholder="Search..."
-        />
-        <button type="submit" class="search-button">🔍</button>
-      </form>
-     
+        
+        <!-- Compact Search Form -->
+        <form class="mh-search-form" action="/search/" method="GET">
+          <input type="text" name="q" class="mh-search-input" placeholder="Search..." required />
+          <button type="submit" class="mh-search-btn" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
 
-      <!-- Profile Picture Icon -->
-      <a href="{% url 'profile' %}">
-        <img
-          src="{{ user.c_profile.profile_picture.url }}"
-          alt="Profile"
-          class="nav-profile-icon"
-        />
-      </a>
+        <!-- Cart Button -->
+        <a href="{% url 'view_cart' %}" class="mh-icon-link" title="View Cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+
+        <!-- Profile Avatar -->
+        <a href="{% url 'profile_view' %}" class="mh-avatar-link" title="My Account">
+          {% if user.profile.profile_picture %}
+            <img src="{{ user.profile.profile_picture.url }}" alt="Profile" class="mhl-avatar-img" />
+          {% else %}
+            <img src="{% static 'profile/user.png' %}" alt="Profile" class="mh-avatar-img" />
+          {% endif %}
+        </a>
+
+        <!-- Logout CTA -->
+        <a href="{% url 'logout' %}" class="mh-btn mh-btn-outline" title="Logout">
+          Logout
+        </a>
+
+      {% else %}
+        <a href="{% url 'login' %}" class="mh-btn mh-btn-ghost">Login</a>
+        <a href="{% url 'signup' %}" class="mh-btn mh-btn-crimson">Sign Up</a>
       {% endif %}
     </div>
+
   </div>
 </header>
-<div class="header-wave">
-  <svg viewBox="0 0 500 150" preserveAspectRatio="none">
-    <!-- Front wave -->
-    <path
-      d="M0,50 C150,130 350,30 500,50 L500,0 L0,0 Z"
-      style="stroke: none; fill: #d33f3f"
-    ></path>
-  </svg>
-</div>

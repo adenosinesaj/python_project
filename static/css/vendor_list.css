@@ -1,70 +1,224 @@
-.main-content {
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-/* Container styling */
-.vendor-list-container {
-    max-width: 1000px;
-    margin: 40px auto;
-    padding: 20px;
-    font-family: 'Segoe UI', sans-serif;
-    gap: 2rem;
+/* ==========================================================================
+   ManageHouse Vendor List - Scoped Maroon/Dusty Rose Theme
+   ========================================================================== */
+
+:root {
+  /* --mh-font: 'Montserrat', sans-serif; */
+  --mh-bg-page: #cfb9b9;
+  --mh-bg-card: #c76464;
+  --mh-banner-bg: #a84b4b;
+  --mh-primary: rgb(173, 48, 32);
+  --mh-primary-hover: #8c281b;
+  --mh-text-light: #ffffff;
+  --mh-text-dark: #282828;
+  --mh-border: rgba(255, 255, 255, 0.25);
+  --mh-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  --mh-shadow-hover: 0 12px 25px rgba(0, 0, 0, 0.22);
+}
+
+body.mh-body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--mh-bg-page);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+
+}
+
+.mh-vendor-wrapper {
+  flex-grow: 1;
+  padding-bottom: 4rem;
+  font-family: var(--mh-font);
+}
+
+/* Page Banner */
+.mh-vendor-banner {
+  background-color: var(--mh-banner-bg);
+  color: var(--mh-text-light);
+  padding: 3rem 1.5rem;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mh-banner-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mh-banner-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.mh-banner-subtitle {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Container & Grid */
+.mh-vendor-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.mh-vendor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.75rem;
+}
+
+/* Vendor Card Component */
+.mh-vendor-card {
+  background: var(--mh-bg-card);
+  color: var(--mh-text-light);
+  border-radius: 16px;
+  border: 1px solid var(--mh-border);
+  padding: 2rem 1.25rem 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: var(--mh-shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mh-vendor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--mh-shadow-hover);
+}
+
+/* Avatar Styling */
+.mh-avatar-wrapper {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.mh-vendor-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.mh-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 3px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.25rem;
+  color: #ffffff;
+}
+
+/* Card Content */
+.mh-card-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.mh-vendor-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.25rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.mh-vendor-handle {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+/* Actions */
+.mh-card-actions {
+  margin-top: auto;
+  width: 100%;
+}
+
+.mh-btn-profile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.65rem 1rem;
+  background-color: var(--mh-primary);
+  color: #ffffff;
+  font-family: var(--mh-font);
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+}
+
+.mh-btn-profile:hover {
+  background-color: var(--mh-primary-hover);
+  transform: translateY(-1px);
+}
+
+/* Empty State */
+.mh-empty-vendors {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 1rem;
+  background-color: var(--mh-bg-card);
+  color: var(--mh-text-light);
+  border-radius: 16px;
+  box-shadow: var(--mh-shadow);
+}
+
+.mh-empty-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  opacity: 0.85;
+}
+
+.mh-empty-vendors h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+}
+
+.mh-empty-vendors p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+  .mh-vendor-banner {
+    padding: 2.25rem 1rem;
   }
   
-  /* Title */
-  .vendor-list-container h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #333;
+  .mh-banner-title {
+    font-size: 1.75rem;
   }
-  
-  /* Vendor card grid */
-  .vendor-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    overflow: hidden;
-  }
-  
-  /* Individual card */
-  .vendor-card {
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.2s;
-  }
-  
-  .vendor-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  /* Profile picture */
-  .vendor-card img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 10px;
-  }
-  
-  /* Name & link */
-  .vendor-card h3 {
-    margin: 10px 0;
-    font-size: 1.2em;
-    color: #222;
-  }
-  
-  .vendor-card a {
-    display: inline-block;
-    margin-top: 10px;
-    color: #007BFF;
-    text-decoration: none;
-    font-weight: 500;
-  }
-  
-  .vendor-card a:hover {
-    text-decoration: underline;
-  }
-  
+}

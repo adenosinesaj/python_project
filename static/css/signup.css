@@ -1,128 +1,282 @@
-body {
-    background-color: #ffeaea;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    overflow-y: hidden;  /* Enables scroll if needed */
+/* Page & Canvas Setup */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+  overflow-x: hidden;
+}
 
+.mh-signup-body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #fcf8f8;
+  font-family: 'Poppins', sans-serif;
+}
 
+/* Centered Content Wrapper */
+.mh-signup-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem 1.5rem;
+  background: radial-gradient(circle at 50% 20%, rgba(224, 50, 50, 0.06) 0%, rgba(255, 255, 255, 0) 70%);
+}
+
+/* Signup Card */
+.mh-signup-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 20px;
+  padding: 2.75rem 2.5rem;
+  box-shadow: 0 12px 35px rgba(184, 34, 34, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(224, 50, 50, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Header Section */
+.mh-signup-header {
+  text-align: center;
+  margin-bottom: 2.25rem;
+}
+
+.mh-signup-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1.25rem;
+  background: linear-gradient(135deg, #e03232 0%, #b82222 100%);
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 6px 16px rgba(184, 34, 34, 0.28);
+}
+
+.mh-signup-header h2 {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 0.4rem;
+}
+
+.mh-signup-header p {
+  color: #666666;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Responsive 2-Column Form Layout */
+.mh-signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.mh-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem 1rem;
+}
+
+.mh-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.mh-input-group.full-width {
+  grid-column: span 2;
+}
+
+.mh-input-group label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #333333;
+}
+
+/* Input Wrappers & Dynamic Styling */
+.mh-input-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.mh-input-field .input-icon {
+  position: absolute;
+  left: 1.1rem;
+  color: #b82222;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Target HTML inputs injected by Django */
+.mh-input-field input,
+.mh-input-field select,
+.mh-input-field textarea {
+  width: 100%;
+  padding: 0.85rem 1rem 0.85rem 2.8rem;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  outline: none;
+  font-size: 0.92rem;
+  font-family: inherit;
+  color: #2d3748;
+  background-color: #fafafa;
+  transition: all 0.2s ease;
+}
+
+.mh-input-field textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.mh-input-field input[type="file"] {
+  padding: 0.7rem 1rem 0.7rem 2.8rem;
+  font-size: 0.85rem;
+}
+
+.mh-input-field input:focus,
+.mh-input-field select:focus,
+.mh-input-field textarea:focus {
+  border-color: #e03232;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(224, 50, 50, 0.12);
+}
+
+/* Help Text & Validation Messages */
+.mh-field-help {
+  color: #718096;
+  font-size: 0.76rem;
+  margin-top: 0.25rem;
+  line-height: 1.3;
+}
+
+.mh-field-error {
+  color: #e53e3e;
+  font-size: 0.78rem;
+  margin-top: 0.2rem;
+}
+
+/* Terms Checkbox */
+.mh-terms-option {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.mh-remember {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #555555;
+  cursor: pointer;
+}
+
+.mh-remember input[type="checkbox"] {
+  accent-color: #b82222;
+  width: 16px;
+  height: 16px;
+}
+
+.mh-remember a {
+  color: #b82222;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.mh-remember a:hover {
+  text-decoration: underline;
+}
+
+/* Submit Button */
+.mh-submit-btn {
+  width: 100%;
+  padding: 0.95rem;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #e03232 0%, #b82222 100%);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(184, 34, 34, 0.25);
+  transition: all 0.25s ease;
+  margin-top: 0.75rem;
+}
+
+.mh-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(184, 34, 34, 0.35);
+}
+
+.mh-submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Card Bottom Footer */
+.mh-signup-footer {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #f0f0f0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666666;
+}
+
+.mh-signup-footer p {
+  margin: 0;
+}
+
+.mh-login-link {
+  color: #b82222;
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 0.25rem;
+  transition: color 0.2s ease;
+}
+
+.mh-login-link:hover {
+  color: #e03232;
+  text-decoration: underline;
+}
+
+/* Alerts */
+.mh-alert-container {
+  margin-bottom: 1.25rem;
+}
+
+.mh-alert {
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.mh-alert-error {
+  background-color: #fff5f5;
+  color: #c53030;
+  border: 1px solid #feb2b2;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+  .mh-signup-card {
+    padding: 2rem 1.5rem;
   }
-  
-  .form-container {
-    background-color: #ffd6d6;
-    padding: 30px 40px;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    border: 1px solid #cc6666;
-    width: 650px;
-    max-width: 95vw;
-    max-height: 90vh;
-    overflow-y: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+
+  .mh-form-grid {
+    grid-template-columns: 1fr;
   }
-  
-  h2 {
-    text-align: center;
-    color: #b35c5c;
-    margin-bottom: 20px;
+
+  .mh-input-group.full-width {
+    grid-column: span 1;
   }
-  
-  form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    flex-grow: 1;
-    overflow: hidden;
-  }
-  
-  /* Full-width for long fields like Bio or Profile Picture */
-  form p {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  form p:nth-child(7),
-  form p:nth-child(8),
-  form p:last-of-type {
-    grid-column: span 2;
-  }
-  
-  form label {
-    margin-bottom: 3px;
-    color: #5c0000;
-    font-size: 14px;
-  }
-  
-  form input,
-  form select,
-  form textarea {
-    padding: 6px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 13px;
-    background-color: #fefefe;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  form textarea {
-    resize: vertical;
-    max-height: 60px;
-  }
-  
-  button {
-    grid-column: span 2;
-    background-color: #c85c5c;
-    color: white;
-    padding: 8px;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 15px;
-    margin-top: 10px;
-  }
-  
-  button:hover {
-    background-color: #b34d4d;
-  }
-  
-  p:last-of-type {
-    text-align: center;
-    grid-column: span 2;
-    margin-top: 15px;
-    color: #884444;
-    font-size: 14px;
-  }
-  
-  p:last-of-type a {
-    color: #cc4444;
-    text-decoration: none;
-  }
-  
-  p:last-of-type a:hover {
-    text-decoration: underline;
-  }
- /* Responsive fallback */
-@media (max-width: 600px) {
-    form {
-      grid-template-columns: 1fr;
-    }
-  
-    button,
-    p:last-of-type {
-      grid-column: span 1;
-    }
-  
-    .form-container {
-      height: auto;
-      margin: 20px;
-    }
-  }
+}

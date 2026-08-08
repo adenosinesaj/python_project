@@ -1,37 +1,180 @@
-{%load static %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/help.css' %}">
-  <title>Document</title>
-</head>
-<body>
-  {% block content %}
-  <div class="UserHelpCenterMain">
-  
-    <div class="UserHelpCenterTop">
-      <div class="UserHelpCenterTopHead" >
-          <h1>User Help Center</h1>
-      </div>
-    </div>
-    <div class="UserHelpCenterBottom">
-      <div class="UserHelpCenterBottomText">
-        <P>. What is RideSchedule Advance?</P>
-        <P>. How can I check the repayments remaining on Advances and which Advances have been repaid?</P>
-        <P>. How can I issue a report?</P>
-        <p>. How to avoid pickup related issues?</p>
-        <p>. How to cancel/edit a ride?</p>
-        <p>. How to request for password reset?</p>
-        <div class="buttons">
-          <a href="{% url 'home' %}" class="btn red-btn">Back</a>
+  <title>ManageHoise? - Help & FAQ</title>
 
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- App Static Stylesheets -->
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'css/help.css' %}">
+
+  <!-- Header Script -->
+  <script src="{% static 'js/header.js' %}" defer></script>
+</head>
+<body class="mh-body">
+
+  <!-- Global Site Header -->
+  {% include 'header.html' %}
+
+  {% block content %}
+  <main class="help-center-wrapper">
+    
+    <!-- Hero Header with Search Bar -->
+    <header class="help-hero">
+      <div class="hero-content">
+        <span class="hero-badge"><i class="fa-solid fa-handshake-angle"></i> ManageHoise? Support</span>
+        <h1 class="hero-title">How can we help your event planning?</h1>
+        
+        <div class="search-box-wrap">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="faqSearch" placeholder="Search for products, vendors, cart, or account help..." onkeyup="filterFaqs()">
         </div>
       </div>
+    </header>
+
+    <div class="help-container">
+      
+      <!-- Quick Support Categories -->
+      <section class="quick-support-grid">
+        <div class="support-card">
+          <div class="card-icon icon-blue">
+            <i class="fa-solid fa-store"></i>
+          </div>
+          <h3>Vendors & Products</h3>
+          <p>Learn how vendors list event products/services and how customers browse them.</p>
+        </div>
+
+        <div class="support-card">
+          <div class="card-icon icon-green">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </div>
+          <h3>Cart & Checkout</h3>
+          <p>Understand how adding items to cart, calculating totals, and checkout work.</p>
+        </div>
+
+        <div class="support-card">
+          <div class="card-icon icon-purple">
+            <i class="fa-solid fa-id-card"></i>
+          </div>
+          <h3>Accounts & Roles</h3>
+          <p>Find out about Vendor vs. Customer profiles, signups, and profile edits.</p>
+        </div>
+      </section>
+
+      <!-- FAQ Accordion Section -->
+      <section class="faq-section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+
+        <div class="faq-accordion-container" id="faqContainer">
+          
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span><i class="fa-solid fa-circle-question faq-icon"></i> What is ManageHoise? and how does it work?</span>
+              <i class="fa-solid fa-chevron-down arrow-icon"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>ManageHoise? is a Django-based two-user platform connecting event Vendors and Customers. Vendors can showcase products and services (catering, decorations, rentals), while Customers can browse offerings, manage carts, and organize event needs.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span><i class="fa-solid fa-circle-question faq-icon"></i> How do I register as a Vendor or Customer?</span>
+              <i class="fa-solid fa-chevron-down arrow-icon"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>Visit the <strong>SignUp</strong> page, fill in your details, and select your designated role (Vendor or Customer). Your profile (`C_profile`) will automatically be configured according to your role.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span><i class="fa-solid fa-circle-question faq-icon"></i> As a Vendor, how do I add or manage my products?</span>
+              <i class="fa-solid fa-chevron-down arrow-icon"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>Once logged in as a Vendor, go to the <strong>Product Section</strong> to add new products with photos, descriptions, and pricing. You can also edit or remove your active product listings anytime.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span><i class="fa-solid fa-circle-question faq-icon"></i> How do I add items to my Cart and Checkout?</span>
+              <i class="fa-solid fa-chevron-down arrow-icon"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>Browse the product catalog or specific vendor portfolios, click <strong>"Add to Cart"</strong>, and review your selected items on the Cart page before proceeding to final Checkout.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span><i class="fa-solid fa-circle-question faq-icon"></i> How can I view my order history?</span>
+              <i class="fa-solid fa-chevron-down arrow-icon"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>Navigate to your account menu and click on <strong>My Orders</strong> to view past purchases and completed checkout logs.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span><i class="fa-solid fa-circle-question faq-icon"></i> How do I contact vendor management or support?</span>
+              <i class="fa-solid fa-chevron-down arrow-icon"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>You can visit the <strong>Vendors List</strong> page to view individual vendor profile details or reach out directly to our ManageHoise? team for general site assistance.</p>
+            </div>
+          </details>
+
+        </div>
+      </section>
+
+      <!-- Still Need Help CTA -->
+      <section class="support-footer-card">
+        <div class="cta-text">
+          <h3>Have more questions about ManageHoise?</h3>
+          <p>Our team is here to assist with your event planning queries.</p>
+        </div>
+        <div class="cta-buttons">
+          <a href="{% url 'home' %}" class="btn btn-secondary">
+            <i class="fa-solid fa-house"></i> Back to Home
+          </a>
+          <a href="{% url 'meet_the_team' %}" class="btn btn-primary">
+            <i class="fa-solid fa-users"></i> Meet the Team
+          </a>
+        </div>
+      </section>
+
     </div>
-  </div> 
+  </main>
   {% endblock %}
+
+  <!-- Global Site Footer -->
+  {% include 'footer.html' %}
+
+  <!-- Search Filter JS -->
+  <script>
+    function filterFaqs() {
+      const query = document.getElementById('faqSearch').value.toLowerCase();
+      const items = document.querySelectorAll('.faq-item');
+
+      items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(query) ? "block" : "none";
+      });
+    }
+  </script>
+
 </body>
 </html>

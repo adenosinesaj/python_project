@@ -1,98 +1,76 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-        .form-container {
-            background: #fff;
-            padding: 30px 25px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 450px;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-            font-size: 28px;
-        }
-        form p {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-        }
-        label {
-            margin-bottom: 6px;
-            font-weight: 600;
-            color: #555;
-            font-size: 15px;
-        }
-        input, select, textarea {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 16px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        input[type="file"] {
-            padding: 5px;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #007BFF;
-            color: white;
-            font-size: 18px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Product | ManageHouse</title>
 
-        /* Make textarea taller */
-        textarea {
-            min-height: 120px;
-        }
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-        /* Responsive tweak */
-        @media (max-width: 500px) {
-            h1 {
-                font-size: 24px;
-            }
-            .form-container {
-                padding: 20px 15px;
-            }
-        }
-    </style>
+  <!-- Shared & App Styles -->
+  <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/add_product.css' %}" />
+
+  <script src="{% static 'js/header.js' %}" defer></script>
 </head>
-<body>
+<body class="mh-body">
 
-    <div class="form-container">
-        <h1>Add Product</h1>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
+  <!-- Header Inclusion -->
+  {% include 'header.html' %}
+
+  <!-- Main Section Wrapper -->
+  <main class="mh-form-wrapper">
+    
+    <!-- Hero Banner -->
+    <header class="mh-form-banner">
+      <div class="mh-banner-container">
+        <h1 class="mh-banner-title">Add New Product</h1>
+        <p class="mh-banner-subtitle">List your item or service on the ManageHouse Marketplace</p>
+      </div>
+    </header>
+
+    <!-- Card Container -->
+    <div class="mh-form-container">
+      <div class="mh-form-card">
+        
+        <div class="mh-card-header">
+          <div class="mh-icon-badge">
+            <i class="fa-solid fa-box-open"></i>
+          </div>
+          <h2>Product Details</h2>
+          <p>Fill out the details below to add your product</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="mh-product-form">
+          {% csrf_token %}
+          
+          <div class="mh-form-fields">
             {{ form.as_p }}
-            <button type="submit">Submit</button>
+          </div>
+
+          <div class="mh-form-actions">
+            <button type="submit" class="mh-btn-submit">
+              <i class="fa-solid fa-plus"></i> Submit Product
+            </button>
+            <a href="{% url 'product_list' %}" class="mh-btn-cancel">
+              Cancel
+            </a>
+          </div>
         </form>
+
+      </div>
     </div>
+
+  </main>
+
+  <!-- Footer Inclusion -->
+  {% include 'footer.html' %}
 
 </body>
 </html>

@@ -1,67 +1,65 @@
 """
 URL configuration for Event_management project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from EventApp import views as e_views
-from .import settings
+from django.conf import settings
 from django.conf.urls.static import static
 
-
-
-
 urlpatterns = [
+    # Administrative & Authentication Routes
     path('admin/', admin.site.urls),
     path('', e_views.home, name='home'),
     path('signup/', e_views.signup, name='signup'),
-    path('profile/', e_views.profile_view, name='profile'), 
     path('login/', e_views.user_login, name='login'),
     path('logout/', e_views.user_logout, name='logout'),
-    path('meet_the_team/', e_views.meet_the_team, name='meet_the_team'),
-    path('product/', e_views.product, name='product'),
-    path('product/<str:id>', e_views.product_details, name = 'product_details'),
+    path('profile/', e_views.profile_view, name='profile_view'),
+
+    # Product & Marketplace Management Routes
+    path('products/', e_views.product_list, name='product_list'), # Added plural route
+    path('product/', e_views.product_list),                       # Retained singular route for backwards compatibility
+    path('product/<int:id>/', e_views.product_details, name='product_detail'), # Updated name to 'product_detail'
     path('product/add_product/', e_views.add_product, name='add_product'),
-    path('product/update_product/<str:id>', e_views.update_product, name='update_product'),
-    path('product/delete_product/<str:id>', e_views.delete_product, name='delete_product'),
-    path('meet_the_team/sajid/', e_views.profile_sajid, name='sajid_info'),
-    path('meet_the_team/tanisha/', e_views.profile_tanisha, name='tanisha_info'),
-    path('meet_the_team/toma/', e_views.profile_toma, name='toma_info'),
-    path('meet_the_team/shoily/', e_views.profile_shoily, name='shoily_info'),
-    path('meet_the_team/sydul/', e_views.profile_sydul, name='sydul_info'),
-    path('meet_the_team/shakib/', e_views.profile_shakib, name='shakib_info'),
-    path('meet_the_team/jisan/', e_views.profile_jisan, name='jisan_info'),
-    path('meet_the_team/mamim/', e_views.profile_mamim, name='mamim_info'),
-    path('meet_the_team/tabiur/', e_views.profile_tabiur, name='tabiur_info'),
-    path('meet_the_team/rifat/', e_views.profile_rifat, name='rifat_info'),
-    path('meet_the_team/riyad/', e_views.profile_riyad, name='riyad_info'),
-    path('meet_the_team/asif/', e_views.profile_asif, name='asif_info'),
-    path('policy/', e_views.policy, name='policy'),
-    path('help/', e_views.help, name='help'),
-    path('event_list/', e_views.event_list, name='event_list'),
-    path('event_list/<int:pk>/', e_views.event_details, name='event_detail'),
+    path('product/update_product/<int:id>/', e_views.update_product, name='update_product'),
+    path('product/delete_product/<int:id>/', e_views.delete_product, name='delete_product'),
+
+    # Vendor Directory Routes
+    path('vendors/', e_views.vendor_list, name='vendor_list'),
+    path('vendor/<int:user_id>/', e_views.vendor_profile, name='vendor_profile'),
+
+    # Shopping Cart & Checkout Routes
     path('cart/', e_views.view_cart, name='view_cart'),
     path('cart/add/<int:product_id>/', e_views.add_to_cart, name='add_to_cart'),
+    path('cart/update/<int:item_id>/', e_views.update_cart_quantity, name='update_cart_quantity'), # Added AJAX quantity update route
     path('cart/remove/<int:item_id>/', e_views.remove_from_cart, name='remove_from_cart'),
     path('checkout/', e_views.checkout, name='checkout'),
     path('orders/', e_views.order_history, name='order_history'),
+
+    # ==========================================
+    # INTERACTIVE EVENT PLANNING ROUTES
+    # ==========================================
+    path('planner/', e_views.planner_dashboard, name='planner_dashboard'),
+    path('planner/task/add/', e_views.add_checklist_task, name='add_checklist_task'),
+    path('planner/task/toggle/<int:pk>/', e_views.toggle_checklist_task, name='toggle_checklist_task'),
+    path('planner/task/delete/<int:pk>/', e_views.delete_checklist_task, name='delete_checklist_task'),
+    path('planner/budget/add/', e_views.add_budget_item, name='add_budget_item'),
+    path('planner/budget/delete/<int:pk>/', e_views.delete_budget_item, name='delete_budget_item'),
+
+    # Event Portfolios & Search
+    path('event_list/', e_views.event_list, name='event_list'),
+    path('event_list/<int:pk>/', e_views.event_details, name='event_detail'),
     path('search/', e_views.search, name='search'),
-    path('vendors/', e_views.vendor_list, name='vendor_list'),
-    path('vendor/<int:user_id>/', e_views.vendor_profile, name='vendor_profile'),
- 
 
+    # Static & Support Pages
+    path('policy/', e_views.policy, name='policy'),
+    path('help/', e_views.help_page, name='help'),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # Team Profiles
+    path('meet_the_team/', e_views.meet_the_team, name='meet_the_team'),
+    
+]
 
+# Serve media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

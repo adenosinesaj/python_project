@@ -1,78 +1,223 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #b57370; 
+/* ==========================================================================
+   ManageHouse Vendor Profile - Scoped Theme
+   ========================================================================== */
+
+:root {
+  /* --mh-font: 'Montserrat', sans-serif; */
+  --mh-bg-page: #cfb9b9;
+  --mh-bg-card: #f7d7d3;
+  --mh-banner-bg: #a84b4b;
+  --mh-primary: rgb(173, 48, 32);
+  --mh-primary-hover: #8c281b;
+  --mh-text-dark: #282828;
+  --mh-text-muted: #555555;
+  --mh-border: #e2beba;
+  --mh-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
-.vendor-profile-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
+body.mh-body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--mh-bg-page);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+
 }
 
-.card-container {
-    display: flex;
-    background-color: #f7d7d3; 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-    overflow: hidden;
-    max-width: 900px;
-    width: 100%;
+.mh-profile-wrapper {
+  flex-grow: 1;
+  padding-bottom: 4rem;
+  font-family: var(--mh-font);
 }
 
-.card-left {
-    flex: 1;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px;
-    border-right: 1px solid #ddd;
+/* Page Banner */
+.mh-profile-banner {
+  background-color: var(--mh-banner-bg);
+  color: #ffffff;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.card-left .profile-img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
+.mh-banner-container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.card-right {
-    flex: 2;
-    padding: 30px;
-    color: #333;
+.mh-banner-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.card-right h2 {
-    margin-top: 0;
-    margin-bottom: 10px;
+.mh-banner-subtitle {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin: 0;
 }
 
-.card-right p {
-    margin: 8px 0;
-    line-height: 1.4;
+/* Layout Container */
+.mh-profile-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
-.username {
-    font-style: italic;
-    color: #555;
+/* Profile Card Component */
+.mh-card-container {
+  display: flex;
+  background-color: var(--mh-bg-card);
+  box-shadow: var(--mh-shadow);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-.profile-actions {
-    margin-top: 20px;
+/* Card Left: Image */
+.mh-card-left {
+  flex: 1;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem 2rem;
+  border-right: 1px solid var(--mh-border);
 }
 
-.btn {
-    background-color: #d94f4f;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
+.mh-profile-img {
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.btn:hover {
-    background-color: #b83f3f;
+.mh-profile-placeholder {
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  background-color: rgba(173, 48, 32, 0.1);
+  color: var(--mh-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+}
+
+/* Card Right: Information */
+.mh-card-right {
+  flex: 1.5;
+  padding: 2.5rem 2rem;
+  color: var(--mh-text-dark);
+}
+
+.mh-vendor-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 0 0 0.25rem 0;
+  color: var(--mh-text-dark);
+}
+
+.mh-username {
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--mh-text-muted);
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.mh-divider {
+  border: 0;
+  height: 1px;
+  background-color: var(--mh-border);
+  margin: 1rem 0 1.25rem 0;
+}
+
+/* Detail Items */
+.mh-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.mh-info-item {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: #333333;
+}
+
+.mh-info-item i {
+  color: var(--mh-primary);
+  margin-top: 0.2rem;
+  width: 18px;
+  text-align: center;
+}
+
+.mh-info-item strong {
+  color: var(--mh-text-dark);
+  font-weight: 700;
+}
+
+/* Actions */
+.mh-profile-actions {
+  margin-top: 2rem;
+}
+
+.mh-btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--mh-primary);
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(173, 48, 32, 0.2);
+}
+
+.mh-btn-back:hover {
+  background-color: var(--mh-primary-hover);
+  transform: translateY(-1px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .mh-profile-banner {
+    padding: 2.25rem 1rem;
+  }
+
+  .mh-banner-title {
+    font-size: 1.75rem;
+  }
+
+  .mh-card-container {
+    flex-direction: column;
+  }
+
+  .mh-card-left {
+    border-right: none;
+    border-bottom: 1px solid var(--mh-border);
+    padding: 2rem 1.5rem;
+  }
+
+  .mh-card-right {
+    padding: 2rem 1.5rem;
+  }
 }

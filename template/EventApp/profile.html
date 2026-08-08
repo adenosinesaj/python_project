@@ -1,61 +1,104 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Profile</title>
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/header.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile | manageHoise?</title>
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
-  <body>
-    {% include 'header.html' %}
-    <!-- Profile-->
-    <div class="profile-wrapper">
-      <div class="profile-card">
-        <!-- Form for editing profile information -->
-        <form method="POST" enctype="multipart/form-data" action="{% url 'profile' %}">
-          {% csrf_token %}
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
 
-          <div class="profile-header">
-            <div class="profile-img-wrapper">
-              <img
-                id="profile-preview"
-                src="{{ profile.profile_picture.url }}"
-                alt="Profile Picture"
-                class="profile-img"
-              />
-              {% if editable %}
-                <!-- File input is shown only in edit mode -->
-                <input
-                  type="file"
-                  id="profile-upload"
-                  name="profile_picture"
-                  accept="image/*"
-                  style="display: inline-block;"
-                />
-              {% else %}
-                <input type="file" id="profile-upload" name="profile_picture" accept="image/*" style="display: none;" />
-              {% endif %}
+  {% include 'header.html' %}
+
+  <main class="mh-profile-wrapper">
+    <div class="mh-profile-card">
+
+      <!-- Django Messages -->
+      {% if messages %}
+        <div class="mh-alert-container">
+          {% for message in messages %}
+            <div class="mh-alert mh-alert-{{ message.tags }}">
+              <i class="fa-solid fa-circle-info me-2"></i> {{ message }}
             </div>
-            <div class="profile-header-text">
-              <h2>{{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
-              <p class="username">Username: {{ profile.user.username }}</p>
-            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if user_form.errors or profile_form.errors %}
+  <div style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 6px; margin-bottom: 15px;">
+    <strong>Form Errors:</strong>
+    <ul>
+      {% for field, errors in user_form.errors.items %}
+        <li><strong>User - {{ field }}:</strong> {{ errors|striptags }}</li>
+      {% endfor %}
+      {% for field, errors in profile_form.errors.items %}
+        <li><strong>Profile - {{ field }}:</strong> {{ errors|striptags }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+      <!-- Form for editing profile information -->
+      <form method="POST" enctype="multipart/form-data" action="{% url 'profile_view' %}" id="profile-form">
+        {% csrf_token %}
+
+        <!-- Profile Hero Header -->
+        <div class="mh-profile-hero">
+          <div class="mh-avatar-wrapper">
+            {% if profile.profile_picture %}
+              <img id="profile-preview" src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="mh-avatar-img" />
+            {% else %}
+              <img id="profile-preview" src="{% static 'image/default_avatar.png' %}" alt="Profile Picture" class="mh-avatar-img" />
+            {% endif %}
+
+            {% if editable %}
+              <!-- Interactive Camera Badge Overlay -->
+              <label for="profile-upload" class="mh-avatar-upload-label" title="Upload new avatar">
+                <i class="fa-solid fa-camera"></i>
+              </label>
+              <input type="file" id="profile-upload" name="profile_picture" accept="image/*" class="d-none" />
+            {% else %}
+              <input type="file" id="profile-upload" name="profile_picture" accept="image/*" class="d-none" />
+            {% endif %}
           </div>
 
-          <div class="profile-info">
-            <div>
-              <label for="first_name">First Name:</label>
+          <div class="mh-hero-details">
+            <h2>
+              {% if profile.user.first_name %}
+                {{ profile.user.first_name }} {{ profile.user.last_name }}
+              {% else %}
+                {{ profile.user.username }}
+              {% endif %}
+            </h2>
+            <p class="mh-username"><i class="fa-solid fa-at"></i>{{ profile.user.username }}</p>
+            
+            <!-- Dynamic Role Badge -->
+            <div class="mh-role-badge mh-role-{{ profile.role|lower }}">
+              <i class="fa-solid {% if profile.role == 'seller' %}fa-store{% else %}fa-bag-shopping{% endif %}"></i>
+              <span>{{ profile.role|default:"Member"|title }} Account</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mh-section-divider"></div>
+
+        <!-- Form Input Grid -->
+        <div class="mh-profile-form-grid">
+          
+          <div class="mh-input-group">
+            <label for="first_name">First Name</label>
+            <div class="mh-input-field">
+              <i class="fa-solid fa-user input-icon"></i>
               <input
                 type="text"
                 id="first_name"
@@ -65,8 +108,12 @@
                 {% if not editable %}disabled{% endif %}
               />
             </div>
-            <div>
-              <label for="last_name">Last Name:</label>
+          </div>
+
+          <div class="mh-input-group">
+            <label for="last_name">Last Name</label>
+            <div class="mh-input-field">
+              <i class="fa-solid fa-user input-icon"></i>
               <input
                 type="text"
                 id="last_name"
@@ -76,137 +123,137 @@
                 {% if not editable %}disabled{% endif %}
               />
             </div>
-            <div>
-              <label for="phone">Phone:</label>
+          </div>
+
+          <div class="mh-input-group">
+            <label for="phone">Phone Number</label>
+            <div class="mh-input-field">
+              <i class="fa-solid fa-phone input-icon"></i>
               <input
                 type="text"
                 id="phone"
                 name="phone"
-                value="{{ profile.phone }}"
+                value="{{ profile.phone|default_if_none:'' }}"
+                placeholder="+1 (555) 000-0000"
                 class="editable-field"
                 {% if not editable %}disabled{% endif %}
               />
             </div>
-            <div>
-              <label for="address">Address:</label>
-              <input
-                type="text"
-                id="address"
-                name="address"
-                value="{{ profile.address }}"
-                class="editable-field"
-                {% if not editable %}disabled{% endif %}
-              />
-            </div>
-            <div>
-              <label for="bio">Bio:</label>
-              <textarea
-                id="bio"
-                name="bio"
-                class="editable-field"
-                {% if not editable %}disabled{% endif %}
-              >{{ profile.bio }}</textarea>
-            </div>
-            <div>
-              <label for="role">Role</label>
+          </div>
+
+          <div class="mh-input-group">
+            <label for="role">Account Role</label>
+            <div class="mh-input-field readonly">
+              <i class="fa-solid fa-user-shield input-icon"></i>
               <input
                 type="text"
                 id="role"
                 name="role"
-                value="{{ profile.role }}"
+                value="{{ profile.role|title }}"
                 disabled
                 readonly
               />
             </div>
-            
           </div>
 
-          <!-- Save Button to submit the changes (only enabled when in edit mode) -->
-          {% if editable %}
-          <button type="submit" class="btn save-btn" id="save-btn" disabled>
-            Save Changes
-          </button>
-          {% endif %}
-        </form>
-        <!-- Inside profile.html -->
-        {% if profile.role == 'seller' %}
-        <p>You are a <strong>Seller</strong>. Manage your product listings below.</p>
-        {% elif profile.role == 'buyer' %}
-        <p>You are a <strong>Buyer</strong>. View your orders and cart.</p>
-        {% endif %}
-        {% if profile.role == 'seller' %}
-        <div class="profile-actions">
-          <a href="{% url 'add_product' %}" class="btn seller-btn">➕ Add Product</a>
-          <a href="{% url 'product' %}" class="btn seller-btn">🛠 Manage Products</a>
-        </div>
-        {% elif profile.role == 'buyer' %}
-        <div class="profile-actions">
-          <a href="{% url 'order_history' %}" class="btn buyer-btn">📦 My Orders</a>
-        </div>
-        {% endif %}
+          <div class="mh-input-group full-width">
+            <label for="address">Primary Address</label>
+            <div class="mh-input-field">
+              <i class="fa-solid fa-location-dot input-icon"></i>
+              <input
+                type="text"
+                id="address"
+                name="address"
+                value="{{ profile.address|default_if_none:'' }}"
+                placeholder="Street name, City, Country"
+                class="editable-field"
+                {% if not editable %}disabled{% endif %}
+              />
+            </div>
+          </div>
 
-        <!-- Edit Profile Button to toggle editable mode -->
-        {% if not editable %}
-        <div class="profile-actions">
-          <a href="?edit=true" class="btn edit-btn">✏️ Edit Profile</a>
-        </div>
-        {% endif %}
+          <div class="mh-input-group full-width">
+            <label for="bio">About & Bio</label>
+            <div class="mh-input-field textarea-field">
+              <i class="fa-solid fa-pen-nib input-icon"></i>
+              <textarea
+                id="bio"
+                name="bio"
+                placeholder="Tell us a bit about yourself or your event organization..."
+                class="editable-field"
+                rows="3"
+                {% if not editable %}disabled{% endif %}
+              >{{ profile.bio|default_if_none:'' }}</textarea>
+            </div>
+          </div>
 
-        <div class="profile-actions">
-          <a href="{% url 'logout' %}" class="btn logout-btn">🚪 Logout</a>
         </div>
+
+        <!-- Save Button (Active only when in edit mode) -->
+        {% if editable %}
+          <div class="mh-save-wrapper">
+            <button type="submit" class="mh-btn mh-btn-save" id="save-btn" disabled>
+              <i class="fa-solid fa-floppy-disk me-2"></i> Save Changes
+            </button>
+            <a href="{% url 'profile_view' %}" class="mh-btn mh-btn-cancel">Cancel</a>
+          </div>
+        {% endif %}
+      </form>
+
+      <!-- Role-Based Notification Panel -->
+      <div class="mh-role-notice">
+        {% if profile.role == 'seller' %}
+          <div class="mh-notice-card seller">
+            <i class="fa-solid fa-chart-line"></i>
+            <div>
+              <h5>Seller Dashboard Access</h5>
+              <p>You can add products, manage inventories, and fulfill active customer orders.</p>
+            </div>
+          </div>
+        {% elif profile.role == 'buyer' %}
+          <div class="mh-notice-card buyer">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <div>
+              <h5>Buyer Hub</h5>
+              <p>View active event reservations, check purchase receipts, and track orders.</p>
+            </div>
+          </div>
+        {% endif %}
       </div>
+
+      <div class="mh-section-divider"></div>
+
+      <!-- Action Navigation Buttons -->
+      <div class="mh-action-grid">
+        {% if profile.role == 'seller' %}
+          <a href="{% url 'add_product' %}" class="mh-btn mh-btn-primary">
+            <i class="fa-solid fa-plus me-2"></i> Add Product
+          </a>
+          <a href="{% url 'product_list' %}" class="mh-btn mh-btn-secondary">
+            <i class="fa-solid fa-boxes-stacked me-2"></i> Manage Products
+          </a>
+        {% elif profile.role == 'buyer' %}
+          <a href="{% url 'order_history' %}" class="mh-btn mh-btn-primary">
+            <i class="fa-solid fa-box-archive me-2"></i> My Orders
+          </a>
+        {% endif %}
+
+        {% if not editable %}
+          <a href="?edit=true" class="mh-btn mh-btn-edit">
+            <i class="fa-solid fa-pen-to-square me-2"></i> Edit Profile
+          </a>
+        {% endif %}
+
+        <a href="{% url 'logout' %}" class="mh-btn mh-btn-logout">
+          <i class="fa-solid fa-right-from-bracket me-2"></i> Logout
+        </a>
+      </div>
+
     </div>
+  </main>
+  <!-- External Profile JS Script -->
+  <script src="{% static 'js/profile.js' %}"></script>
 
-  
-    
-    
-
-    <!-- Script for previewing image and detecting changes -->
-    <script>
-      const uploadInput = document.getElementById("profile-upload");
-      const previewImg = document.getElementById("profile-preview");
-      const saveBtn = document.getElementById("save-btn");
-      const editableFields = document.querySelectorAll(".editable-field");
-
-      function detectChanges() {
-        let changesMade = false;
-
-        editableFields.forEach((field) => {
-          if (field.value !== field.defaultValue) {
-            changesMade = true;
-          }
-        });
-
-        if (changesMade || uploadInput.files.length > 0) {
-          saveBtn.disabled = false;
-          saveBtn.style.backgroundColor = "#555";
-        } else {
-          saveBtn.disabled = true;
-          saveBtn.style.backgroundColor = "#ccc";
-        }
-      }
-
-      function previewImage(event) {
-        const file = event.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            previewImg.src = e.target.result;
-          };
-          reader.readAsDataURL(file);
-        }
-        detectChanges(); // Also trigger change detection
-      }
-
-      editableFields.forEach((field) => {
-        field.addEventListener("input", detectChanges);
-      });
-
-      uploadInput.addEventListener("change", previewImage);
-
-      detectChanges();
-    </script>
-    {% include 'footer.html' %}
-  </body>
+  {% include 'footer.html' %}
+</body>
 </html>

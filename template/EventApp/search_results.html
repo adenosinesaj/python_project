@@ -2,41 +2,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Search Results</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
-    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Results | manageHoise?</title>
+
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Shared & Page Styles -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/search.css' %}" />
+
+  <script src="{% static 'js/header.js' %}" defer></script>
 </head>
-<body>
-    {% include 'header.html' %}
-    <div class="container mt-5">
-        <h3>Search Results for "{{ request.GET.q }}"</h3>
-        <hr>
-        {% if results %}
-            <div class="row">
-                {% for product in results %}
-                    <div class="col-md-3 mb-4 d-flex align-items-stretch">
-                        <div class="card w-100">
-                            {% if product.p_photo %}
-                                <img src="{{ product.p_photo.url }}" class="img-fluid card-img-top" alt="{{ product.name }}">
-                            {% endif %}
-                            <div class="card-body">
-                                <h5 class="card-title">{{ product.name }}</h5>
-                                <p class="card-text"><strong>Price:</strong> ${{ product.price }}</p>
-                                <a href="{% url 'product_details' product.id %}" class="btn btn-sm btn-outline-primary">View Details</a>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
+<body class="mh-body">
+
+  <!-- Header Inclusion -->
+  {% include 'header.html' %}
+
+  <!-- Main Section Wrapper -->
+  <main class="mh-search-wrapper">
+
+    <!-- Hero Banner -->
+    <header class="mh-search-banner">
+      <div class="mh-banner-container">
+        <h1 class="mh-banner-title">Search Results</h1>
+        <p class="mh-banner-subtitle">
+          {% if request.GET.q %}
+            Showing matching items for "<strong>{{ request.GET.q }}</strong>"
+          {% else %}
+            Explore items across the ManageHouse catalog
+          {% endif %}
+        </p>
+      </div>
+    </header>
+
+    <!-- Results Grid Container -->
+    <div class="mh-search-container">
+      {% if results %}
+        <div class="mh-product-grid">
+          {% for product in results %}
+            <div class="mh-product-card">
+              
+              <div class="mh-card-media">
+                {% if product.p_photo %}
+                  <img src="{{ product.p_photo.url }}" alt="{{ product.name }}" class="mh-product-img" />
+                {% else %}
+                  <div class="mh-media-placeholder">
+                    <i class="fa-solid fa-box-open"></i>
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="mh-card-body">
+                <h3 class="mh-product-title">{{ product.name }}</h3>
+                <p class="mh-product-price">${{ product.price }}</p>
+                
+                <div class="mh-card-actions">
+                  <a href="{% url 'product_detail' product.id %}" class="mh-btn-details">
+                    <i class="fa-regular fa-eye"></i> View Details
+                  </a>
+                </div>
+              </div>
+
             </div>
-        {% else %}
-            <p>No products found matching your search.</p>
-        {% endif %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="mh-empty-search">
+          <i class="fa-solid fa-magnifying-glass-minus mh-empty-icon"></i>
+          <h3>No Products Found</h3>
+          <p>We couldn't find any items matching "<strong>{{ request.GET.q }}</strong>". Try checking for spelling errors or searching for different keywords.</p>
+        </div>
+      {% endif %}
     </div>
 
-{% include 'footer.html' %}
+  </main>
+
+  <!-- Footer Inclusion -->
+  {% include 'footer.html' %}
 
 </body>
 </html>

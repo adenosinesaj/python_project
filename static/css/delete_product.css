@@ -1,0 +1,183 @@
+/* ==========================================================================
+   ManageHouse Delete Product Confirmation - Scoped Maroon Theme
+   ========================================================================== */
+
+:root {
+  /* --mh-font: 'Montserrat', sans-serif; */
+  --mh-bg-page: #cfb9b9;
+  --mh-bg-card: #ffffff;
+  --mh-banner-bg: #a84b4b;
+  
+  --mh-danger: #b82222;
+  --mh-danger-hover: #8c1919;
+  --mh-text-dark: #282828;
+  --mh-text-muted: #6b7280;
+  --mh-border: #e5e7eb;
+  
+  --mh-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
+
+body.mh-body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--mh-bg-page);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+font-family: 'Plus Jakarta Sans', sans-serif;
+
+}
+
+.mh-delete-wrapper {
+  flex-grow: 1;
+  padding-bottom: 4rem;
+  font-family: var(--mh-font);
+}
+
+/* Page Banner */
+.mh-delete-banner {
+  background-color: var(--mh-banner-bg);
+  color: #ffffff;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mh-banner-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mh-banner-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.mh-banner-subtitle {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Centered Layout */
+.mh-delete-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.mh-delete-card {
+  background: var(--mh-bg-card);
+  border-radius: 16px;
+  box-shadow: var(--mh-shadow);
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  text-align: center;
+}
+
+.mh-warning-badge {
+  width: 64px;
+  height: 64px;
+  background: rgba(184, 34, 34, 0.1);
+  color: var(--mh-danger);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.mh-card-header h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--mh-text-dark);
+  margin: 0 0 0.75rem 0;
+}
+
+.mh-confirmation-text {
+  font-size: 1rem;
+  color: var(--mh-text-muted);
+  line-height: 1.5;
+  margin: 0 0 2rem 0;
+}
+
+.mh-confirmation-text strong {
+  color: var(--mh-text-dark);
+  word-break: break-word;
+}
+
+/* Actions */
+.mh-action-buttons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.mh-btn-delete {
+  flex: 1;
+  padding: 0.8rem 1.25rem;
+  background-color: var(--mh-danger);
+  color: #ffffff;
+  font-family: var(--mh-font);
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(184, 34, 34, 0.25);
+}
+
+.mh-btn-delete:hover {
+  background-color: var(--mh-danger-hover);
+  transform: translateY(-1px);
+}
+
+.mh-btn-cancel {
+  flex: 1;
+  padding: 0.8rem 1.25rem;
+  background-color: #e5e7eb;
+  color: #374151;
+  font-family: var(--mh-font);
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 25px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.mh-btn-cancel:hover {
+  background-color: #d1d5db;
+  color: #111827;
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+  .mh-delete-banner {
+    padding: 2.25rem 1rem;
+  }
+  
+  .mh-banner-title {
+    font-size: 1.75rem;
+  }
+
+  .mh-delete-card {
+    padding: 2rem 1.25rem;
+  }
+
+  .mh-action-buttons {
+    flex-direction: column;
+  }
+}

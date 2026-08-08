@@ -1,119 +1,111 @@
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{{ product.name }} - Product Details</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ product.name }} - Product Details | manageHoise?</title>
+  
+  <!-- CSS Dependencies -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/header.css' %}" />
   <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    .product-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      background-color: #fff;
-    }
-
-    .product-image img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .zoom-note {
-      font-size: 14px;
-      color: #555;
-      margin-top: 10px;
-      text-align: center;
-    }
-
-    .product-info {
-      flex: 1;
-      min-width: 300px;
-    }
-
-    .product-title {
-      font-size: 36px;
-      font-weight: 700;
-      color: #212832;
-    }
-
-    .product-price {
-      font-size: 28px;
-      color: #212832;
-      font-weight: bold;
-      margin: 10px 0;
-    }
-
-    .product-meta {
-      font-size: 18px;
-      color: #444;
-      margin: 6px 0;
-    }
-
-    .product-status {
-      font-weight: bold;
-      color: #18a100;
-    }
-
-    .product-description {
-      font-size: 16px;
-      color: #333;
-      margin-top: 15px;
-      line-height: 1.6;
-    }
-
-    .btn-action {
-      margin-right: 15px;
-    }
-
-    .back-btn {
-      margin-top: 30px;
-    }
-  </style>
+  <link rel="stylesheet" href="{% static 'css/product_detail.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
 <body>
 
   {% include 'header.html' %}
-  <div class="container">
-    <div class="product-wrapper">
-      <div class="col-md-5 product-image">
-        {% if product.p_photo %}
-          <img src="{{ product.p_photo.url }}" alt="{{ product.name }}">
-        {% else %}
-          <img src="https://via.placeholder.com/300" alt="No image">
-        {% endif %}
-        <p class="zoom-note">Click to zoom</p>
-      </div>
 
-      <div class="col-md-7 product-info">
-        <h1 class="product-title">{{ product.name }}</h1>
-        <p class="product-price">৳ {{ product.price }}</p>
-        <p class="product-meta"><strong>Category:</strong> {{ product.category.name }}</p>
-        <p class="product-meta">
-          <strong>Status:</strong> <span class="product-status">{{ product.status }}</span>
-        </p>
-        <p class="product-description">{{ product.description }}</p>
-        <p class="product-meta">
-          <small><strong>Added on:</strong> {{ product.created_at|date:"F j, Y, g:i a" }}</small>
-        </p>
+  <main class="mh-detail-container">
+    
+    <!-- Breadcrumb Navigation -->
+    <nav class="mh-breadcrumb">
+      <a href="{% url 'home' %}">Home</a>
+      <i class="fa-solid fa-chevron-right mh-breadcrumb-icon"></i>
+      <a href="{% url 'product_list' %}">Products</a>
+      <i class="fa-solid fa-chevron-right mh-breadcrumb-icon"></i>
+      <span>{{ product.name }}</span>
+    </nav>
 
-        {% if request.user.is_authenticated and request.user.c_profile.role == "buyer" %}
-          <form method="POST" action="{% url 'add_to_cart' product.id %}" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-primary btn-action">Add to Cart</button>
-          </form>
-        {% endif %}
-        <a href="{% url 'product' %}" class="btn btn-secondary back-btn">← Back to Products</a>
+    <!-- Product Showcase Card -->
+    <div class="mh-product-card">
+      <div class="row g-4 align-items-center">
+        
+        <!-- Image Preview Frame -->
+        <div class="col-lg-5">
+          <div class="mh-gallery-frame">
+            {% if product.p_photo %}
+              <img src="{{ product.p_photo.url }}" alt="{{ product.name }}" class="mh-gallery-image">
+            {% else %}
+              <img src="https://via.placeholder.com/450x450?text=No+Image+Available" alt="No image available" class="mh-gallery-image">
+            {% endif %}
+            <div class="mh-zoom-pill">
+              <i class="fa-solid fa-magnifying-glass-plus"></i> Hover to inspect
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Information Side -->
+        <div class="col-lg-7">
+          <div class="mh-product-info">
+            
+            <!-- Badges -->
+            <div class="mh-meta-badges">
+              <span class="mh-badge-category">{{ product.category.name }}</span>
+              <span class="mh-badge-status">{{ product.status }}</span>
+            </div>
+
+            <!-- Title -->
+            <h1 class="mh-title">{{ product.name }}</h1>
+
+            <!-- Price Display -->
+            <div class="mh-price-block">
+              <span class="mh-currency">৳</span>
+              <span class="mh-amount">{{ product.price }}</span>
+            </div>
+
+            <!-- Description -->
+            <div class="mh-section-label">Overview</div>
+            <p class="mh-description">
+              {% if product.description %}
+                {{ product.description }}
+              {% else %}
+                No specific description provided for this setup asset.
+              {% endif %}
+            </p>
+
+            <!-- Date Metadata -->
+            <div class="mh-meta-footer">
+              <i class="fa-regular fa-clock"></i>
+              <span>Listed on {{ product.created_at|date:"F j, Y" }}</span>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="mh-actions-group">
+              {% if request.user.is_authenticated and request.user.c_profile.role == "buyer" %}
+                <form method="POST" action="{% url 'add_to_cart' product.id %}" class="mh-action-form">
+                  {% csrf_token %}
+                  <button type="submit" class="mh-btn-primary">
+                    <i class="fa-solid fa-bag-shopping"></i> Add to Cart
+                  </button>
+                </form>
+              {% endif %}
+              
+              <a href="{% url 'product_list' %}" class="mh-btn-secondary">
+                <i class="fa-solid fa-arrow-left"></i> Back to Products
+              </a>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div>
-  </div>
-{% include 'footer.html' %}
+
+  </main>
+
+  {% include 'footer.html' %}
+
 </body>
 </html>

@@ -1,88 +1,264 @@
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* ManageHoise? Help Center Styling - Maroon/Dusty Rose Theme */
+:root {
+  /* --font-main: 'Montserrat', sans-serif; */
+  --bg-body: #cfb9b9;          /* Page background */
+  --bg-card: #c76464;          /* Main card container background */
+  --btn-primary: rgb(173, 48, 32); /* Primary button color */
+  --text-light: #f1f1f1;       /* Light text color */
+  --text-dark: #282828;        /* Dark text color */
+  --border-light: rgba(255, 255, 255, 0.2);
+  --radius: 12px;
 }
 
-
-.UserHelpCenterMain{
-    display: block;
-    position: relative;
-    height: 100vh;
-    width: 100%;
-    background-color: white;
-    z-index: -1;
-    
-    
+body.mh-body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text-dark);
+  background-color: #f8fafc;
+  margin: 0;
+  padding: 0;
 }
 
-.UserHelpCenterTop{
-    
-    display: block;
-    color:white;
-    min-height: 250px;
-    width: 100%;
-    
-    background-color: rgb(205, 60, 60); 
-    
+.help-center-wrapper {
+  flex-grow: 1;
+  padding-bottom: 3rem;
 }
 
-.UserHelpCenterTopHead{
-     display: block;
-     font-family: "Ubuntu", sans-serif;
-     font-weight: 700;
-     font-style: normal;
-     padding-top: 40px;
-     margin-left: 100px;
-     font-size: 55px;
-      
+/* Hero Section */
+.help-hero {
+  background: #a84b4b;
+  color: var(--text-light);
+  padding: 3rem 1.5rem 4rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.UserHelpCenterBottomText{
-    
-    font-family: "Source Sans 3", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
-    margin-top: 200px;
-     margin-left: 150px;
-     font-size: 25px;
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text-light);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 2rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
 }
 
-
-.UserHelpCenterBottom{
-    display: block;
-   
-    height: 65vh;
-    width: 100%;
-    margin-bottom: 0px;
-}
-/* ============================
-     Buttons
-  ============================ */
-  .red-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: red;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    box-sizing: border-box;  /* Makes sure padding and border are included in width/height */
+.hero-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 1.5rem 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-.red-btn:hover {
-    background-color: darkred;
+.search-box-wrap {
+  position: relative;
+  max-width: 550px;
+  margin: 0 auto;
 }
 
-.red-btn:active {
-    background-color: darkred;
-    transform: scale(0.98);
+.search-icon {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a84b4b;
 }
 
-.red-btn:focus {
-    outline: none;
+.search-box-wrap input {
+  width: 100%;
+  padding: 0.9rem 1rem 0.9rem 3.25rem;
+  border-radius: 2rem;
+  border: none;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 500;
+  outline: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+}
+
+/* Content Container */
+.help-container {
+  max-width: 950px;
+  margin: -1.5rem auto 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Support Cards */
+.quick-support-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.support-card {
+  background-color: var(--bg-card);
+  color: var(--text-light);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.support-card:hover {
+  transform: translateY(-3px);
+}
+
+.support-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.support-card p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+.card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  background: rgba(0, 0, 0, 0.15);
+  color: var(--text-light);
+}
+
+/* FAQ Accordion Section */
+.faq-section {
+  background-color: var(--bg-card);
+  color: var(--text-light);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 1.5rem 0;
+  text-align: center;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 1rem;
+}
+
+.faq-accordion-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.faq-item {
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.faq-item[open] {
+  background-color: rgba(0, 0, 0, 0.18);
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-question::-webkit-details-marker {
+  display: none;
+}
+
+.faq-icon {
+  color: #f1f1f1;
+  margin-right: 0.5rem;
+}
+
+.faq-answer {
+  padding: 0 1.25rem 1.1rem 2.75rem;
+  color: var(--text-light);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+/* Bottom CTA Card */
+.support-footer-card {
+  background-color: #8c3b3b;
+  color: var(--text-light);
+  border-radius: var(--radius);
+  padding: 1.75rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.cta-text h3 {
+  margin: 0 0 0.35rem 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.cta-text p {
+  margin: 0;
+  font-size: 0.875rem;
+  opacity: 0.9;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* Button Styling */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.35rem;
+  border-radius: 25px;
+  font-family: var(--font-main);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary {
+  background-color: var(--btn-primary);
+  color: var(--text-light);
+}
+
+.btn-secondary {
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--text-light);
+}
+
+.btn:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
 }

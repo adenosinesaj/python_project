@@ -1,74 +1,209 @@
-from django.shortcuts import render,redirect
-from .models import *
-from django.utils.timezone import now
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from .models import C_profile
 from django.contrib.auth.models import User
-from .form import *
-from django.contrib.auth.decorators import login_required
-from .form import SignUpForm
 from django.contrib import messages
-from django.shortcuts import render, get_object_or_404
-from django.db.models import Q
+from django.db.models import Sum, Q, F
+import json
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+
+from .models import (
+    Product, Category, C_profile, CartItem, Order, OrderItem, Portfolio,
+    ChecklistTask, BudgetItem, EventSchedule
+)
+from .forms import (
+    SignUpForm, UserUpdateForm, ProfileUpdateForm, ProductForm, PortfolioForm,
+    ChecklistTaskForm, BudgetItemForm, EventScheduleForm
+)
 
 
+# ==========================================
+# PUBLIC & AUTHENTICATION VIEWS
+# ==========================================
+
+def home(request):
+    return render(request, 'EventApp/home.html')
 
 
+def signup(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+
+    if request.method == 'POST':
+        form = SignUpForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Signup successful! Welcome to ManageHoise 🎉")
+            return redirect('home')
+        else:
+            messages.error(request, "Please correct the errors below.")
+    else:
+        form = SignUpForm()
+
+    return render(request, 'EventApp/signup.html', {'form': form})
 
 
+def user_login(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+
+    form = AuthenticationForm(request, data=request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        user = form.get_user()
+        login(request, user)
+        messages.success(request, f"Welcome back, {user.username}!")
+        return redirect('home')
+    
+    return render(request, 'EventApp/login.html', {'form': form})
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    messages.success(request, "Logged out successfully!")
+    return redirect('home')
+
+
+@login_required
+def profile_view(request):
+    profile, _ = C_profile.objects.get_or_create(user=request.user)
+    editable = request.GET.get('edit') == 'true'
+
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, "Profile updated successfully!")
+            return redirect('profile_view')
+        else:
+            messages.error(request, "Please check the form for errors.")
+            editable = True
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=profile)
+
+    return render(request, 'EventApp/profile.html', {
+        'profile': profile,
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'editable': editable
+    })
+
+
+# ==========================================
+# PRODUCT & VENDOR MANAGEMENT VIEWS
+# ==========================================
+
+def product_list(request):
+    products = Product.objects.all()
+    user_role = None
+    if request.user.is_authenticated:
+        try:
+            user_role = request.user.profile.role
+        except C_profile.DoesNotExist:
+            user_role = None
+
+    return render(request, 'EventApp/product.html', {
+        'products': products,
+        'role': user_role,
+    })
+
+
+def product_details(request, id):
+    product = get_object_or_404(Product, pk=id)
+    return render(request, 'EventApp/product_details.html', {'product': product})
+
+
+@login_required
 def add_product(request):
-    form = ProductForm()
+    if hasattr(request.user, 'profile') and request.user.profile.role != 'seller':
+        messages.error(request, "Only vendors can add products.")
+        return redirect('product_list')
+
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            product = form.save(commit=False)
+            product.seller = request.user
+            product.save()
             messages.success(request, "Product added successfully!")
-            return redirect('product') 
-    context = {'form': form}    
-    return render(request, 'EventApp/add_product.html', context=context) 
+            return redirect('product_list')
+    else:
+        form = ProductForm()
 
+    return render(request, 'EventApp/add_product.html', {'form': form})
+
+
+@login_required
 def update_product(request, id):
-    product = Product.objects.get(pk = id)
-    form = ProductForm(instance=product)
+    product = get_object_or_404(Product, pk=id, seller=request.user)
+
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
             messages.success(request, "Product updated successfully!")
-            return redirect('product')
-    context = {'form': form}
-    return render(request, template_name= 'EventApp/add_product.html', context=context)
+            return redirect('product_list')
+    else:
+        form = ProductForm(instance=product)
 
+    return render(request, 'EventApp/add_product.html', {'form': form, 'product': product})
+
+
+@login_required
 def delete_product(request, id):
-    product = Product.objects.get(pk = id)
+    product = get_object_or_404(Product, pk=id, seller=request.user)
     if request.method == 'POST':
         product.delete()
         messages.success(request, "Product deleted successfully!")
-        return redirect('product')
-    context = {'product': product}
-    return render(request, template_name='EventApp/delete_product.html', context=context)
+        return redirect('product_list')
+
+    return render(request, 'EventApp/delete_product.html', {'product': product})
+
+
+def vendor_list(request):
+    vendors = C_profile.objects.filter(role='seller')
+    return render(request, 'EventApp/vendor_list.html', {'vendors': vendors})
+
+
+def vendor_profile(request, user_id):
+    vendor = get_object_or_404(C_profile, user__id=user_id, role='seller')
+    products = Product.objects.filter(seller=vendor.user)
+    portfolios = Portfolio.objects.filter(seller=vendor.user)
+    return render(request, 'EventApp/vendor_profile.html', {
+        'profile': vendor,
+        'products': products,
+        'portfolios': portfolios
+    })
+
+
+# ==========================================
+# CART & CHECKOUT VIEWS
+# ==========================================
 
 @login_required
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     cart_item, created = CartItem.objects.get_or_create(user=request.user, product=product)
+    
     if not created:
         cart_item.quantity += 1
-    cart_item.save()
-    print(f"CartItem for user {request.user} and product {product.name} is {cart_item.quantity} now.")
-    return redirect('view_cart')    
+        cart_item.save()
+
+    messages.success(request, f"Added {product.name} to cart.")
+    return redirect('view_cart')
+
 
 @login_required
 def view_cart(request):
     cart_items = CartItem.objects.filter(user=request.user)
-    
-    # Attach subtotal to each item (custom attribute)
-    for item in cart_items:
-        item.subtotal = item.product.price * item.quantity
-
-    total_price = sum(item.subtotal for item in cart_items)
+    total_price = sum(item.total_price for item in cart_items)
 
     return render(request, 'EventApp/cart.html', {
         'cart_items': cart_items,
@@ -77,24 +212,74 @@ def view_cart(request):
 
 
 @login_required
+@require_POST
+def update_cart_quantity(request, item_id):
+    """
+    AJAX Endpoint to increment/decrement cart quantity dynamically.
+    Expects JSON body: {"quantity": integer}
+    """
+    cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
+    
+    try:
+        data = json.loads(request.body)
+        new_qty = int(data.get('quantity', 1))
+
+        if new_qty > 0:
+            cart_item.quantity = new_qty
+            cart_item.save()
+            
+            # Compute total price for item if property exists
+            item_total = cart_item.total_price if hasattr(cart_item, 'total_price') else (cart_item.product.price * cart_item.quantity)
+            
+            return JsonResponse({
+                'status': 'success',
+                'quantity': cart_item.quantity,
+                'item_total': float(item_total)
+            })
+        else:
+            cart_item.delete()
+            return JsonResponse({'status': 'deleted'})
+            
+    except (ValueError, json.JSONDecodeError):
+        return JsonResponse({'status': 'error', 'message': 'Invalid payload'}, status=400)
+
+
+@login_required
 def remove_from_cart(request, item_id):
-    item = get_object_or_404(CartItem, id=item_id, user=request.user)
-    item.delete()
+    """
+    Handles both AJAX JSON requests and traditional GET/POST HTTP redirects.
+    """
+    cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
+    cart_item.delete()
+
+    # If the request comes via JavaScript fetch/AJAX
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest' or request.content_type == 'application/json':
+        return JsonResponse({'status': 'deleted'})
+
+    messages.success(request, "Item removed from cart.")
     return redirect('view_cart')
+
 
 @login_required
 def checkout(request):
     cart_items = CartItem.objects.filter(user=request.user)
-    if not cart_items:
+    if not cart_items.exists():
         messages.error(request, "Your cart is empty.")
         return redirect('view_cart')
 
-    order = Order.objects.create(user=request.user, is_paid=True)  # You can manage payment status later
+    order = Order.objects.create(user=request.user, is_paid=True)
     for item in cart_items:
-        OrderItem.objects.create(order=order, product=item.product, quantity=item.quantity)
+        OrderItem.objects.create(
+            order=order,
+            product=item.product,
+            quantity=item.quantity,
+            price=item.product.price
+        )
+
     cart_items.delete()
     messages.success(request, "Order placed successfully!")
     return redirect('order_history')
+
 
 @login_required
 def order_history(request):
@@ -102,207 +287,107 @@ def order_history(request):
     return render(request, 'EventApp/order_history.html', {'orders': orders})
 
 
+# ==========================================
+# INTERACTIVE EVENT PLANNING TOOLS
+# ==========================================
 
-# Create your views here.
-def home(request):
-    form = AuthenticationForm()
-    return render(request, template_name='EventApp/home.html')
+@login_required
+def planner_dashboard(request):
+    tasks = ChecklistTask.objects.filter(user=request.user)
+    budget_items = BudgetItem.objects.filter(user=request.user)
+    schedules = EventSchedule.objects.filter(user=request.user)
 
-def product(request):
-    products = Product.objects.all()
-    role = None
-    if request.user.is_authenticated:
-        try:
-            role = C_profile.objects.get(user=request.user).role
-        except C_profile.DoesNotExist:
-            role = None
-    context = {
-        'products': products,
-        'role': role,
-    }
-    return render(request, 'EventApp/product.html', context)
+    total_est = budget_items.aggregate(Sum('estimated_cost'))['estimated_cost__sum'] or 0
+    total_act = budget_items.aggregate(Sum('actual_cost'))['actual_cost__sum'] or 0
+
+    return render(request, 'EventApp/planner_dashboard.html', {
+        'tasks': tasks,
+        'budget_items': budget_items,
+        'schedules': schedules,
+        'total_est': total_est,
+        'total_act': total_act,
+    })
 
 
-def policy(request):
-    return render(request , 'EventApp/policy.html')
-def help(request):
-    return render(request , 'EventApp/help.html')
+@login_required
+def add_checklist_task(request):
+    if request.method == 'POST':
+        form = ChecklistTaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.user = request.user
+            task.save()
+            messages.success(request, "Task added!")
+    return redirect('planner_dashboard')
+
+
+@login_required
+def toggle_checklist_task(request, pk):
+    task = get_object_or_404(ChecklistTask, pk=pk, user=request.user)
+    task.is_completed = not task.is_completed
+    task.save()
+    return redirect('planner_dashboard')
+
+
+@login_required
+def delete_checklist_task(request, pk):
+    task = get_object_or_404(ChecklistTask, pk=pk, user=request.user)
+    task.delete()
+    messages.success(request, "Task deleted.")
+    return redirect('planner_dashboard')
+
+
+@login_required
+def add_budget_item(request):
+    if request.method == 'POST':
+        form = BudgetItemForm(request.POST)
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.user = request.user
+            item.save()
+            messages.success(request, "Budget item added!")
+    return redirect('planner_dashboard')
+
+
+@login_required
+def delete_budget_item(request, pk):
+    item = get_object_or_404(BudgetItem, pk=pk, user=request.user)
+    item.delete()
+    messages.success(request, "Budget item deleted.")
+    return redirect('planner_dashboard')
+
+
+# ==========================================
+# MISCELLANEOUS & STATIC PAGES
+# ==========================================
+
 def search(request):
-    query = request.GET.get('q')
+    query = request.GET.get('q', '')
     results = []
     if query:
-        results = Product.objects.filter(name__icontains=query)
-    return render(request, 'EventApp/search_results.html', {'results': results})
-
-def cart(request):
-    # This is a placeholder; replace it with actual logic
-    return render(request, 'EventApp/cart.html')  # Make sure you create cart.html!
-def product_details(request, id):
-    product = Product.objects.get(pk = id)
-    context = {'product': product}
-    return render(request,template_name = 'EventApp/product_details.html', context = context)
-
-def meet_the_team(request):
-    return render(request, template_name='team_profiles/meet_the_teem.html')
-
-def profile_sajid(request):
-    return render(request, template_name='team_profiles/profile_sajid.html')
-
-def profile_toma(request):
-    return render(request, template_name='team_profiles/profile_toma.html')
-
-def profile_tanisha(request):
-    return render(request, template_name='team_profiles/profile_tanisha.html')
-
-def profile_asif(request):
-    return render(request, template_name='team_profiles/profile_asif.html')
-
-def profile_sydul(request):
-    return render(request, template_name='team_profiles/profile_sydul.html')
-
-def profile_shoily(request):
-    return render(request, template_name='team_profiles/profile_shoily.html')
-
-def profile_jisan(request):
-    return render(request, template_name='team_profiles/profile_jisan.html')
-
-def profile_rifat(request):
-    return render(request, template_name='team_profiles/profile_rifat.html')
-
-def profile_riyad(request):
-    return render(request, template_name='team_profiles/profile_riyad.html')
-
-def profile_tabiur(request):
-    return render(request, template_name='team_profiles/profile_tabiur.html')
-
-def profile_mamim(request):
-    return render(request, template_name='team_profiles/profile_mamim.html')
-
-def profile_shakib(request):
-    return render(request, template_name='team_profiles/profile_shakib.html')
+        results = Product.objects.filter(
+            Q(name__icontains=query) | Q(description__icontains=query)
+        )
+    return render(request, 'EventApp/search_results.html', {'results': results, 'query': query})
 
 
 def event_list(request):
     events = Portfolio.objects.all()
     return render(request, 'EventApp/event_list.html', {'events': events})
 
+
 def event_details(request, pk):
     event = get_object_or_404(Portfolio, pk=pk)
     return render(request, 'EventApp/event_details.html', {'event': event})
 
-def signup(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST, request.FILES)
 
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            email = form.cleaned_data.get('email')
-
-            # Check if username already exists
-            if User.objects.filter(username=username).exists():
-                messages.error(request, 'Username already exists.')
-                return render(request, 'EventApp/signup.html', {'form': form})
-
-            # Check if email already exists
-            if User.objects.filter(email=email).exists():
-                messages.error(request, 'Email already registered.')
-                return render(request, 'EventApp/signup.html', {'form': form})
-
-            # ✅ Create user and profile
-            user = form.save()
-            profile_picture = form.cleaned_data.get('profile_picture')
-            role = form.cleaned_data.get('role')  # ✅ Get role from form
-
-            if not C_profile.objects.filter(user=user).exists():
-                C_profile.objects.create(
-                    user=user,
-                    phone=form.cleaned_data.get('phone', ''),
-                    bio=form.cleaned_data.get('bio', ''),
-                    profile_picture=profile_picture if profile_picture else 'profile/user.png',
-                    role=role  # ✅ Save role here
-                )
-            login(request, user)
-            messages.success(request, "Signup successful! Welcome 🎉")
-            return redirect('home')
-
-    else:
-        form = SignUpForm()
-
-    return render(request, 'EventApp/signup.html', {'form': form})
+def policy(request):
+    return render(request, 'EventApp/policy.html')
 
 
-def user_login(request):
-    form = AuthenticationForm(request, data=request.POST or None)
-    if request.method == 'POST' and form.is_valid():
-        login(request, form.get_user())
-        messages.success(request, "Logged in successfully!")
-        return redirect('home')
-    return render(request, 'EventApp/login.html', {'form': form})
+def help_page(request):
+    return render(request, 'EventApp/help.html')
 
 
-
-
-
-def user_logout(request):
-    logout(request)
-    messages.success(request, "Logged out successfully!")
-    return redirect('home')
-
-@login_required
-def profile_view(request):
-    try:
-        profile = C_profile.objects.get(user=request.user)
-    except C_profile.DoesNotExist:
-        profile = C_profile(user=request.user)
-        profile.save()
-
-    editable = request.GET.get('edit') == 'true'
-
-    if request.method == 'POST':
-        updated = False
-
-        if request.POST.get('first_name') != profile.user.first_name:
-            profile.user.first_name = request.POST.get('first_name')
-            updated = True
-        if request.POST.get('last_name') != profile.user.last_name:
-            profile.user.last_name = request.POST.get('last_name')
-            updated = True
-        if request.POST.get('phone') != profile.phone:
-            profile.phone = request.POST.get('phone')
-            updated = True
-        if request.POST.get('address') != profile.address:
-            profile.address = request.POST.get('address')
-            updated = True
-        if request.POST.get('bio') != profile.bio:
-            profile.bio = request.POST.get('bio')
-            updated = True
-        if 'profile_picture' in request.FILES:
-            profile.profile_picture = request.FILES['profile_picture']
-            updated = True
-
-        if updated:
-            profile.save()
-            profile.user.save()
-            # Refresh the profile from the DB to ensure updated image URL is used
-            profile.refresh_from_db()
-            messages.success(request, "Profile updated successfully!")
-
-    return render(request, 'EventApp/profile.html', {'profile': profile, 'editable': editable})
-
-@login_required
-def vendor_list(request):
-    vendors = C_profile.objects.filter(role='seller')
-    return render(request, 'EventApp/vendor_list.html', {'vendors': vendors})
-
-
-@login_required
-def vendor_profile(request, user_id):
-    try:
-        vendor = C_profile.objects.get(user__id=user_id, role='seller')
-    except C_profile.DoesNotExist:
-        messages.error(request, "Vendor not found.")
-        return redirect('vendor_list')
-
-    return render(request, 'EventApp/vendor_profile.html', {'profile': vendor})
-
-
+def meet_the_team(request):
+    return render(request, 'team_profiles/meet_the_team.html')

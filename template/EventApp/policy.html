@@ -2,46 +2,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/policy.css' %}">
-    <title>Policy</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ManageHoise? - Privacy Policy</title>
+  
+  <!-- Font Awesome Icons & Montserrat Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Site Styles -->
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'css/policy.css' %}">
+
+  <!-- Header Scripts -->
+  <script src="{% static 'js/header.js' %}" defer></script>
 </head>
-<body>
-    
-    {% block content %}
-    <div class="policy-body">
-        <div class="policy-box">
-            <div class="policy-text">
-                <h1>Privacy Policy:</h1>
-                <p> Last Edited : 1 May 2025</p>
-                <p>Greetings Users,</p>
-                <p>This privacy policy describes how the ManageHoise?.com website and related application collects, uses, shares and protects the personal information that we collect through this Site.Please read below to learn more about our information practices. By using this Site, you agree to these practices. </p>
-                
-                <h2>Information Provided By Your Web Browser</h2>
-                <p>You have to provide us with personal information like your name, contact no, mailing address and email id, our web will also fetch your location information in order to give you the best service. Like many other websites, we may record information that your web browser routinely shares, such as your browser type, browser language, software and hardware attributes, the date and time of your visit, the web page from which you came, your Internet Protocol address and the geographic location associated with that address, the pages on this Site that you visit and the time you spent on those pages.</p>
-                 
-                <h2>Personal Information That You Provide</h2>
-                 <p>If you want to use our service or contact a ManageHoise?. member, you must create an account on our Site. To establish your account, we will ask for personally identifiable information that can be used to contact or identify you, which may include your name, phone number,  e-mail, address and allow you to submit additional information that will be part of your profile.
-                </p>
-                <h2>Payment Information</h2>
-                <p>Our payment channel is cash on delivery. Thus, if you are a customer, you will make payments once you received your goods. We will have your address and contract no. in order to identify the Customer.</p>
-                <h2>Ratings And Reviews</h2>
-                <p>If you are a customer or vendor, you will be able to rate and review on our services. If you choose to submit a rating, this will be aggregated with other ratings and available to other registered users of the Site. If you submit a review, your review along with your user name will be posted for everyone to see.</p>
-                 <h2>How We Protect Your Data</h2>
-                 <p>If you have registered on this Site, you should be sure to protect your user ID and password to prevent others from being able to access the Site in your name. You should also be on guard for “phishing” scams and similar types of identity theft schemes. We do not and will not, at any time, request your credit card information, your account ID, login password, or national identification numbers in a non-secure or unsolicited e-mail or telephone communication.
-    
-                    If there is a breach of security involving your personal data that requires notification, you agree that we may notify you about the breach via email or by a conspicuous posting on this Site. We will make the notification without unreasonable delay, consistent with the legitimate needs of law enforcement and any measures necessary to determine the scope of the breach and restore the reasonable integrity of the data system.</p>
-                    <h2>This Policy Is An Agreement</h2>
-                    <p>When you visit this Site, you are accepting the practices described in this Privacy Policy.</p>
-            </div>
-            <h4>I read the Privacy Notice.</h4>
-            <div class="buttons">
-                <a href="{% url 'home' %}" class="btn green-btn">Yes</a>
-            </div>
-           
+<body class="policy-body">
+
+  <!-- Global Site Header -->
+  {% include 'header.html' %}
+
+  {% block content %}
+  <main class="policy-container">
+    <div class="policy-box">
+      
+      <!-- Top Title Bar -->
+      <div class="policy-header">
+        <div class="header-icon">
+          <i class="fa-solid fa-shield-halved"></i>
         </div>
+        <h2>Privacy Policy</h2>
+        <h4><i class="fa-regular fa-clock"></i> Last Edited: May 1, 2025</h4>
+      </div>
+
+      <!-- Scrollable Document Body -->
+      <article class="policy-text">
+        <p class="greeting-text">Greetings Users,</p>
+        <p>This privacy policy describes how the <strong>ManageHoise?.com</strong> website and related applications collect, use, share, and protect personal information obtained through this Site. Please read below to learn more about our information practices. By using this Site, you agree to these practices.</p>
+
+        <section class="policy-section">
+          <h3><i class="fa-solid fa-globe"></i> 1. Information Provided By Your Web Browser</h3>
+          <p>You have to provide us with personal information like your name, contact number, mailing address, and email ID. Our website will also fetch your location information in order to provide optimal service. Like many other websites, we may record information that your web browser routinely shares, such as your browser type, browser language, software and hardware attributes, visit date/time, referral page, IP address, and pages visited.</p>
+        </section>
+
+        <section class="policy-section">
+          <h3><i class="fa-solid fa-user-check"></i> 2. Personal Information That You Provide</h3>
+          <p>If you want to use our service or contact a ManageHoise? member, you must create an account on our Site. To establish your account, we ask for personally identifiable information including your name, phone number, email address, and mailing address to build your account profile.</p>
+        </section>
+
+        <section class="policy-section">
+          <h3><i class="fa-solid fa-wallet"></i> 3. Payment Information</h3>
+          <p>Our primary payment channel is <strong>Cash on Delivery (COD)</strong>. As a customer, you will process payments once you receive your booked goods or services. We retain your address and contact details to verify and fulfill your orders accurately.</p>
+        </section>
+
+        <section class="policy-section">
+          <h3><i class="fa-solid fa-star"></i> 4. Ratings And Reviews</h3>
+          <p>Customers and vendors can submit ratings and reviews for services. Ratings are aggregated publicly, and submitted reviews—along with your username—will be displayed to other registered users on the platform.</p>
+        </section>
+
+        <section class="policy-section">
+          <h3><i class="fa-solid fa-lock"></i> 5. How We Protect Your Data</h3>
+          <p>You are responsible for protecting your user ID and password against unauthorized access. We do not, at any time, request credit card information, login passwords, or national identification numbers via non-secure or unsolicited emails or calls.</p>
+          <p>In the event of a security breach involving your personal data, we will notify you via email or a prominent notification on this Site without unreasonable delay.</p>
+        </section>
+
+        <section class="policy-section">
+          <h3><i class="fa-solid fa-file-contract"></i> 6. Agreement Terms</h3>
+          <p>When you visit or use this Site, you acknowledge and accept the practices outlined in this Privacy Policy.</p>
+        </section>
+      </article>
+
+      <!-- Confirmation Footer -->
+      <div class="policy-footer">
+        <label class="acknowledgement-label">
+          <i class="fa-solid fa-circle-check"></i> I have read and agree to the Privacy Policy.
+        </label>
+        <div class="buttons">
+          <a href="{% url 'home' %}" class="btn">Accept & Continue</a>
+        </div>
+      </div>
+
     </div>
-    {% endblock %}
+  </main>
+  {% endblock %}
+
+  <!-- Global Site Footer -->
+  {% include 'footer.html' %}
+
 </body>
 </html>

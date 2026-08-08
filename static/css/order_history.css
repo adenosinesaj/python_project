@@ -1,0 +1,145 @@
+/* ==========================================================================
+   ManageHouse Order History - Refactored Clean UI
+   ========================================================================== */
+
+:root {
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-serif: 'Merriweather', serif;
+
+  --bg-page: #e8dede;               /* Soft background */
+  --bg-banner: #8c2b2b;             /* Rich maroon hero banner */
+  --bg-card: #ffffff;                /* Clean white card for high contrast */
+  --primary-btn: #b82222;            /* Crimson action button */
+  --primary-btn-hover: #961b1b;
+
+  --text-dark: #1f2937;
+  --text-muted: #6b7280;
+  --text-light: #ffffff;
+
+  --border-subtle: #d1c4c4;
+  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
+
+body.mh-body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  color: var(--text-dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-section {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero Section */
+.orders-hero-section {
+  background-color: var(--bg-banner);
+  color: var(--text-light);
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.orders-hero-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-light);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+}
+
+.orders-hero-title {
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.orders-hero-subtext {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+/* Content Container & Empty State */
+.orders-content-section {
+  padding: 4rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.container {
+  width: 100%;
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.empty-orders-card {
+  background: var(--bg-card);
+  color: var(--text-dark);
+  border-radius: 16px;
+  border: 1px solid var(--border-subtle);
+  padding: 3.5rem 2rem;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+
+.empty-icon-box {
+  font-size: 3rem;
+  color: var(--primary-btn);
+  margin-bottom: 1rem;
+}
+
+.empty-orders-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-dark);
+}
+
+.empty-orders-card p {
+  margin: 0 0 1.75rem 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* CTA Button */
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: var(--primary-btn);
+  color: var(--text-light);
+  padding: 0.8rem 1.8rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(184, 34, 34, 0.25);
+}
+
+.cta-button:hover {
+  background-color: var(--primary-btn-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(184, 34, 34, 0.35);
+}

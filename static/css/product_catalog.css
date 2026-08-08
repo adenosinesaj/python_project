@@ -1,0 +1,291 @@
+/* ==========================================================================
+   ManageHouse Pure CSS Product Catalog - Maroon/Dusty Rose Theme
+   ========================================================================== */
+
+:root {
+  /* --mh-font: 'Montserrat', sans-serif; */
+  --mh-bg-body: #cfb9b9;            /* Page background */
+  --mh-bg-card: #c76464;            /* Main card background */
+  --mh-primary: rgb(173, 48, 32);   /* Crimson primary action */
+  --mh-primary-hover: #8c281b;      /* Darker primary action */
+  --mh-badge-bg: #8c3b3b;           /* Badge background */
+  --mh-text-light: #f1f1f1;         /* Light text color */
+  --mh-text-dark: #282828;          /* Dark text color */
+  --mh-border: rgba(255, 255, 255, 0.25);
+  --mh-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  --mh-shadow-hover: 0 12px 25px rgba(0, 0, 0, 0.22);
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text-dark);
+  background-color: #f8fafc;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base wrapper - Scopes font & colors ONLY to catalog content */
+.mh-catalog-wrapper {
+  flex-grow: 1;
+  padding-bottom: 4rem;
+  font-family: var(--mh-font);
+  color: var(--mh-text-dark);
+}
+
+/* Banner Header */
+.mh-catalog-banner {
+  background: #a84b4b;
+  color: var(--mh-text-light);
+  padding: 3rem 1.5rem;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mh-banner-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mh-banner-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.mh-banner-subtitle {
+  font-size: 1rem;
+  color: var(--mh-text-light);
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Page Layout Container */
+.mh-catalog-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Control Bar */
+.mh-catalog-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.75rem;
+}
+
+.mh-results-count {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--mh-text-dark);
+  margin: 0;
+}
+
+/* CSS Grid Layout for Products */
+.mh-product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.75rem;
+}
+
+/* Product Card Component */
+.mh-product-card {
+  background: var(--mh-bg-card);
+  color: var(--mh-text-light);
+  border-radius: 12px;
+  border: 1px solid var(--mh-border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: var(--mh-shadow);
+}
+
+.mh-product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--mh-shadow-hover);
+}
+
+/* Image Wrapper and Badges */
+.mh-image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 66.66%; /* 3:2 Aspect Ratio */
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.mh-product-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.mh-product-card:hover .mh-product-image {
+  transform: scale(1.05);
+}
+
+.mh-category-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  background-color: var(--mh-badge-bg);
+  color: var(--mh-text-light);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: 2rem;
+  z-index: 2;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Body Content */
+.mh-card-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.mh-product-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mh-price-tag {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--mh-text-light);
+  margin-bottom: 1.25rem;
+}
+
+/* Product Card Specific Buttons */
+.mh-card-actions {
+  margin-top: auto;
+}
+
+.mh-card-actions .mh-btn-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.mh-catalog-wrapper .mh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-family: var(--mh-font);
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.6rem 1rem;
+  border-radius: 25px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.mh-catalog-wrapper .mh-btn:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.mh-catalog-wrapper .mh-btn-success {
+  background-color: var(--mh-primary);
+  color: var(--mh-text-light);
+}
+
+.mh-catalog-wrapper .mh-btn-success:hover {
+  background-color: var(--mh-primary-hover);
+}
+
+.mh-catalog-wrapper .mh-btn-outline {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--mh-text-light);
+}
+
+.mh-catalog-wrapper .mh-btn-outline:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+.mh-catalog-wrapper .mh-btn-warning {
+  background-color: rgba(0, 0, 0, 0.25);
+  color: var(--mh-text-light);
+}
+
+.mh-catalog-wrapper .mh-btn-warning:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.mh-catalog-wrapper .mh-btn-danger {
+  background-color: #8c281b;
+  color: var(--mh-text-light);
+}
+
+.mh-catalog-wrapper .mh-btn-danger:hover {
+  background-color: #631c13;
+}
+
+/* Empty Catalog State */
+.mh-empty-catalog {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 1rem;
+  background-color: var(--mh-bg-card);
+  color: var(--mh-text-light);
+  border-radius: 12px;
+  box-shadow: var(--mh-shadow);
+}
+
+.mh-empty-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: var(--mh-text-light);
+  opacity: 0.8;
+}
+
+.mh-empty-catalog h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+  .mh-catalog-banner {
+    padding: 2.25rem 1rem;
+  }
+  
+  .mh-banner-title {
+    font-size: 1.75rem;
+  }
+
+  .mh-catalog-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .mh-card-actions .mh-btn-group {
+    flex-direction: column;
+  }
+}

@@ -2,30 +2,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/vendor_list.css' %}">
-    <link rel="stylesheet" href="{% static 'css/header.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
-    <title>Vendor List</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendor List | manageHoise?</title>
+
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Shared & App Styles -->
+  <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/vendor_list.css' %}" />
+
+  <script src="{% static 'js/header.js' %}" defer></script>
 </head>
-<body>
-    {% include 'header.html' %}
-    <div class="vendor-list-container">
-        <h1>Vendor List</h1>
-        <div class="vendor-grid">
-            {% for vendor in vendors %}
-                <div class="vendor-card">
-                    <img src="{{ vendor.profile_picture.url }}" alt="Vendor" />
-                    <h3>{{ vendor.user.first_name }} {{ vendor.user.last_name }}</h3>
-                    <p>@{{ vendor.user.username }}</p>
-                    <a href="{% url 'vendor_profile' vendor.user.id %}">View Profile</a>
+<body class="mh-body">
+
+  <!-- Header Inclusion -->
+  {% include 'header.html' %}
+
+  <!-- Main Section Wrapper -->
+  <main class="mh-vendor-wrapper">
+
+    <!-- Hero Banner -->
+    <header class="mh-vendor-banner">
+      <div class="mh-banner-container">
+        <h1 class="mh-banner-title">Our Vendors</h1>
+        <p class="mh-banner-subtitle">Explore trusted service providers and sellers in the ManageHouse network</p>
+      </div>
+    </header>
+
+    <!-- Page Layout Container -->
+    <div class="mh-vendor-container">
+      
+      <div class="mh-vendor-grid">
+        {% for vendor in vendors %}
+          <div class="mh-vendor-card">
+            
+            <div class="mh-avatar-wrapper">
+              {% if vendor.profile_picture %}
+                <img src="{{ vendor.profile_picture.url }}" alt="{{ vendor.user.get_full_name }}" class="mh-vendor-avatar" />
+              {% else %}
+                <div class="mh-avatar-placeholder">
+                  <i class="fa-solid fa-user-store"></i>
                 </div>
-            {% empty %}
-                <p>No vendors available.</p>
-            {% endfor %}
-        </div>
+              {% endif %}
+            </div>
+
+            <div class="mh-card-content">
+              <h3 class="mh-vendor-name">
+                {% if vendor.user.first_name or vendor.user.last_name %}
+                  {{ vendor.user.first_name }} {{ vendor.user.last_name }}
+                {% else %}
+                  {{ vendor.user.username }}
+                {% endif %}
+              </h3>
+              <span class="mh-vendor-handle">@{{ vendor.user.username }}</span>
+
+              <div class="mh-card-actions">
+                <a href="{% url 'vendor_profile' vendor.user.id %}" class="mh-btn-profile">
+                  <i class="fa-regular fa-id-badge"></i> View Profile
+                </a>
+              </div>
+            </div>
+
+          </div>
+        {% empty %}
+          <div class="mh-empty-vendors">
+            <i class="fa-solid fa-users-slash mh-empty-icon"></i>
+            <h3>No Vendors Available</h3>
+            <p>Check back later to discover new registered vendors.</p>
+          </div>
+        {% endfor %}
+      </div>
+
     </div>
-    {% include 'footer.html' %}
+
+  </main>
+
+  <!-- Footer Inclusion -->
+  {% include 'footer.html' %}
+
 </body>
 </html>

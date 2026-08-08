@@ -2,37 +2,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/vendor_profile.css' %}">
-    <title>Vendor1</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ profile.user.get_full_name|default:profile.user.username }} | Vendor Profile</title>
+
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Shared & Page Styles -->
+  <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/vendor_profile.css' %}" />
+
+  <script src="{% static 'js/header.js' %}" defer></script>
 </head>
-<body>
-    <div class="vendor-profile-container">
-        {% block content %}
-        <div class="profile-wrapper">
-            <div class="card-container">
-                <!-- Left: Image Card -->
-                <div class="card-left">
-                    <img src="{{ profile.profile_picture.url }}" alt="Vendor Picture" class="profile-img" />
-                </div>
+<body class="mh-body">
+
+  <!-- Header Inclusion -->
+  {% include 'header.html' %}
+
+  <!-- Main Section Wrapper -->
+  <main class="mh-profile-wrapper">
+
+    <!-- Hero Banner -->
+    <header class="mh-profile-banner">
+      <div class="mh-banner-container">
+        <h1 class="mh-banner-title">Vendor Profile</h1>
+        <p class="mh-banner-subtitle">Detailed vendor overview and contact information</p>
+      </div>
+    </header>
+
+    <!-- Content Container -->
+    <div class="mh-profile-container">
+      {% block content %}
+      <div class="mh-card-container">
         
-                <!-- Right: Info Card -->
-                <div class="card-right">
-                    <h2>{{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
-                    <p class="username">Username: {{ profile.user.username }}</p>
-                    <p><strong>Phone:</strong> {{ profile.phone }}</p>
-                    <p><strong>Address:</strong> {{ profile.address }}</p>
-                    <p><strong>Bio:</strong> {{ profile.bio }}</p>
-                    <p><strong>Role:</strong> {{ profile.role }}</p>
-                    <div class="profile-actions">
-                        <a href="{% url 'vendor_list' %}" class="btn">🔙 Back to Vendor List</a>
-                    </div>
-                </div>
+        <!-- Left: Image Card -->
+        <div class="mh-card-left">
+          {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}" class="mh-profile-img" />
+          {% else %}
+            <div class="mh-profile-placeholder">
+              <i class="fa-solid fa-user-store"></i>
             </div>
+          {% endif %}
         </div>
-        
-        {% endblock %}
+
+        <!-- Right: Info Card -->
+        <div class="mh-card-right">
+          <h2 class="mh-vendor-title">
+            {% if profile.user.first_name or profile.user.last_name %}
+              {{ profile.user.first_name }} {{ profile.user.last_name }}
+            {% else %}
+              {{ profile.user.username }}
+            {% endif %}
+          </h2>
+
+          <p class="mh-username">
+            <i class="fa-regular fa-user"></i> @{{ profile.user.username }}
+          </p>
+
+          <hr class="mh-divider" />
+
+          <div class="mh-info-list">
+            <p class="mh-info-item">
+              <i class="fa-solid fa-phone"></i>
+              <span><strong>Phone:</strong> {{ profile.phone|default:"Not specified" }}</span>
+            </p>
+
+            <p class="mh-info-item">
+              <i class="fa-solid fa-location-dot"></i>
+              <span><strong>Address:</strong> {{ profile.address|default:"Not specified" }}</span>
+            </p>
+
+            <p class="mh-info-item">
+              <i class="fa-solid fa-briefcase"></i>
+              <span><strong>Role:</strong> {{ profile.role|default:"Vendor" }}</span>
+            </p>
+
+            <p class="mh-info-item mh-bio-item">
+              <i class="fa-solid fa-circle-info"></i>
+              <span><strong>Bio:</strong> {{ profile.bio|default:"No bio available for this vendor." }}</span>
+            </p>
+          </div>
+
+          <div class="mh-profile-actions">
+            <a href="{% url 'vendor_list' %}" class="mh-btn-back">
+              <i class="fa-solid fa-arrow-left"></i> Back to Vendor List
+            </a>
+          </div>
+        </div>
+
+      </div>
+      {% endblock %}
     </div>
+
+  </main>
+
+  <!-- Footer Inclusion -->
+  {% include 'footer.html' %}
+
 </body>
 </html>

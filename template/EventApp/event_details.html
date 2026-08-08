@@ -1,36 +1,127 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="{% static 'css/event_details.css' %}" />
-    <title>Event Details</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ event.title }} | ManageHouse</title>
+
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/event_details.css' %}" />
 </head>
-<body>
-    <div class="event-wrapper">
-        <!-- Left side: image -->
+<body class="mh-body">
+
+  {% include 'header.html' %}
+
+  <main class="main-section">
+    <div class="container">
+      
+      <!-- Top Navigation Header -->
+      <div class="details-top-nav">
+        <a href="{% url 'event_list' %}" class="back-btn">
+          <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
+        </a>
+      </div>
+
+      <!-- Main Event Container -->
+      <div class="event-details-card">
+        
+        <!-- Left Side: Image Banner -->
         <div class="event-image-container">
+          {% if event.image %}
             <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-img" />
+          {% else %}
+            <img src="https://via.placeholder.com/800x600?text=Event+Details" alt="{{ event.title }}" class="event-img" />
+          {% endif %}
+          
+          {% if event.status %}
+            <span class="status-badge {{ event.status|slugify }}">{{ event.status }}</span>
+          {% endif %}
         </div>
 
-        <!-- Right side: content -->
+        <!-- Right Side: Content & Details -->
         <div class="event-content">
-            <p class="event-author">By Admin</p>
-            <h1 class="event-title">{{ event.title }}</h1>
-            <p class="event-description">
-                <strong>Type:</strong> {{ event.event_type }} <br>
-                <strong>Date:</strong> {{ event.event_date }} <br>
-                <strong>Location:</strong> {{ event.location }} <br>
-                <strong>Status:</strong> {{ event.status }} <br>
-                <strong>Team/Individual:</strong> {{ event.team_or_individual }}
-            </p>
-            <div class="event-meta">
-                <p>{{ event.event_date|date:"F j, Y" }} </p>
+          <div class="vendor-tag">
+            <i class="fa-solid fa-user-gear"></i> Organizer: 
+            <span>
+              {% if event.seller %}
+                {{ event.seller.get_full_name|default:event.seller.username }}
+              {% else %}
+                ManageHouse Team
+              {% endif %}
+            </span>
+          </div>
+
+          <h1 class="event-title">{{ event.title }}</h1>
+
+          {% if event.event_type %}
+            <span class="event-type-pill">
+              <i class="fa-solid fa-layer-group"></i> {{ event.event_type }}
+            </span>
+          {% endif %}
+
+          <hr class="divider" />
+
+          <!-- Details Grid -->
+          <div class="event-info-grid">
+            <div class="info-item">
+              <div class="info-icon"><i class="fa-regular fa-calendar-check"></i></div>
+              <div class="info-text">
+                <label>Event Date</label>
+                <strong>
+                  {% if event.event_date %}
+                    {{ event.event_date|date:"F j, Y" }}
+                  {% else %}
+                    N/A
+                  {% endif %}
+                </strong>
+              </div>
             </div>
-            <a href="{% url 'event_list' %}" class="back-btn">🔙 Back</a>
+
+            <div class="info-item">
+              <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div class="info-text">
+                <label>Location</label>
+                <strong>{{ event.location|default:"Not specified" }}</strong>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon"><i class="fa-solid fa-users"></i></div>
+              <div class="info-text">
+                <label>Execution Type</label>
+                <strong>{{ event.team_or_individual|default:"Standard" }}</strong>
+              </div>
+            </div>
+          </div>
+
+          {% if event.description %}
+            <div class="event-description-box">
+              <h3>About This Event</h3>
+              <p>{{ event.description|linebreaks }}</p>
+            </div>
+          {% endif %}
+
+          <div class="action-footer">
+            <a href="{% url 'product_list' %}" class="cta-button">
+              Book Similar Services <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+
         </div>
+      </div>
+
     </div>
+  </main>
+
+  {% include 'footer.html' %}
+
 </body>
 </html>

@@ -1,33 +1,84 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/event_list.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Event Portfolio | manageHoise?</title>
 
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-    <title>Events</title>
-  </head>
-  <body>
-    {% include 'header.html' %}
-    <main class="main-content">
-        <div class="events-container">
-        {% for event in events %}
-        <div class="event-box">
-            <a href="{% url 'event_detail' event.pk %}">
-            <img src="{{ event.image.url }}" alt="{{ event.title }}" />
-            <div class="event-content">
-                <h3>{{ event.title }}</h3>
-                <p>{{ event.event_type }} | {{ event.event_date }}</p>
+  <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/event_list.css' %}" />
+</head>
+<body class="mh-body">
+
+  {% include 'header.html' %}
+
+  <main class="main-section">
+    <!-- Hero Banner -->
+    <section class="events-hero-section">
+      <div class="events-hero-container">
+        <span class="badge-pill">
+          <i class="fa-solid fa-camera-retro"></i> Gallery & Portfolio
+        </span>
+        <h1 class="events-hero-title">Featured Events & Showcases</h1>
+        <p class="events-hero-subtext">Discover our curated collection of successful weddings, corporate summits, and social gatherings.</p>
+      </div>
+    </section>
+
+    <!-- Events Grid Section -->
+    <section class="events-content-section">
+      <div class="container">
+        <div class="events-grid">
+          {% for event in events %}
+            <article class="event-card">
+              <a href="{% url 'event_detail' event.pk %}" class="event-card-link">
+                <div class="event-image-wrapper">
+                  {% if event.image %}
+                    <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-image" />
+                  {% else %}
+                    <img src="https://via.placeholder.com/600x400?text=Event+Showcase" alt="{{ event.title }}" class="event-image" />
+                  {% endif %}
+                  {% if event.event_type %}
+                    <span class="event-category-badge">{{ event.event_type }}</span>
+                  {% endif %}
+                </div>
+
+                <div class="event-card-content">
+                  <h3 class="event-card-title">{{ event.title }}</h3>
+                  
+                  <div class="event-card-meta">
+                    {% if event.event_date %}
+                      <span><i class="fa-regular fa-calendar"></i> {{ event.event_date|date:"M d, Y" }}</span>
+                    {% endif %}
+                    <span class="view-details-link">
+                      View Details <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          {% empty %}
+            <div class="empty-events-card">
+              <div class="empty-icon-box">
+                <i class="fa-solid fa-folder-open"></i>
+              </div>
+              <h3>No Events Found</h3>
+              <p>Our portfolio is currently updating. Please check back soon for recent event showcases!</p>
             </div>
-            </a>
+          {% endfor %}
         </div>
-        {% endfor %}
-        </div>
-    </main>
-    {% include 'footer.html' %}
-  </body>
+      </div>
+    </section>
+  </main>
+
+  {% include 'footer.html' %}
+
+</body>
 </html>
