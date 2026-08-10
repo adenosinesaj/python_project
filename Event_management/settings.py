@@ -110,6 +110,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
+# Allow WhiteNoise to serve files directly from STATICFILES_DIRS
+WHITENOISE_USE_FINDERS = True
+
 
 # Media files handled by Supabase S3 Bucket in production
 AWS_ACCESS_KEY_ID = os.environ.get('SUPABASE_STORAGE_ACCESS_KEY')
