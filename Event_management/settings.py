@@ -115,9 +115,17 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 AWS_ACCESS_KEY_ID = os.environ.get('SUPABASE_STORAGE_ACCESS_KEY')
 AWS_SECRET_ACCESS_KEY = os.environ.get('SUPABASE_STORAGE_SECRET_KEY')
 AWS_STORAGE_BUCKET_NAME = 'media'
-AWS_S3_ENDPOINT_URL = os.environ.get('SUPABASE_STORAGE_ENDPOINT')
+
+# Ensure clean S3 endpoint without extra trailing paths or missing protocol issues
+AWS_S3_ENDPOINT_URL = os.environ.get(
+    'SUPABASE_STORAGE_ENDPOINT',
+    'https://gbikxidyvcmtkgfrtsww.supabase.co/storage/v1/s3'
+)
 AWS_S3_REGION_NAME = 'ap-northeast-2'
 AWS_QUERYSTRING_AUTH = False
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_ADDRESSING_STYLE = 'path'
+
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
