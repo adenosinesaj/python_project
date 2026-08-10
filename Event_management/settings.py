@@ -116,7 +116,7 @@ AWS_ACCESS_KEY_ID = os.environ.get('SUPABASE_STORAGE_ACCESS_KEY')
 AWS_SECRET_ACCESS_KEY = os.environ.get('SUPABASE_STORAGE_SECRET_KEY')
 AWS_STORAGE_BUCKET_NAME = 'media'
 
-# Ensure clean S3 endpoint without extra trailing paths or missing protocol issues
+# Ensure clean S3 endpoint without extra trailing paths
 AWS_S3_ENDPOINT_URL = os.environ.get(
     'SUPABASE_STORAGE_ENDPOINT',
     'https://gbikxidyvcmtkgfrtsww.supabase.co/storage/v1/s3'
@@ -135,7 +135,7 @@ SUPABASE_URL = "https://gbikxidyvcmtkgfrtsww.supabase.co"
 if AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
     STORAGES = {
         "default": {
-            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+            "BACKEND": "custom_storage.SupabaseMediaStorage",  # <--- Updated to custom backend
         },
         "staticfiles": {
             "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
