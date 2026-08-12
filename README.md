@@ -42,12 +42,7 @@
 2. [Problem Statement & Critical Challenges](#-problem-statement--critical-challenges)
 3. [Social & Environmental Impact](#-social--environmental-impact)
 4. [Key Features & User Roles](#-key-features--user-roles)
-5. [System Architecture & Design](#-system-architecture--design)
-6. [Tech Stack & Dependencies](#-tech-stack--dependencies)
-7. [Database & ER Model](#-database--er-model)
-8. [Installation & Setup](#-installation--setup)
-9. [Future Roadmap](#-future-roadmap)
-10. [Team Contributions](#-team-contributions)
+5. [Installation & Setup](#-installation--setup)
 
 ---
 
